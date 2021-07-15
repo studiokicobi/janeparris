@@ -21,3 +21,10 @@ node_modules/
 *.log
 *.sql
 *.sqlite
+
+# Apple
+.DS_Store
+
+# General CodeKit files to ignore
+config.codekit
+config.codekit3
