@@ -269,797 +269,341 @@ function janeparris_comments_gravatar($args)
 	return $args;
 }
 
+// ----------------------------------------------------------------
 // end Genesis boilerplate
+// ----------------------------------------------------------------
+
+
+/* Enqueue custom scripts and styles
+------------------------------------*/
+
+// Scripts
+add_action('wp_enqueue_scripts', function () {
+	// Swiper
+	// wp_enqueue_script('swiper', get_stylesheet_directory_uri() . '/js/swiper-bundle.min.js', array('jquery'), '1.0.0', true);
+	// wp_enqueue_script('swiper-script', get_stylesheet_directory_uri() . '/js/swiper-main.js', array('jquery'), '1.0.0', true);
+	wp_enqueue_script('swiper', get_stylesheet_directory_uri() . '/js/swiper-bundle.min.js', [], false, true,);
+	wp_enqueue_script('swiper-script', get_stylesheet_directory_uri() . '/js/swiper-main.js', ['swiper'], false, true);
+	// Filterizr 
+	wp_enqueue_script('filterizr', get_stylesheet_directory_uri() . '/js/vanilla.filterizr.min.js', [], false, true,);
+	wp_enqueue_script('filtering-script', get_stylesheet_directory_uri() . '/js/filtering-main.js', ['filterizr'], false, true);
+
+	// Custom
+	wp_enqueue_script('custom', get_stylesheet_directory_uri() . '/js/custom.js', array('jquery'),  '1.0.0', true);
+
+	// Ajax pagination
+	wp_enqueue_script('ajax-pagination.js', get_stylesheet_directory_uri() . "/js/ajax-pagination.js", array('jquery'));
+});
+
+
+// CSS
+add_action('wp_enqueue_scripts', function () {
+	$themecsspath = get_stylesheet_directory() . '/css/custom.css';
+	wp_enqueue_style(
+		'child-theme',
+		get_stylesheet_directory_uri() . '/css/custom.css',
+		array(),
+		filemtime($themecsspath)
+	);
+});
+
+
+
+function MyAjaxFunction()
+{
+	//get the data from ajax() call
+	$GreetingAll = $_POST['GreetingAll '];
+	$results = "<h2>" . $GreetingAll . "</h2>";
+	// Return the String
+	die($results);
+}
+// creating Ajax call for WordPress
+add_action('wp_ajax_nopriv_ MyAjaxFunction', 'MyAjaxFunction');
+add_action('wp_ajax_ MyAjaxFunction', 'MyAjaxFunction');
+
+
+/* Add inline styles to editor
+------------------------------------*/
+
+// Fix the ACF button colors
+// There is a conflict where the repeater buttons
+// (among others) get blue text on blue bgs
+
+add_action('admin_head', 'custom_acf_styles');
+
+function custom_acf_styles()
+{
+	echo '<style>
+		.acf-actions .acf-button {
+			background-color: #f6f7f7;
+			color: #0a4b78;
+		}
+        .acf-actions .acf-button:hover {
+            background-color: #f0f0f1;
+			color: #0a4b78;
+        }
+        .acf-actions .acf-button:hover,
+		.acf-actions .acf-button:focus {
+            background-color: #f0f0f1;
+			color: #0a4b78;
+        }
+    </style>';
+}
+
+
+/* Disable fullscreen editor
+------------------------------------*/
+
+$user = wp_get_current_user();
+
+if ($user = 'Colin Lewis') {
+	function disable_editor_fullscreen_by_default()
+	{
+		$script = "jQuery( window ).load(function() { const isFullscreenMode = wp.data.select( 'core/edit-post' ).isFeatureActive( 'fullscreenMode' ); if ( isFullscreenMode ) { wp.data.dispatch( 'core/edit-post' ).toggleFeature( 'fullscreenMode' ); } });";
+		wp_add_inline_script('wp-blocks', $script);
+	}
+	add_action('enqueue_block_editor_assets', 'disable_editor_fullscreen_by_default');
+}
+
+
+/* Allow SVG upload
+------------------------------------*/
+function additional_mime($mime_types)
+{
+	$mime_types['svg'] = 'image/svg+xml';
+	return $mime_types;
+}
+add_filter('upload_mimes', 'additional_mime', 1, 1);
+
+
+/* Register taxonomy for testimonials
+------------------------------------*/
+
+add_action('init', 'create_taxonomy', 0);
+
+function create_taxonomy()
+{
+	// Labels
+	$labels = array(
+		'name' => _x('Testimonial Categories', 'categories'),
+		'singular_name' => _x('Testimonial Category', 'category'),
+		'search_items' => __('Search Testimonial Categories'),
+		'popular_items' => __('Popular Testimonial Categories'),
+		'all_items' => __('All Testimonial Categories'),
+		'parent_item' => null,
+		'parent_item_colon' => null,
+		'edit_item' => __('Edit Testimonial Category'),
+		'update_item' => __('Update Testimonial Category'),
+		'add_new_item' => __('Add New Testimonial Category'),
+		'new_item_name' => __('New Testimonial Category Name'),
+		'separate_items_with_commas' => __('Separate testimonial categories with commas'),
+		'add_or_remove_items' => __('Add or remove testimonial categories'),
+		'choose_from_most_used' => __('Choose from the most used testimonial categories'),
+		'menu_name' => __('Categories'),
+	);
+
+	// Register the taxonomy
+	register_taxonomy('services', 'testimonials', array(
+		'hierarchical' => false,
+		'labels' => $labels,
+		'show_ui' => true,
+		'show_admin_column' => true,
+		'update_count_callback' => '_update_post_term_count',
+		'query_var' => true,
+		'rewrite' => array('slug' => 'category'),
+	));
+}
 
 // ----------------------------------------------------------------
 // # ADD BLOCKS
 // ----------------------------------------------------------------
 
-if (function_exists('acf_add_local_field_group')) :
+if (function_exists('acf_register_block_type')) :
 
-	acf_add_local_field_group(array(
-		'key' => 'group_60f0c8ac875fe',
-		'title' => 'Block: box testimonial',
-		'fields' => array(
-			array(
-				'key' => 'field_60f0c8bb8301b',
-				'label' => 'Testimonial text',
-				'name' => 'testimonial_text',
-				'type' => 'textarea',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => '',
-				'placeholder' => '',
-				'maxlength' => '',
-				'rows' => '',
-				'new_lines' => '',
-				'acfe_textarea_code' => 0,
-			),
-			array(
-				'key' => 'field_60f0c8d58301c',
-				'label' => 'Testimonial author',
-				'name' => 'testimonial_author',
-				'type' => 'text',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'maxlength' => '',
-			),
-			array(
-				'key' => 'field_60f0c8df8301d',
-				'label' => 'Testimonial author role and association',
-				'name' => 'role',
-				'type' => 'text',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'maxlength' => '',
-			),
-		),
-		'location' => array(
-			array(
-				array(
-					'param' => 'block',
-					'operator' => '==',
-					'value' => 'acf/box-testimonial',
-				),
-			),
-		),
-		'menu_order' => 0,
-		'position' => 'normal',
-		'style' => 'default',
-		'label_placement' => 'left',
-		'instruction_placement' => 'label',
-		'hide_on_screen' => '',
-		'active' => true,
+	acf_register_block_type(array(
+		'name' => 'box-testimonial',
+		'title' => 'Box testimonial',
 		'description' => '',
-		'acfe_display_title' => '',
-		'acfe_autosync' => '',
-		'acfe_form' => 0,
-		'acfe_meta' => '',
-		'acfe_note' => '',
+		'category' => 'common',
+		'keywords' => array(),
+		'post_types' => array(),
+		'mode' => 'edit',
+		'align' => '',
+		'align_content' => NULL,
+		'render_template' => 'blocks/box-testimonial.php',
+		'render_callback' => '',
+		'enqueue_style' => '',
+		'enqueue_script' => '',
+		'enqueue_assets' => '',
+		'icon' => array(
+			'background' => '#8224e3',
+			'foreground' => '#ffffff',
+			'src' => 'editor-quote',
+		),
+		'supports' => array(
+			'align' => true,
+			'mode' => true,
+			'multiple' => true,
+			'jsx' => false,
+			'align_content' => false,
+			'anchor' => false,
+		),
 	));
 
-	acf_add_local_field_group(array(
-		'key' => 'group_60f0ca57a9ef3',
-		'title' => 'Block: FAQ',
-		'fields' => array(
-			array(
-				'key' => 'field_60f0ca5eca83c',
-				'label' => 'FAQ sections',
-				'name' => 'faq_sections',
-				'type' => 'repeater',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'acfe_repeater_stylised_button' => 0,
-				'collapsed' => '',
-				'min' => 0,
-				'max' => 0,
-				'layout' => 'table',
-				'button_label' => '',
-				'sub_fields' => array(
-					array(
-						'key' => 'field_60f0ca74ca83d',
-						'label' => 'FAQ heading',
-						'name' => 'faq_heading',
-						'type' => 'text',
-						'instructions' => '',
-						'required' => 0,
-						'conditional_logic' => 0,
-						'wrapper' => array(
-							'width' => '',
-							'class' => '',
-							'id' => '',
-						),
-						'default_value' => '',
-						'placeholder' => '',
-						'prepend' => '',
-						'append' => '',
-						'maxlength' => '',
-					),
-					array(
-						'key' => 'field_60f0ca81ca83e',
-						'label' => 'FAQ text',
-						'name' => 'faq_text',
-						'type' => 'textarea',
-						'instructions' => '',
-						'required' => 0,
-						'conditional_logic' => 0,
-						'wrapper' => array(
-							'width' => '',
-							'class' => '',
-							'id' => '',
-						),
-						'default_value' => '',
-						'placeholder' => '',
-						'maxlength' => '',
-						'rows' => '',
-						'new_lines' => '',
-						'acfe_textarea_code' => 0,
-					),
-				),
-			),
-		),
-		'location' => array(
-			array(
-				array(
-					'param' => 'block',
-					'operator' => '==',
-					'value' => 'acf/faq',
-				),
-			),
-		),
-		'menu_order' => 0,
-		'position' => 'normal',
-		'style' => 'default',
-		'label_placement' => 'left',
-		'instruction_placement' => 'label',
-		'hide_on_screen' => '',
-		'active' => true,
+	acf_register_block_type(array(
+		'name' => 'faq',
+		'title' => 'FAQ',
 		'description' => '',
-		'acfe_display_title' => '',
-		'acfe_autosync' => '',
-		'acfe_form' => 0,
-		'acfe_meta' => '',
-		'acfe_note' => '',
+		'category' => 'common',
+		'keywords' => array(),
+		'post_types' => array(),
+		'mode' => 'edit',
+		'align' => '',
+		'align_content' => NULL,
+		'render_template' => 'blocks/faq.php',
+		'render_callback' => '',
+		'enqueue_style' => '',
+		'enqueue_script' => '',
+		'enqueue_assets' => '',
+		'icon' => array(
+			'background' => '#8224e3',
+			'foreground' => '#ffffff',
+			'src' => 'format-chat',
+		),
+		'supports' => array(
+			'align' => true,
+			'mode' => true,
+			'multiple' => true,
+			'jsx' => false,
+			'align_content' => false,
+			'anchor' => false,
+		),
 	));
 
-	acf_add_local_field_group(array(
-		'key' => 'group_60f0b41f66aa1',
-		'title' => 'Block: home page extended hero',
-		'fields' => array(
-			array(
-				'key' => 'field_60f0b4b790911',
-				'label' => 'Heading',
-				'name' => 'heading',
-				'type' => 'text',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'maxlength' => '',
-			),
-			array(
-				'key' => 'field_60f0b4c390912',
-				'label' => 'Buttons',
-				'name' => 'buttons',
-				'type' => 'repeater',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'acfe_repeater_stylised_button' => 0,
-				'collapsed' => '',
-				'min' => 1,
-				'max' => 2,
-				'layout' => 'row',
-				'button_label' => '',
-				'sub_fields' => array(
-					array(
-						'key' => 'field_60f0b50890913',
-						'label' => 'Button text',
-						'name' => 'button_text',
-						'type' => 'text',
-						'instructions' => '',
-						'required' => 0,
-						'conditional_logic' => 0,
-						'wrapper' => array(
-							'width' => '',
-							'class' => '',
-							'id' => '',
-						),
-						'default_value' => '',
-						'placeholder' => '',
-						'prepend' => '',
-						'append' => '',
-						'maxlength' => '',
-					),
-					array(
-						'key' => 'field_60f0b51190914',
-						'label' => 'Button link',
-						'name' => 'button_link',
-						'type' => 'page_link',
-						'instructions' => '',
-						'required' => 0,
-						'conditional_logic' => 0,
-						'wrapper' => array(
-							'width' => '',
-							'class' => '',
-							'id' => '',
-						),
-						'post_type' => array(
-							0 => 'page',
-						),
-						'taxonomy' => '',
-						'allow_null' => 0,
-						'allow_archives' => 1,
-						'multiple' => 0,
-					),
-				),
-			),
-			array(
-				'key' => 'field_60f0b53c90915',
-				'label' => 'Background image',
-				'name' => 'background_image',
-				'type' => 'image',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'uploader' => '',
-				'acfe_thumbnail' => 0,
-				'return_format' => 'url',
-				'preview_size' => 'medium',
-				'min_width' => '',
-				'min_height' => '',
-				'min_size' => '',
-				'max_width' => '',
-				'max_height' => '',
-				'max_size' => '',
-				'mime_types' => '',
-				'library' => 'all',
-			),
-			array(
-				'key' => 'field_60f0b5480beb2',
-				'label' => 'Testimonial slider',
-				'name' => 'testimonial_slider',
-				'type' => 'repeater',
-				'instructions' => 'The testimonial slider should contain 3-5 testimonials.',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'acfe_repeater_stylised_button' => 0,
-				'collapsed' => '',
-				'min' => 3,
-				'max' => 5,
-				'layout' => 'table',
-				'button_label' => 'Add testimonial',
-				'sub_fields' => array(
-					array(
-						'key' => 'field_60f0b55a0beb3',
-						'label' => 'Testimonial',
-						'name' => 'testimonial',
-						'type' => 'textarea',
-						'instructions' => 'Recommended maximum length: 270 characters/50 words',
-						'required' => 1,
-						'conditional_logic' => 0,
-						'wrapper' => array(
-							'width' => '',
-							'class' => '',
-							'id' => '',
-						),
-						'default_value' => '',
-						'placeholder' => '',
-						'maxlength' => 270,
-						'rows' => 4,
-						'new_lines' => '',
-						'acfe_textarea_code' => 0,
-					),
-					array(
-						'key' => 'field_60f0b5b00beb4',
-						'label' => 'Author',
-						'name' => 'author',
-						'type' => 'text',
-						'instructions' => '',
-						'required' => 1,
-						'conditional_logic' => 0,
-						'wrapper' => array(
-							'width' => '',
-							'class' => '',
-							'id' => '',
-						),
-						'default_value' => '',
-						'placeholder' => '',
-						'prepend' => '',
-						'append' => '',
-						'maxlength' => '',
-					),
-					array(
-						'key' => 'field_60f0b5c60beb5',
-						'label' => 'Author age (optional)',
-						'name' => 'author_age',
-						'type' => 'text',
-						'instructions' => '',
-						'required' => 0,
-						'conditional_logic' => 0,
-						'wrapper' => array(
-							'width' => '',
-							'class' => '',
-							'id' => '',
-						),
-						'default_value' => '',
-						'placeholder' => '',
-						'prepend' => '',
-						'append' => '',
-						'maxlength' => '',
-					),
-					array(
-						'key' => 'field_60f0b5d70beb6',
-						'label' => 'Role title and association (optional)',
-						'name' => 'role',
-						'type' => 'text',
-						'instructions' => '',
-						'required' => 0,
-						'conditional_logic' => 0,
-						'wrapper' => array(
-							'width' => '',
-							'class' => '',
-							'id' => '',
-						),
-						'default_value' => '',
-						'placeholder' => '',
-						'prepend' => '',
-						'append' => '',
-						'maxlength' => '',
-					),
-				),
-			),
-			array(
-				'key' => 'field_60f0b62cc0b79',
-				'label' => 'Services',
-				'name' => 'services',
-				'type' => 'repeater',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'acfe_repeater_stylised_button' => 0,
-				'collapsed' => '',
-				'min' => 0,
-				'max' => 0,
-				'layout' => 'row',
-				'button_label' => 'Add testimonial to the slider',
-				'sub_fields' => array(
-					array(
-						'key' => 'field_60f0b64bc0b7a',
-						'label' => 'Service title',
-						'name' => 'service_title',
-						'type' => 'text',
-						'instructions' => '',
-						'required' => 0,
-						'conditional_logic' => 0,
-						'wrapper' => array(
-							'width' => '',
-							'class' => '',
-							'id' => '',
-						),
-						'default_value' => '',
-						'placeholder' => '',
-						'prepend' => '',
-						'append' => '',
-						'maxlength' => '',
-					),
-					array(
-						'key' => 'field_60f0b657c0b7b',
-						'label' => 'Service strapline',
-						'name' => 'service_strapline',
-						'type' => 'text',
-						'instructions' => 'Recommended length for the subsidiary heading: 5-15 words',
-						'required' => 0,
-						'conditional_logic' => 0,
-						'wrapper' => array(
-							'width' => '',
-							'class' => '',
-							'id' => '',
-						),
-						'default_value' => '',
-						'placeholder' => '',
-						'prepend' => '',
-						'append' => '',
-						'maxlength' => '',
-					),
-					array(
-						'key' => 'field_60f0b6ddc0b7c',
-						'label' => 'Service description',
-						'name' => 'service_description',
-						'type' => 'textarea',
-						'instructions' => 'Recommended maximum length: 200 characters/25 words',
-						'required' => 0,
-						'conditional_logic' => 0,
-						'wrapper' => array(
-							'width' => '',
-							'class' => '',
-							'id' => '',
-						),
-						'default_value' => '',
-						'placeholder' => '',
-						'maxlength' => '',
-						'rows' => '',
-						'new_lines' => '',
-						'acfe_textarea_code' => 0,
-					),
-				),
-			),
-		),
-		'location' => array(
-			array(
-				array(
-					'param' => 'block',
-					'operator' => '==',
-					'value' => 'acf/home-hero',
-				),
-			),
-		),
-		'menu_order' => 0,
-		'position' => 'normal',
-		'style' => 'default',
-		'label_placement' => 'left',
-		'instruction_placement' => 'label',
-		'hide_on_screen' => '',
-		'active' => true,
+	acf_register_block_type(array(
+		'name' => 'home-hero',
+		'title' => 'Home page extended hero',
 		'description' => '',
-		'acfe_display_title' => '',
-		'acfe_autosync' => '',
-		'acfe_form' => 0,
-		'acfe_meta' => '',
-		'acfe_note' => '',
+		'category' => 'common',
+		'keywords' => array(),
+		'post_types' => array(
+			0 => 'page',
+		),
+		'mode' => 'edit',
+		'align' => '',
+		'align_content' => NULL,
+		'render_template' => 'blocks/home-hero.php',
+		'render_callback' => '',
+		'enqueue_style' => '',
+		'enqueue_script' => '',
+		'enqueue_assets' => '',
+		'icon' => array(
+			'background' => '#8224e3',
+			'foreground' => '#ffffff',
+			'src' => 'align-full-width',
+		),
+		'supports' => array(
+			'align' => false,
+			'mode' => true,
+			'multiple' => false,
+			'jsx' => false,
+			'align_content' => false,
+			'anchor' => false,
+		),
 	));
 
-	acf_add_local_field_group(array(
-		'key' => 'group_60f0cd3e106b9',
-		'title' => 'Block: sortable testimonials',
-		'fields' => array(
-			array(
-				'key' => 'field_60f0cd4ca293c',
-				'label' => 'Testimonials',
-				'name' => 'testimonials',
-				'type' => 'repeater',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'acfe_repeater_stylised_button' => 0,
-				'collapsed' => '',
-				'min' => 0,
-				'max' => 0,
-				'layout' => 'row',
-				'button_label' => 'Add testimonial',
-				'sub_fields' => array(
-					array(
-						'key' => 'field_60f0cdd9a2941',
-						'label' => 'Testimonial category',
-						'name' => 'testimonial_category',
-						'type' => 'select',
-						'instructions' => '',
-						'required' => 1,
-						'conditional_logic' => 0,
-						'wrapper' => array(
-							'width' => '',
-							'class' => '',
-							'id' => '',
-						),
-						'choices' => array(
-							'students' => 'What students say',
-							'parents' => 'What parents say',
-							'writing' => 'Writing classes',
-							'college' => 'College essays',
-						),
-						'default_value' => false,
-						'allow_null' => 0,
-						'multiple' => 0,
-						'ui' => 0,
-						'return_format' => 'value',
-						'ajax' => 0,
-						'placeholder' => '',
-					),
-					array(
-						'key' => 'field_60f0cd70a293d',
-						'label' => 'Testimonial text',
-						'name' => 'testimonial_text',
-						'type' => 'textarea',
-						'instructions' => '',
-						'required' => 1,
-						'conditional_logic' => 0,
-						'wrapper' => array(
-							'width' => '',
-							'class' => '',
-							'id' => '',
-						),
-						'default_value' => '',
-						'placeholder' => '',
-						'maxlength' => '',
-						'rows' => '',
-						'new_lines' => '',
-						'acfe_textarea_code' => 0,
-					),
-					array(
-						'key' => 'field_60f0cd96a293e',
-						'label' => 'Testimonial author',
-						'name' => 'testimonial_author',
-						'type' => 'text',
-						'instructions' => '',
-						'required' => 1,
-						'conditional_logic' => 0,
-						'wrapper' => array(
-							'width' => '',
-							'class' => '',
-							'id' => '',
-						),
-						'default_value' => '',
-						'placeholder' => '',
-						'prepend' => '',
-						'append' => '',
-						'maxlength' => '',
-					),
-					array(
-						'key' => 'field_60f0cd9fa293f',
-						'label' => 'Testimonial author role and association (optional)',
-						'name' => 'role',
-						'type' => 'text',
-						'instructions' => '',
-						'required' => 0,
-						'conditional_logic' => 0,
-						'wrapper' => array(
-							'width' => '',
-							'class' => '',
-							'id' => '',
-						),
-						'default_value' => '',
-						'placeholder' => '',
-						'prepend' => '',
-						'append' => '',
-						'maxlength' => '',
-					),
-					array(
-						'key' => 'field_60f0cdbba2940',
-						'label' => 'Student age (optional)',
-						'name' => 'student_age',
-						'type' => 'text',
-						'instructions' => '',
-						'required' => 0,
-						'conditional_logic' => 0,
-						'wrapper' => array(
-							'width' => '',
-							'class' => '',
-							'id' => '',
-						),
-						'default_value' => '',
-						'placeholder' => '',
-						'prepend' => '',
-						'append' => '',
-						'maxlength' => '',
-					),
-				),
-			),
-		),
-		'location' => array(
-			array(
-				array(
-					'param' => 'block',
-					'operator' => '==',
-					'value' => 'acf/sortable-testimonial',
-				),
-			),
-		),
-		'menu_order' => 0,
-		'position' => 'normal',
-		'style' => 'default',
-		'label_placement' => 'left',
-		'instruction_placement' => 'label',
-		'hide_on_screen' => '',
-		'active' => true,
+	acf_register_block_type(array(
+		'name' => 'sortable-testimonial',
+		'title' => 'Sortable testimonial',
 		'description' => '',
-		'acfe_display_title' => '',
-		'acfe_autosync' => '',
-		'acfe_form' => 0,
-		'acfe_meta' => '',
-		'acfe_note' => '',
+		'category' => 'common',
+		'keywords' => array(),
+		'post_types' => array(),
+		'mode' => 'edit',
+		'align' => '',
+		'align_content' => NULL,
+		'render_template' => 'blocks/sortable-testimonials.php',
+		'render_callback' => '',
+		'enqueue_style' => '',
+		'enqueue_script' => '',
+		'enqueue_assets' => '',
+		'icon' => array(
+			'background' => '#8224e3',
+			'foreground' => '#ffffff',
+			'src' => 'editor-quote',
+		),
+		'supports' => array(
+			'align' => true,
+			'mode' => true,
+			'multiple' => true,
+			'jsx' => false,
+			'align_content' => false,
+			'anchor' => false,
+		),
 	));
 
-	acf_add_local_field_group(array(
-		'key' => 'group_60f0bfe7ee978',
-		'title' => 'Block: testimonial + image',
-		'fields' => array(
-			array(
-				'key' => 'field_60f0c01c82f10',
-				'label' => 'Layout position',
-				'name' => 'layout',
-				'type' => 'select',
-				'instructions' => 'Choose whether to align the image on the right or left side of the text.',
-				'required' => 1,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'choices' => array(
-					'l' => 'Image on the left',
-					'r' => 'Image on the right',
-				),
-				'default_value' => false,
-				'allow_null' => 0,
-				'multiple' => 0,
-				'ui' => 0,
-				'return_format' => 'value',
-				'ajax' => 0,
-				'placeholder' => '',
-			),
-			array(
-				'key' => 'field_60f0c0f482f11',
-				'label' => 'Image',
-				'name' => 'image',
-				'type' => 'image',
-				'instructions' => '',
-				'required' => 1,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'uploader' => '',
-				'acfe_thumbnail' => 0,
-				'return_format' => 'url',
-				'preview_size' => 'medium',
-				'min_width' => '',
-				'min_height' => '',
-				'min_size' => '',
-				'max_width' => '',
-				'max_height' => '',
-				'max_size' => '',
-				'mime_types' => '',
-				'library' => 'all',
-			),
-			array(
-				'key' => 'field_60f0c11882f12',
-				'label' => 'Text',
-				'name' => 'text',
-				'type' => 'textarea',
-				'instructions' => 'Recommended maximum length: 230 characters/30 words',
-				'required' => 1,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => '',
-				'placeholder' => '',
-				'maxlength' => '',
-				'rows' => '',
-				'new_lines' => '',
-				'acfe_textarea_code' => 0,
-			),
-			array(
-				'key' => 'field_60f0c26527721',
-				'label' => 'Testimonial author',
-				'name' => 'author',
-				'type' => 'text',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'maxlength' => '',
-			),
-			array(
-				'key' => 'field_60f0c27427722',
-				'label' => 'Testimonial author role and association',
-				'name' => 'role',
-				'type' => 'text',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'maxlength' => '',
-			),
-		),
-		'location' => array(
-			array(
-				array(
-					'param' => 'block',
-					'operator' => '==',
-					'value' => 'acf/testimonial-image',
-				),
-			),
-		),
-		'menu_order' => 0,
-		'position' => 'normal',
-		'style' => 'default',
-		'label_placement' => 'left',
-		'instruction_placement' => 'label',
-		'hide_on_screen' => '',
-		'active' => true,
+	acf_register_block_type(array(
+		'name' => 'testimonial-image',
+		'title' => 'Testimonial + image',
 		'description' => '',
-		'acfe_display_title' => '',
-		'acfe_autosync' => '',
-		'acfe_form' => 0,
-		'acfe_meta' => '',
-		'acfe_note' => '',
+		'category' => 'common',
+		'keywords' => array(),
+		'post_types' => array(),
+		'mode' => 'edit',
+		'align' => '',
+		'align_content' => NULL,
+		'render_template' => 'blocks/testimonial-image.php',
+		'render_callback' => '',
+		'enqueue_style' => '',
+		'enqueue_script' => '',
+		'enqueue_assets' => '',
+		'icon' => array(
+			'background' => '#8224e3',
+			'foreground' => '#ffffff',
+			'src' => 'editor-quote',
+		),
+		'supports' => array(
+			'align' => true,
+			'mode' => true,
+			'multiple' => true,
+			'jsx' => false,
+			'align_content' => false,
+			'anchor' => false,
+		),
+	));
+
+	acf_register_block_type(array(
+		'name' => 'toc',
+		'title' => 'Table of Contents',
+		'description' => '',
+		'category' => 'common',
+		'keywords' => array(
+			0 => 'toc',
+			1 => 'table',
+			2 => 'contents',
+		),
+		'post_types' => array(),
+		'mode' => 'edit',
+		'align' => '',
+		'align_content' => NULL,
+		'render_template' => 'blocks/toc.php',
+		'render_callback' => '',
+		'enqueue_style' => '',
+		'enqueue_script' => '',
+		'enqueue_assets' => '',
+		'icon' => array(
+			'background' => '#8224e3',
+			'foreground' => '#ffffff',
+			'src' => 'list-view',
+		),
+		'supports' => array(
+			'align' => true,
+			'mode' => true,
+			'multiple' => true,
+			'jsx' => false,
+			'align_content' => false,
+			'anchor' => false,
+		),
 	));
 
 endif;

@@ -34,11 +34,27 @@ if (!empty($block['align'])) {
 </style>
 
 <div id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($classes); ?>">
-    <?php the_field('layout'); ?>
-    <?php if (get_field('image')) : ?>
-        <img src="<?php the_field('image'); ?>" />
-    <?php endif ?>
-    <?php the_field('text'); ?>
-    <?php the_field('author'); ?>
-    <?php the_field('role'); ?>
+    <?php $layout = 'testimonial-image--image-' . get_field('layout'); ?>
+    <div class="testimonial-image <?php echo $layout; ?>">
+        <div class="testimonial-image__image">
+            <?php if (get_field('image')) : ?>
+                <img src="<?php the_field('image'); ?>" />
+            <?php endif ?>
+        </div>
+        <div class="testimonial-image__text">
+            <p class="testimonial-image__text--main">
+                <?php the_field('text'); ?>
+                <br />
+                <span class="testimonial-image__text--author">
+                    <?php the_field('author'); ?>
+                </span>
+                <?php if (get_field('role')) : ?>
+                    <span class="testimonial-image__text--role">
+                        <br />
+                        <?php the_field('role'); ?>
+                    </span>
+                <?php endif ?>
+            </p>
+        </div>
+    </div>
 </div>

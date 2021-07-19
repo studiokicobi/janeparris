@@ -36,8 +36,12 @@ if (!empty($block['align'])) {
 <div id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($classes); ?>">
     <?php if (have_rows('faq_sections')) : ?>
         <?php while (have_rows('faq_sections')) : the_row(); ?>
-            <?php the_sub_field('faq_heading'); ?>
-            <?php the_sub_field('faq_text'); ?>
+            <div class="stacked-card">
+                <h2 class="stacked-card__heading"><?php the_sub_field('faq_heading'); ?></h2>
+                <div class="stacked-card__content">
+                    <?php the_sub_field('faq_text'); ?>
+                </div>
+            </div>
         <?php endwhile; ?>
     <?php else : ?>
         <?php // no rows found 

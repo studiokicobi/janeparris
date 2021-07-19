@@ -1,0 +1,20 @@
+.stacked-card {
+  position: sticky;
+  top: 1em;
+  background: white;
+  border: 1px solid black;
+  margin-top: 1em;
+
+  &__heading {}
+  &__content {}
+}
+
+@for $i from 1 through 20 {
+  .stacked-card:nth-child(#{$i}n) {
+    top: $i * 2em;
+  }
+}
+
+// Turn off Table of Contents plugin debug messages
+// These appear in dev even when debug is off 
+.ez-toc-debug-messages { display: none; }

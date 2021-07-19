@@ -1,0 +1,23 @@
+/* Global
+--------------------------------------------- */
+body {
+  color: white;
+}
+
+/* Site Header
+--------------------------------------------- */
+.site-header {
+  background-color: #fff;
+  box-shadow: none;
+  // padding: 0 30px;
+}
+
+@media only screen and (min-width: 960px) {
+  .site-header {
+    position: relative;
+  }
+
+  .admin-bar .site-header {
+    top: 0;
+  }
+}

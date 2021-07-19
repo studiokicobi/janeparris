@@ -34,16 +34,52 @@ if (!empty($block['align'])) {
 </style>
 
 <div id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($classes); ?>">
+
+    <?php
+    // data-category key
+    // students : What students say
+    // parents : What parents say
+    // writing : Writing classes
+    // college : College essays
+    ?>
+
+
+    <!-- Filterizr.js controls -->
+    <ul class="filter-controls">
+        <li data-filter="students">What students say</li>
+        <li data-filter="parents">What parents say</li>
+        <li data-filter="writing">Writing classes</li>
+        <li data-filter="college">College essays</li>
+        <li data-filter="all"> All items </li>
+    </ul>
+
+
     <?php if (have_rows('testimonials')) : ?>
-        <?php while (have_rows('testimonials')) : the_row(); ?>
-            <?php the_sub_field('testimonial_category'); ?>
-            <?php the_sub_field('testimonial_text'); ?>
-            <?php the_sub_field('testimonial_author'); ?>
-            <?php the_sub_field('role'); ?>
-            <?php the_sub_field('student_age'); ?>
-        <?php endwhile; ?>
-    <?php else : ?>
-        <?php // no rows found 
-        ?>
+        <div class="filter-container sortable-testimonial">
+            <?php while (have_rows('testimonials')) : the_row(); ?>
+                <div class="filtr-item" data-category="<?php the_sub_field('testimonial_category'); ?>" data-sort="value">
+                    <div class="sortable-testimonial__content">
+                        <p>
+                            <?php the_sub_field('testimonial_text'); ?>
+                        </p>
+                    </div>
+                    <div class="sortable-testimonial__meta">
+                        <div class="sortable-testimonial__dropcap"></div>
+                        <div class="sortable-testimonial__meta--content">
+                            <p>
+                                <?php the_sub_field('testimonial_author');
+                                if (get_sub_field('student_age')) {
+                                    echo ' , ' . get_sub_field('student_age');
+                                }
+                                if (get_sub_field('role')) {
+                                    echo '<br />' . get_sub_field('role');
+                                }
+                                ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            <?php endwhile; ?>
+        </div>
     <?php endif; ?>
 </div>
