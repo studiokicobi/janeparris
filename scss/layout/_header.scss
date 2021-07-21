@@ -1,0 +1,40 @@
+/* Global
+--------------------------------------------- */
+body {
+  background-color: $bg;
+}
+
+/* Site Header
+--------------------------------------------- */
+.site-header {
+  background-color: $bg;
+  box-shadow: none;
+  padding-top: 0.5rem;
+}
+
+@media only screen and (min-width: 960px) {
+  .site-header {
+    position: relative;
+  }
+
+  .admin-bar .site-header {
+    top: 0;
+  }
+}
+
+/* Primary nav
+--------------------------------------------- */
+#genesis-nav-primary {
+  ul {
+    li {
+      &:last-of-type {
+        a {
+          span {
+            padding-bottom: 0.3rem;
+            border-bottom: 0.3rem solid $link;
+          }
+        }
+      }
+    }
+  }
+}

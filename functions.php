@@ -308,18 +308,70 @@ add_action('wp_enqueue_scripts', function () {
 });
 
 
+/* Add partials to pages
+------------------------------------*/
 
-function MyAjaxFunction()
+// Add Testimonial partial if page != Testimonial 
+add_action('genesis_before_footer', 'test1', 5);
+function test1()
 {
-	//get the data from ajax() call
-	$GreetingAll = $_POST['GreetingAll '];
-	$results = "<h2>" . $GreetingAll . "</h2>";
-	// Return the String
-	die($results);
+	if (is_page('testimonials')) {
+		// do nothing
+	} else {
+		echo '<p style="background: red;">Testimonial partial here</p>';
+		// get_template_part('partials/footer');
+	}
 }
-// creating Ajax call for WordPress
-add_action('wp_ajax_nopriv_ MyAjaxFunction', 'MyAjaxFunction');
-add_action('wp_ajax_ MyAjaxFunction', 'MyAjaxFunction');
+
+// Add Consultation Booking partial if page != Book a Consultion 
+add_action('genesis_before_footer', 'test2', 5);
+function test2()
+{
+	if (is_page('book-a-consultation')) {
+		// do nothing
+	} else {
+		echo '<p style="background: pink;">Book a consultation partial here</p>';
+		// get_template_part('partials/footer');
+	}
+}
+
+// Add footer nav
+add_action('genesis_footer', 'footer_content', 5);
+function footer_content()
+{
+	// Add first footer nav (primary nav)
+	wp_nav_menu(
+		array(
+			'menu' => 'primary',
+			'container_class' => 'footer-nav-1',
+			// do not fall back to first non-empty menu
+			'theme_location' => '__no_such_location',
+			// do not fall back to wp_page_menu()
+			'fallback_cb' => false
+		)
+	);
+}
+
+// Add post footer copyright & nav
+add_action('genesis_after_footer', 'footer_post_content', 5);
+function footer_post_content()
+{
+	echo '<div class="footer__after-footer>';
+	// Add copyright
+	echo '<div class="copyright">Copyright © 2020-' . date("Y") . ' Jane Parris</div>';
+	// Add second footer nav (Privacy, etc.)
+	wp_nav_menu(
+		array(
+			'menu' => 'footer',
+			'container_class' => 'footer-nav-2',
+			// do not fall back to first non-empty menu
+			'theme_location' => '__no_such_location',
+			// do not fall back to wp_page_menu()
+			'fallback_cb' => false
+		)
+	);
+	echo '</div>';
+}
 
 
 /* Add inline styles to editor
