@@ -3,5 +3,39 @@
  */
 body {
   color: $text-color;
-  font: normal 125% / 1.4 $text-font-stack;
+  font: 125% / 1.4 $regular;
+}
+
+.home h2 {
+  font-family: $bold;
+  // position: relative;
+  @include big-heading-clamp;
+
+  &::after {
+    // display: inline;
+    // content: "";
+    // position: absolute;
+    // height: 100%;
+    // width: 100%;
+    // background-image: url("../images/highlighter-1.svg");
+    // background-position: 0 0;
+    // background-repeat: no-repeat;
+    // background-size: cover;
+  }
+}
+
+body:not(.home) {
+  h1 {
+    @include big-heading-clamp;
+    font-family: $bold;
+    font-weight: 900;
+    margin-top: 5rem;
+  }
+}
+
+// Limit the width of paragraphs
+.entry-content > {
+  p {
+    max-width: 50ch;
+  }
 }

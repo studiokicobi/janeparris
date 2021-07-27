@@ -1,0 +1,24 @@
+.entry-content {
+  .toc {
+    background-color: $gradient-b0;
+    padding: 2.5rem;
+
+    &__title {
+    }
+
+    &__list {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+    &__list-item {
+    }
+    &__list-item-link {
+      font-family: $sans-bold;
+      font-weight: bold;
+      color: $gradient-b1;
+    }
+    &__list {
+    }
+  }
+}

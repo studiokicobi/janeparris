@@ -2,51 +2,157 @@
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
 
-/// Regular font family
+/// Fonts
+
+/// ----------------------
+/// Tiempos Regular
+/// Tiempos Italic
+/// Tiempos Headline Black
+/// Objektiv Mk2 Regular
+/// Objektiv Mk2 Bold
+/// ----------------------
+
 /// @type List
-$text-font-stack: "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial",
-  sans-serif !default;
 
-/// Body bg color
-$bg: #f7f2f2;
+/// Serif
+$regular: "Tiempos Text Regular", serif !default;
+$italic: "Tiempos Text Italic", serif !default;
+$bold: "Tiempos Headline Black", serif !default;
 
-$link: #ab95db;
+/// Sans
+$sans: "objektiv-mk2", sans-serif;
+$sans-bold: "objektiv-mk2", sans-serif;
 
-/// Copy text color
-/// @type Color
-$text-color: #262a2d !default;
+// -----------------------------------------------------------------------------
 
-/// Main brand color
-/// @type Color
-$brand-color: rgb(229, 0, 80) !default;
+///Colors
 
-/// Light grey
-/// @type Color
-$light-grey: rgb(237, 237, 237) !default;
+$text-color: #262a2d;
+$black: #000;
+$white: #fff;
+$cream: #f7f2f2;
+$bg: #f7f2f2; // Body bg color
+$light-grey: #dcd6da;
+$dark-blue: #221e33;
+$link-color: #ab95db;
+$brand-color: #ab95db;
+$extra-purple: #372550;
+$extra-dark: #19182e;
 
-/// Medium grey
-/// @type Color
-$mid-grey: rgb(153, 153, 153) !default;
+// Gradient A
+$gradient-a0: #ffffd9;
+$gradient-a1: #ffe4ca;
+$gradient-a2: #e5c9bb;
+$gradient-a3: #c7afad;
+$gradient-a4: #ac94a1;
+$gradient-a5: #927990;
+$gradient-a6: #765e81;
+$gradient-a7: #584475;
+$gradient-a8: #3d2968;
+$gradient-a9: #200f57;
 
-/// Dark grey
-/// @type Color
-$dark-grey: rgb(68, 68, 68) !default;
+// Gradient B
+$gradient-b1: #e8d5be;
+$gradient-b2: #d2c1b0;
+$gradient-b3: #bdaca2;
+$gradient-b4: #a79a94;
+$gradient-b5: #918586;
+$gradient-b6: #7c7277;
+$gradient-b7: #675e69;
+$gradient-b8: #504a5b;
+$gradient-b9: #3b364d;
+$gradient-b0: #24223f;
+
+// Gradient C
+$gradient-c1: #ffffd6;
+$gradient-c2: #ffe6ca;
+$gradient-c3: #e5cbba;
+$gradient-c4: #cbb4ac;
+$gradient-c5: #ae9a9d;
+$gradient-c6: #92838c;
+$gradient-c7: #786a7c;
+$gradient-c8: #5c526e;
+$gradient-c9: #41395e;
+$gradient-c0: #24214f;
+
+// Gradient D
+$gradient-d1: #e8d5be;
+$gradient-d2: #d2c0b0;
+$gradient-d3: #bcaaa2;
+$gradient-d4: #a59595;
+$gradient-d5: #8f7f87;
+$gradient-d6: #796a79;
+$gradient-d7: #63546b;
+$gradient-d8: #4c405e;
+$gradient-d9: #362a50;
+$gradient-d0: #201542;
+
+// -----------------------------------------------------------------------------
+
+/// Layout
 
 /// Container's maximum width
 /// @type Length
-$max-width: 1180px !default;
+$max-width: 74rem !default;
 
-/// Breakpoints map
-/// @prop {String} keys - Keys are identifiers mapped to a given length
-/// @prop {Map} values - Values are actual breakpoints expressed in pixels
-$breakpoints: (
-  "small": 320px,
-  "medium": 768px,
-  "large": 1024px,
-) !default;
+/// Breakpoints
+$breakpoint-large: 65em;
+$breakpoint-medium: 48em;
+$breakpoint-small: 27.5em;
+
+$push-down: 6.25rem;
+$wrap-width: 74rem;
+
+// -----------------------------------------------------------------------------
 
 /// Relative or absolute URL where all assets are served from
 /// @type String
 /// @example scss - When using a CDN
 ///   $base-url: 'http://cdn.example.com/assets/';
 $base-url: "/assets/" !default;
+
+// -----------------------------------------------------------------------------
+
+/// Hover.css options
+
+// Prefix for Hover class names
+$nameSpace: "hvr" !default;
+
+// Durations
+$fastDuration: 0.1s !default;
+$mediumDuration: 0.3s !default;
+$slowDuration: 0.5s !default;
+
+// Colors
+$primaryColor: #e1e1e1 !default;
+$secondaryColor: #666 !default;
+$highlightColor: #ccc !default;
+$activeColor: $link-color !default;
+$shadowColor: rgba(0, 0, 0, 0.6) !default;
+
+// Speech bubbles options
+$tipWidth: 10px !default; //the width of the speech bubble tip
+$tipHeight: 10px !default; //the height of the speech bubble tip
+$tipColor: $primaryColor !default;
+
+// Arrows options
+$spaceBetweenTextAndArrows: 2.2em !default;
+
+// Curl dimensions
+$curlWidth: 25px !default;
+$curlHeight: 25px !default;
+
+// Curl colors
+$revealAreaColor: white !default; // reveal area behind the curl
+$curlLineColor: #aaa !default; // crease line
+$curlTransitionColor: #ccc !default; // color transitioning from crease line to final color
+$curlLastColor: white !default; // final color of the back of the curl
+
+// Browser Prefixes - Which CSS prefixes should be used?
+$webkit: true !default;
+$moz: false !default;
+$ms: false !default;
+$o: false !default;
+
+// Compile with or without classes
+$includeClasses: true !default;

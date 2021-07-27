@@ -1,0 +1,84 @@
+/* Testimonial image block
+--------------------------------------------- */
+
+$testimonial-image-width: 65rem;
+
+.testimonial-image {
+  position: relative;
+  display: flex;
+  margin-bottom: $push-down;
+
+  @media screen and (max-width: $breakpoint-large) {
+    flex-direction: column;
+  }
+
+  &__image {
+    width: 63%;
+
+    @media screen and (max-width: $breakpoint-large) {
+      width: 100%;
+    }
+  }
+
+  // Text
+  &__text {
+    width: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: $gradient-d9;
+    background-image: url("../images/quotes.svg");
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center;
+    color: $white;
+    padding: 6.25rem 2.5rem;
+    font-size: clamp(1rem, 0.8039rem + 0.9804vw, 1.625rem);
+
+    @include little-drop-cap;
+
+    &--meta {
+      font-size: clamp(1rem, 0.8431rem + 0.7843vw, 1.5rem);
+      color: $gradient-b1;
+    }
+
+    &--author {
+      font-family: $sans-bold;
+      font-weight: bold;
+    }
+
+    &--role {
+      font-family: $sans;
+    }
+
+    @media screen and (max-width: $breakpoint-large) {
+      width: 100%;
+      position: relative;
+      top: 0;
+      transform: translateY(0);
+      background-size: 70%;
+    }
+  }
+
+  // Align image right
+  &--r {
+    .testimonial-image__text {
+      order: 1;
+      left: 0;
+    }
+    .testimonial-image__image {
+      order: 2;
+    }
+  }
+
+  // Align image left
+  &--l {
+    .testimonial-image__text {
+      order: 2;
+      right: 0;
+    }
+    .testimonial-image__image {
+      order: 1;
+    }
+  }
+}

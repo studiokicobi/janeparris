@@ -1,3 +1,12 @@
 // -----------------------------------------------------------------------------
 // This file contains styles that are specific to the home page.
 // -----------------------------------------------------------------------------
+
+// Add container to some standard elements
+.home {
+  h2:not(.hero__service-title, .cta-footer__heading),
+  h3,
+  .wp-block-columns {
+    @include container;
+  }
+}

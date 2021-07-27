@@ -1251,6 +1251,12 @@ figcaption,
 .js .nav-primary {
   display: none;
   position: relative;
+
+  @media screen and (max-width: 1039px) {
+    background-color: rgb(255, 255, 255);
+    top: 1rem;
+    margin-bottom: 1.5rem;
+  }
 }
 
 .genesis-responsive-menu .genesis-nav-menu .menu-item:hover > .sub-menu {
@@ -1267,6 +1273,7 @@ figcaption,
   overflow: hidden;
   text-align: center;
   visibility: visible;
+  padding: auto 0.5rem;
 }
 
 .menu-toggle:focus,
@@ -1275,17 +1282,22 @@ figcaption,
 .sub-menu-toggle:hover {
   background-color: transparent;
   border-width: 0;
-  color: #0073e5;
+  color: $black;
 }
 
 .menu-toggle {
   float: right;
-  line-height: 20px;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  padding: 15px 0;
+  line-height: 1;
+  margin: 0;
+  // padding: 0.75em 0.75em 0.75em 0.65em;
+  padding: 0.4em 0 1em 0;
   position: relative;
   z-index: 1000;
+  transform: translate(1rem, 0.9rem);
+
+  @media screen and (max-width: $breakpoint-small) {
+    margin-top: 7px;
+  }
 }
 
 .menu-toggle.activated::before {
@@ -1298,10 +1310,11 @@ figcaption,
 
 .site-header .menu-toggle::before {
   float: left;
-  margin-right: 5px;
+  margin-right: 0;
   position: relative;
   text-rendering: auto;
-  top: 1px;
+  top: 0;
+  font-size: 2rem;
 }
 
 .sub-menu-toggle {
@@ -1334,7 +1347,7 @@ figcaption,
 .nav-primary {
   clear: left;
   padding-bottom: 15px;
-  padding-top: 15px;
+  padding-top: 20px;
   width: 100%;
 }
 
@@ -1585,7 +1598,7 @@ p.entry-meta {
   }
 }
 
-@media only screen and (min-width: 960px) {
+@media only screen and (min-width: 65em) {
   /* Site Header
 	--------------------------------------------- */
 
@@ -1660,7 +1673,7 @@ p.entry-meta {
 
   .js .nav-primary {
     display: block;
-    padding-top: 15px;
+    // padding-top: 9px;
   }
 
   .menu-toggle,
@@ -1687,7 +1700,7 @@ p.entry-meta {
 	--------------------------------------------- */
 
   .site-inner {
-    max-width: 1140px;
+    max-width: 71rem;
   }
 
   /* Content
@@ -1695,7 +1708,8 @@ p.entry-meta {
 
   .content {
     float: left;
-    width: 65%;
+    // width: 65%;
+    width: 98.9%;
   }
 
   .sidebar-content .content {
@@ -1812,7 +1826,7 @@ p.entry-meta {
 	--------------------------------------------- */
 
   .footer-widgets .wrap {
-    max-width: 1140px;
+    max-width: $wrap-width;
   }
 
   .footer-widget-area {

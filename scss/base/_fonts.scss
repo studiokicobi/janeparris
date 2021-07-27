@@ -1,3 +1,30 @@
 // -----------------------------------------------------------------------------
 // This file contains all @font-face declarations, if any.
 // -----------------------------------------------------------------------------
+
+// Tiempos regular
+@font-face {
+  font-family: "Tiempos Text Regular";
+  src: url("../fonts/tiempos-text-web-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Tiempos regular italic
+@font-face {
+  font-family: "Tiempos Text Italic";
+  src: url("../fonts/tiempos-text-web-regular-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+// Tiempos headline black
+@font-face {
+  font-family: "Tiempos Headline Black";
+  src: url("../fonts/tiempos-headline-web-black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: bold;
+  font-display: swap;
+}

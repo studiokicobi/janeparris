@@ -2,11 +2,168 @@
 // This file contains all styles related to the footer of the site/application.
 // -----------------------------------------------------------------------------
 
-// #genesis-footer-widgets {
-//   .footer-widget-area {
-//     ul.menu {
-//       display: flex;
-//       flex-direction: row;
-//     }
-//   }
-// }
+.site-footer {
+  background-color: $gradient-b0;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+
+  @media screen and (max-width: $breakpoint-large) {
+    padding-top: 6rem;
+    padding-bottom: 5rem;
+  }
+
+  .wrap {
+    max-width: $wrap-width;
+    margin: auto;
+  }
+}
+
+/* ------------------------------------ *\
+   Primary nav
+\* ------------------------------------ */
+
+.footer-primary-nav {
+  display: flex;
+  justify-content: space-between;
+
+  @media screen and (max-width: $breakpoint-large) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__logo {
+    width: 3.125rem;
+    height: 3.125rem;
+    background: url("../images/jane-parris-monogram.svg");
+    background-repeat: no-repeat;
+    text-indent: 101%;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-right: 2rem;
+    flex-grow: 2;
+
+    @media screen and (max-width: $breakpoint-large) {
+      margin-right: 0;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__list {
+    display: flex;
+    align-items: center;
+    font-family: $sans;
+
+    @media screen and (max-width: $breakpoint-large) {
+      flex-direction: column;
+    }
+  }
+
+  &__list-item {
+    margin-right: 0.5rem;
+
+    @media screen and (max-width: $breakpoint-large) {
+      margin-right: 0;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  &__list-item-link {
+    color: $white;
+    padding: 0.5rem;
+
+    @include on-event {
+      color: $white;
+      transition: all 200ms ease-in-out;
+    }
+  }
+}
+
+/* ------------------------------------ *\
+   Social nav
+\* ------------------------------------ */
+
+.footer-primary-nav {
+  &__list-social {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    // Spacing between social links and main footer menu
+    margin-left: 3rem;
+    // Nudge right to account for link padding
+    transform: translateX(0.375rem);
+
+    @media screen and (max-width: $breakpoint-large) {
+      margin-left: 0;
+      margin-top: 2rem;
+      transform: translateX(0);
+    }
+  }
+
+  &__list-item-social {
+    a {
+      padding-left: 0.375rem;
+      padding-right: 0.375rem;
+      display: block;
+
+      @include on-event {
+        filter: brightness(2);
+      }
+
+      img {
+        display: block;
+      }
+    }
+  }
+}
+
+/* ------------------------------------ *\
+   Secondary nav
+\* ------------------------------------ */
+
+.site-footer__secondary {
+  background-color: $extra-dark;
+
+  .wrap {
+    max-width: $wrap-width;
+    margin: auto;
+
+    @media screen and (max-width: $breakpoint-large) {
+      padding-right: 2rem;
+      padding-left: 2rem;
+    }
+  }
+}
+
+.site-footer__secondary-content {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1.3rem;
+  padding-bottom: 1rem;
+
+  .copyright {
+    color: $gradient-d4;
+    font-family: $sans;
+    font-size: 1rem;
+  }
+
+  .footer-nav-2 {
+    font-family: $sans;
+    font-size: 1rem;
+
+    ul {
+      display: flex;
+      a {
+        color: $gradient-d4;
+        @include on-event {
+          color: $white;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

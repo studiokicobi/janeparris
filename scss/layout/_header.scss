@@ -1,8 +1,6 @@
-/* Global
---------------------------------------------- */
-body {
-  background-color: $bg;
-}
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the header of the site/application.
+// -----------------------------------------------------------------------------
 
 /* Site Header
 --------------------------------------------- */
@@ -10,15 +8,30 @@ body {
   background-color: $bg;
   box-shadow: none;
   padding-top: 0.5rem;
+  font-family: $sans;
+  font-weight: normal;
+  letter-spacing: -0.02rem;
+
+  .wrap {
+    max-width: $wrap-width;
+    margin: auto;
+  }
 }
 
-@media only screen and (min-width: 960px) {
+@media only screen and (min-width: $breakpoint-large) {
   .site-header {
     position: relative;
   }
 
   .admin-bar .site-header {
     top: 0;
+  }
+}
+
+// Logo
+@media screen and (max-width: $breakpoint-small) {
+  .wp-custom-logo .site-container .title-area {
+    max-width: 150px;
   }
 }
 
@@ -29,12 +42,62 @@ body {
     li {
       &:last-of-type {
         a {
+          // @include sweep-to-top;
+
           span {
-            padding-bottom: 0.3rem;
-            border-bottom: 0.3rem solid $link;
+            @include underline-from-left;
+
+            &::before {
+              right: 0;
+              transition: background-color 300ms;
+            }
+
+            &:hover,
+            &:focus,
+            &:active {
+              &:before {
+                background-color: $black;
+              }
+            }
           }
         }
       }
+      a {
+        span {
+          overflow: visible !important;
+          @include underline-from-left;
+        }
+        @include on-event {
+          color: $text-color;
+        }
+      }
+    }
+  }
+
+  .current-menu-item > a {
+    font-family: $sans-bold;
+    font-weight: bold;
+    color: $text-color;
+  }
+
+  @media screen and (max-width: $breakpoint-large) {
+    padding-left: 2.7rem;
+  }
+}
+
+.menu-toggle {
+  overflow: hidden;
+  text-indent: 101%;
+  white-space: nowrap;
+}
+
+.title-area {
+  @media screen and (max-width: $breakpoint-large) {
+    .custom-logo-link {
+      // transform: translateX(-0.75rem);
+    }
+
+    .menu-toggle {
     }
   }
 }

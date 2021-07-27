@@ -19,8 +19,10 @@
 
 // 2. Vendors
 // @import "vendor/normalize";
+@import "vendors/flickity";
+@import "vendors/flickity-fade";
 @import "vendors/genesis-boilerplate";
-@import "vendors/swiper";
+// @import "vendors/swiper";
 
 // 3. Base stuff
 @import "base/base";
@@ -31,14 +33,20 @@
 // 4. Layout-related sections
 @import "layout/header";
 @import "layout/footer";
+@import "layout/global";
 
 // 5. Components
 @import "components/button";
+@import "components/cta-footer";
 @import "components/faq";
 @import "components/filterizr";
+@import "components/home-hero";
+@import "components/testimonial-footer";
+@import "components/testimonial-image";
+@import "components/toc";
 
 // 6. Page-specific styles
-// @import 'pages/home';
+@import "pages/home";
 
 // 7. Themes
 // @import 'themes/default';

@@ -1,0 +1,329 @@
+/* Home hero block
+--------------------------------------------- */
+
+/* ------------------------------------ *\
+   The wrappers
+\* ------------------------------------ */
+.block-home-hero {
+  @include fullBleed;
+
+  .hero {
+    max-width: 83rem;
+  }
+}
+
+/* ------------------------------------ *\
+   Hero top: above the fold content
+\* ------------------------------------ */
+.hero-top {
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  @media screen and (max-width: $breakpoint-medium) {
+    flex-direction: column;
+  }
+
+  // The text wrapper
+  .hero-top-text {
+    width: 66.66666%;
+    padding-right: 1rem;
+
+    @media screen and (max-width: $breakpoint-medium) {
+      height: auto;
+      width: 100%;
+      padding: 0 0 2rem 0;
+      display: flex;
+      align-items: center;
+    }
+
+    @media screen and (max-width: 440px) {
+      transform: translateY(-68px);
+      padding: 4rem 0 0 0;
+    }
+
+    // Responsive padding for the text wrapper
+    &__content {
+      @media screen and (min-width: 1041px) {
+        padding-left: clamp(4.2rem, -28.3714rem + 43.4286vw, 8rem);
+      }
+      @media screen and (max-width: 1040px) {
+        padding-left: 65px;
+      }
+      @media screen and (max-width: 440px) {
+        padding-left: 0;
+      }
+    }
+
+    // Hero heading
+    &__heading {
+      margin-top: 12%;
+      letter-spacing: -0.04rem;
+      font-family: $regular;
+      font-size: clamp(1.5rem, -0.2773rem + 4.0625vw, 3.125rem);
+
+      @media screen and (max-width: $breakpoint-medium) {
+        font-size: clamp(1.5rem, 0.9643rem + 2.6786vw, 2.25rem);
+      }
+
+      strong {
+        font-family: $bold;
+
+        // Highlighter effect bg images for strong text
+        &:first-of-type {
+          background-image: url("../images/highlighter-1.svg");
+          background-repeat: no-repeat;
+          background-size: contain;
+        }
+        &:last-of-type {
+          background-image: url("../images/highlighter-2.svg");
+          background-repeat: no-repeat;
+          background-size: contain;
+        }
+      }
+    }
+
+    // Hero CTA buttons
+    &__button-wrapper {
+      display: inline-block;
+      border-top: 3px solid $light-grey;
+      padding-top: 2.5rem;
+      padding-bottom: 5rem;
+
+      @media screen and (max-width: $breakpoint-medium) {
+        padding-bottom: 0;
+      }
+    }
+
+    &__button {
+      @include button;
+      padding: 0.95rem 0.95rem 0.75rem 0.95rem;
+      font-size: clamp(1rem, 0.4531rem + 1.25vw, 1.5rem);
+      display: inline-block;
+
+      &:nth-of-type(1) {
+        margin-right: 0.5rem;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  // Hero image
+  .hero-top-image {
+    align-self: flex-end;
+    mix-blend-mode: darken;
+    width: 33.33333%;
+
+    img {
+      display: block;
+    }
+
+    @media screen and (max-width: $breakpoint-medium) {
+      width: 100%;
+
+      img {
+        max-height: 45vh;
+        margin: auto;
+      }
+    }
+  }
+} // hero-top
+
+/* ------------------------------------ *\
+   Services section
+\* ------------------------------------ */
+
+// The wrapper
+.hero {
+  &__services-wrapper {
+    @include fullBleed;
+    background-color: $gradient-b0;
+    border-top: 3.125rem solid $gradient-b9;
+    border-bottom: 3.125rem solid $gradient-b9;
+    margin-bottom: 6.25rem;
+  }
+
+  /* ------------------------------------ *\
+   Testimonial slider: Flickity
+\* ------------------------------------ */
+
+  &__testimonial-container {
+    max-width: 36.625rem;
+    margin: auto;
+    transform: translate(1rem, -6.5rem);
+
+    // @media screen and (max-width: $breakpoint-large) {
+    //   transform: translate(1rem, -6.5rem);
+    // }
+  }
+
+  // Individual testimonials
+  &__testimonial {
+    width: calc(100% - 4rem);
+    box-sizing: border-box;
+    border-radius: 0.625rem;
+    color: $cream;
+    padding: 2.5rem;
+    margin: 2rem;
+    background-color: $gradient-a6;
+    box-shadow: $gradient-a7 -1rem -1rem, $gradient-a8 -2rem -2rem;
+    background-image: url("../images/quotes.svg");
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center 2.25rem;
+    line-height: 1.5;
+
+    p {
+      font-family: $sans;
+      font-size: clamp(1rem, 0.9608rem + 0.1961vw, 1.125rem);
+    }
+
+    p::first-line {
+      font-family: $sans-bold;
+      font-weight: bold;
+      font-size: clamp(1rem, 0.902rem + 0.4902vw, 1.3125rem);
+    }
+  }
+
+  &__testimonial-author {
+    font-size: clamp(0.8rem, 0.7373rem + 0.3137vw, 1rem);
+    font-family: $sans-bold;
+    font-weight: bold;
+
+    &--age {
+      font-size: clamp(0.8rem, 0.7373rem + 0.3137vw, 1rem);
+      font-family: $sans;
+      font-weight: normal;
+    }
+    &--role {
+      font-size: clamp(0.8rem, 0.7373rem + 0.3137vw, 1rem);
+      font-family: $sans;
+      font-weight: normal;
+    }
+  }
+
+  // Flickity styles
+  // Enable focus and keyboard navigation on slides
+  .flickity-enabled:focus .flickity-viewport {
+    outline: thin dotted;
+    // outline: 5px auto -webkit-focus-ring-color;
+  }
+
+  // Slider dot nav
+  .flickity-page-dots {
+    transform: translateX(-1rem);
+
+    .dot {
+      width: 17px;
+      height: 17px;
+      margin: 0 8px;
+      background: $link-color;
+      border-radius: 50%;
+      opacity: 0.35;
+      cursor: pointer;
+
+      &.is-selected {
+        opacity: 1;
+      }
+    }
+  }
+
+  /* ------------------------------------ *\
+    Services
+  \* ------------------------------------ */
+
+  // The services container
+  &__services {
+    padding-bottom: 6.25rem;
+
+    @media screen and (max-width: $breakpoint-large) {
+      max-width: 39rem;
+    }
+  }
+
+  // Individual service
+  &__service {
+    margin-bottom: 3rem;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  // Service width variable
+  $service-width: 65rem;
+
+  &__service {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  &__service > * {
+    flex-grow: 1;
+    flex-basis: calc((#{$service-width} - 100%) * 999);
+  }
+
+  // Col 1 = service-header
+  &__service-header {
+    text-align: left;
+    padding-top: 3.125rem;
+    @media screen and (min-width: 67.5rem) {
+      text-align: right;
+    }
+  }
+
+  &__service-title {
+    color: $gradient-d1;
+    font-family: $bold;
+    font-weight: 900;
+    @include big-heading-clamp;
+  }
+
+  &__service-strapline {
+    color: $gradient-a4;
+    font-family: $sans;
+    font-weight: normal;
+    font-size: clamp(1.5rem, 1.6176rem + -0.5882vw, 1.125rem);
+  }
+
+  // Col 2 = service-description
+  &__service-description {
+    color: $cream;
+    background-color: $gradient-d8;
+    padding: 3.125rem;
+    box-shadow: 0.625rem 0.625rem 0 0 $gradient-b9;
+
+    @include little-drop-cap;
+  }
+
+  &__service-link {
+    @include button;
+    color: $cream;
+    background-color: $dark-blue;
+    position: relative;
+    padding-left: 3rem;
+
+    &::before {
+      display: block;
+      content: "";
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      background-image: url("../images/triangle.svg");
+      background-repeat: no-repeat;
+      height: 100%;
+      width: 2rem;
+      transform: translateY(-50%);
+      background-position-y: center;
+      transition: all 750ms;
+    }
+
+    @include on-event {
+      &::before {
+        background-image: url("../images/triangle-active.svg");
+      }
+    }
+  }
+}

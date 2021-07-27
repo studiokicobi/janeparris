@@ -2,6 +2,43 @@
 // This file contains all application-wide Sass mixins.
 // -----------------------------------------------------------------------------
 
+@mixin big-heading-clamp {
+  font-size: clamp(1.875rem, 1.3848rem + 2.451vw, 3.4375rem);
+}
+
+// Little drop cap
+@mixin little-drop-cap {
+  > p.has-drop-cap:not(:focus)::first-letter {
+    font-size: 2.9em;
+    margin-top: 0.2em !important;
+    font-family: $bold;
+    color: $gradient-d1;
+  }
+}
+
+// Full bleed
+@mixin fullBleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+// Calculate clamp
+// Usage ex. "font-size: sass_clamp(1, 300, 1920, 4);"
+@function sass_clamp($minFontSize, $minViewWidth, $maxViewWidth, $maxFontSize) {
+  $minViewWidth: calc(#{$minViewWidth} / 16);
+  $maxViewWidth: calc(#{$maxViewWidth} / 16);
+  $slope: calc(
+    (#{$maxFontSize} - #{$minFontSize}) / (#{$maxViewWidth} - #{$minViewWidth})
+  );
+  $yaxis: calc((#{$minFontSize} + #{$minViewWidth}) * (#{$slope} * -1));
+  $preferredValue: clamp(
+    1rem,
+    calc((#{$yaxis} * 1rem) + (#{$slope} * 100) * 1vw),
+    3.5rem
+  );
+  @return $preferredValue;
+}
+
 // Automatically add rem font-size
 
 // Define default font size
@@ -53,5 +90,155 @@
 @mixin when-inside($context) {
   #{$context} & {
     @content;
+  }
+}
+
+// -----------------------------------------------------------------------------
+/// Hover.css
+/// @link https://github.com/IanLunn/Hover
+
+// prefix declarations
+@mixin prefixed($property, $value) {
+  @if $webkit == true {
+    -webkit-#{$property}: #{$value};
+  }
+
+  @if $moz == true {
+    -moz-#{$property}: #{$value};
+  }
+
+  @if $ms == true {
+    -ms-#{$property}: #{$value};
+  }
+
+  @if $o == true {
+    -o-#{$property}: #{$value};
+  }
+
+  #{$property}: #{$value};
+}
+
+// prefix keyframes
+@mixin keyframes($name) {
+  @if $webkit == true {
+    @-webkit-keyframes #{$name} {
+      @content;
+    }
+  }
+
+  @if $moz == true {
+    @-moz-keyframes #{$name} {
+      @content;
+    }
+  }
+
+  @if $ms == true {
+    @-ms-keyframes #{$name} {
+      @content;
+    }
+  }
+
+  @if $o == true {
+    @-o-keyframes #{$name} {
+      @content;
+    }
+  }
+
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+// As is often the case, some devices/browsers need additional code to get CSS to work
+// in the most desired way. These mixins are used to quickly drop in hacks for each element
+// Find out more here: https://github.com/IanLunn/Hover/wiki/Hacks-Explained
+
+@mixin hardwareAccel() {
+  // Improve performance on mobile/tablet devices
+  // Perspective reduces blurryness of text in Chrome
+  @include prefixed(transform, perspective(1px) translateZ(0));
+}
+
+@mixin improveAntiAlias() {
+  // Improve aliasing on mobile/tablet devices
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+
+@mixin forceBlockLevel() {
+  // Transforms need to be block-level to work
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@mixin hacks() {
+  @include forceBlockLevel();
+  @include hardwareAccel();
+  @include improveAntiAlias();
+}
+
+/* Underline From Left */
+@mixin underline-from-left {
+  $duration: $mediumDuration;
+
+  @include hacks();
+  position: relative;
+  overflow: hidden;
+
+  @media screen and (min-width: 1040px) {
+    &:before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      left: 0;
+      right: 100%;
+      bottom: -0.5rem;
+      background: $activeColor;
+      height: 0.25rem;
+      @include prefixed(transition-property, "right");
+      @include prefixed(transition-duration, $duration);
+      @include prefixed(transition-timing-function, ease-out);
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      &:before {
+        right: 0;
+      }
+    }
+  }
+}
+
+/* Sweep To Top */
+@mixin sweep-to-top {
+  @include hacks();
+  position: relative;
+  @include prefixed(transition-property, color);
+  @include prefixed(transition-duration, $mediumDuration);
+
+  &:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: $activeColor;
+    @include prefixed(transform, scaleY(0));
+    @include prefixed(transform-origin, 50% 100%);
+    @include prefixed(transition-property, transform);
+    @include prefixed(transition-duration, $mediumDuration);
+    @include prefixed(transition-timing-function, ease-out);
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: white;
+
+    &:before {
+      @include prefixed(transform, scaleY(1));
+    }
   }
 }

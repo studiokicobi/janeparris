@@ -137,28 +137,28 @@ function janeparris_js_nojs_script()
 <?php
 }
 
-add_filter('wp_resource_hints', 'janeparris_resource_hints', 10, 2);
-/**
- * Add preconnect for Google Fonts.
- *
- * @since 3.4.1
- *
- * @param array  $urls          URLs to print for resource hints.
- * @param string $relation_type The relation type the URLs are printed.
- * @return array URLs to print for resource hints.
- */
-function janeparris_resource_hints($urls, $relation_type)
-{
+// add_filter('wp_resource_hints', 'janeparris_resource_hints', 10, 2);
+// /**
+//  * Add preconnect for Google Fonts.
+//  *
+//  * @since 3.4.1
+//  *
+//  * @param array  $urls          URLs to print for resource hints.
+//  * @param string $relation_type The relation type the URLs are printed.
+//  * @return array URLs to print for resource hints.
+//  */
+// function janeparris_resource_hints($urls, $relation_type)
+// {
 
-	if (wp_style_is(genesis_get_theme_handle() . '-fonts', 'queue') && 'preconnect' === $relation_type) {
-		$urls[] = [
-			'href' => 'https://fonts.gstatic.com',
-			'crossorigin',
-		];
-	}
+// 	if (wp_style_is(genesis_get_theme_handle() . '-fonts', 'queue') && 'preconnect' === $relation_type) {
+// 		$urls[] = [
+// 			'href' => 'https://fonts.gstatic.com',
+// 			'crossorigin',
+// 		];
+// 	}
 
-	return $urls;
-}
+// 	return $urls;
+// }
 
 add_action('after_setup_theme', 'janeparris_theme_support', 9);
 /**
@@ -274,8 +274,9 @@ function janeparris_comments_gravatar($args)
 // ----------------------------------------------------------------
 
 
-/* Enqueue custom scripts and styles
-------------------------------------*/
+/**
+ * Enqueue custom scripts and styles
+ */
 
 // Scripts
 add_action('wp_enqueue_scripts', function () {
@@ -288,16 +289,17 @@ add_action('wp_enqueue_scripts', function () {
 	wp_enqueue_script('filterizr', get_stylesheet_directory_uri() . '/js/vanilla.filterizr.min.js', [], false, true,);
 	wp_enqueue_script('filtering-script', get_stylesheet_directory_uri() . '/js/filtering-main.js', ['filterizr'], false, true);
 
+	// Flickity
+	wp_enqueue_script('flickity', get_stylesheet_directory_uri() . '/js/flickity.pkgd.min.js', [], false, true,);
+	wp_enqueue_script('flickity-fade', get_stylesheet_directory_uri() . '/js/flickity-fade.js', ['flickity'], false, true);
+
 	// Custom
 	wp_enqueue_script('custom', get_stylesheet_directory_uri() . '/js/custom.js', array('jquery'),  '1.0.0', true);
 
 	// Ajax pagination
 	wp_enqueue_script('ajax-pagination.js', get_stylesheet_directory_uri() . "/js/ajax-pagination.js", array('jquery'));
-});
 
-
-// CSS
-add_action('wp_enqueue_scripts', function () {
+	// CSS
 	$themecsspath = get_stylesheet_directory() . '/css/custom.css';
 	wp_enqueue_style(
 		'child-theme',
@@ -305,64 +307,240 @@ add_action('wp_enqueue_scripts', function () {
 		array(),
 		filemtime($themecsspath)
 	);
+
+	// Adobe Typekit CSS
+	wp_enqueue_style('style-name', 'https://use.typekit.net/wco8mot.css');
 });
 
 
-/* Add partials to pages
-------------------------------------*/
+/**
+ * Responsive Image Helper Function
+ */
+/**
+ * @param string $image_id the id of the image (from ACF or similar)
+ * @param string $image_size the size of the thumbnail image or custom image size
+ * @param string $max_width the max width this image will be shown to build the sizes attribute 
+ * 
+ * https://www.awesomeacf.com/responsive-images-wordpress-acf/
+ * Usage example:
+ * <img class="my_class" <?php awesome_acf_responsive_image(get_field( 'image_1' ),'thumb-640','640px'); ?>  alt="text" /> 
+ */
 
-// Add Testimonial partial if page != Testimonial 
-add_action('genesis_before_footer', 'test1', 5);
-function test1()
+function awesome_acf_responsive_image($image_id, $image_size, $max_width)
+{
+	// check the image ID is not blank
+	if ($image_id != '') {
+		// set the default src image size
+		$image_src = wp_get_attachment_image_url($image_id, $image_size);
+		// set the srcset with various image sizes
+		$image_srcset = wp_get_attachment_image_srcset($image_id, $image_size);
+		// generate the markup for the responsive image
+		echo 'src="' . $image_src . '" srcset="' . $image_srcset . '" sizes="(max-width: ' . $max_width . ') 100vw, ' . $max_width . '"';
+	}
+}
+
+
+/** 
+ * Automatically generate a Table of Contents
+ */
+
+//<p><a href="#top">Top</a></p>
+
+// 1. Automatically add IDs and anchors to headings
+add_action('genesis_before_header', 'auto_id_headings');
+function auto_id_headings($content)
+{
+	$content = preg_replace_callback('/(\<h[2-3](.*?))\>(.*)(<\/h[2-3]>)/i', function ($matches) {
+
+		if (stripos($matches[0], '<h3')) :
+			$tag = 'subheading';
+		else :
+			$tag = '';
+		endif;
+
+		if (!stripos($matches[0], 'id=')) :
+			$heading_link = '<a href="#' . sanitize_title($matches[3]) . '"></a>';
+			$matches[0] = $matches[1] . $matches[2] . ' id="' . sanitize_title($matches[3]) . '" class="' . $tag . '">' . $heading_link . $matches[3] . $matches[4];
+		endif;
+
+		return $matches[0];
+	}, $content);
+
+	return $content;
+}
+add_filter('the_content', 'auto_id_headings');
+
+
+add_action('genesis_before_header', 'get_table_of_content', 5);
+
+
+// 2. Add ToC filter
+function get_table_of_content($content)
+{
+	ob_start();
+	preg_match_all("/<h[2,3](?:\sid=\"(.*)\")?(?:.*)?>(.*)<\/h[2,3]>/", $content, $matches);
+	$tags = $matches[0];
+	$ids = $matches[1];
+	$names = $matches[2];
+?>
+	<div id="top" class="toc">
+		<p class="toc__title visuallyhidden"><strong>Table of Contents</strong></p>
+		<ul class="toc__list">
+			<?php for ($i = 0; $i < count($names); $i++) { ?>
+				<?php if (strpos($tags[$i], "h2") === false || strpos($tags[$i], "class=\"nitoc\"") !== false) continue;
+				?>
+
+				<li class="toc__list-item">
+					<?php
+					$raw_title = $names[$i];
+					$clean_title = sanitize_title_with_dashes($raw_title);
+					?>
+					<a class="toc__list-item-link" href="#<?php echo $clean_title; ?>"><?php echo $raw_title; ?></a>
+
+
+
+					<?php if ($i !== count($names) && strpos($tags[$i + 1], "h3") !== false) { ?>
+						<ul>
+							<?php for ($j = 0; $j < count($names) - 1; $j++) { ?>
+								<?php $sub_index = $i + $j; ?>
+								<?php if ($j != 0 && strpos($tags[$sub_index], "h2") !== false) break; ?>
+								<?php if (strpos($tags[$sub_index], "h3") === false || strpos($tags[$sub_index], "class=\"nitoc\"") !== false) continue; ?>
+								<li>
+									<?php //if (!empty($ids[$sub_index])) { 
+									$raw_sub_title = $names[$sub_index];
+									$clean_sub_title = sanitize_title_with_dashes($raw_sub_title);
+
+
+									?>
+									<a class="toc__list-item-link" href="#<?php echo $clean_sub_title; ?>"><?php echo $raw_sub_title; ?></a>
+
+									<!-- <a href="#<?php //echo $ids[$sub_index]; 
+													?>"><?php //echo $names[$sub_index]; 
+																						?></a> -->
+									<?php //} else { 
+									?>
+									<?php //echo $names[$sub_index]; 
+									?>
+									<? php // } 
+									?>
+								</li>
+							<?php } ?>
+						</ul>
+					<?php } ?>
+
+
+				</li>
+			<?php } ?>
+		</ul>
+	</div>
+	<?php
+	return ob_get_clean();
+}
+
+// 3. Add the Table of Contents filter for use in blocks/toc.php
+add_action('genesis_entry_content', 'add_table_of_content');
+function add_table_of_content($content)
+{
+	return str_replace("{{TABLE_OF_CONTENTS}}", get_table_of_content($content), $content);
+}
+add_filter('the_content', 'add_table_of_content');
+
+// End of Table of Contents functions
+
+
+// ----------------------------------------------------------------
+// Add partials to pages
+// ----------------------------------------------------------------
+
+/**
+ * Add Testimonial partial if page != Testimonial 
+ */
+add_action('genesis_before_footer', 'random_testimonial', 5);
+function random_testimonial()
 {
 	if (is_page('testimonials')) {
 		// do nothing
 	} else {
-		echo '<p style="background: red;">Testimonial partial here</p>';
-		// get_template_part('partials/footer');
+		get_template_part('partials/testimonial', 'footer');
 	}
 }
 
-// Add Consultation Booking partial if page != Book a Consultion 
-add_action('genesis_before_footer', 'test2', 5);
-function test2()
+
+/**
+ * Add Consultation Booking partial if page != Book a Consultion
+ */
+add_action('genesis_before_footer', 'footer_cta', 5);
+function footer_cta()
 {
 	if (is_page('book-a-consultation')) {
 		// do nothing
 	} else {
-		echo '<p style="background: pink;">Book a consultation partial here</p>';
-		// get_template_part('partials/footer');
+		get_template_part('partials/cta', 'footer');
 	}
 }
 
-// Add footer nav
+/**
+ * Add footer nav
+ */
 add_action('genesis_footer', 'footer_content', 5);
 function footer_content()
 {
-	// Add first footer nav (primary nav)
-	wp_nav_menu(
-		array(
-			'menu' => 'primary',
-			'container_class' => 'footer-nav-1',
-			// do not fall back to first non-empty menu
-			'theme_location' => '__no_such_location',
-			// do not fall back to wp_page_menu()
-			'fallback_cb' => false
-		)
-	);
+	$items = wp_get_nav_menu_items('footer1');
+
+	if (!empty($items)) : ?>
+		<div class="wrap">
+			<nav class="footer-primary-nav">
+				<a href="/" title="Home" class="footer-primary-nav__logo">Jane Parris – Home</a>
+				<ul class="footer-primary-nav__list">
+					<?php foreach ($items as $item) : ?>
+						<li class="footer-primary-nav__list-item">
+							<a class="footer-primary-nav__list-item-link" href="<?php echo $item->url; ?>"><?php echo $item->title; ?></a>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+
+				<?php
+				// Get the social links from the ACF options page
+				if (have_rows('social_links', 'option')) :
+					echo '<ul class="footer-primary-nav__list-social">';
+					while (have_rows('social_links', 'option')) : the_row();
+						$channel_icon = get_sub_field('channel_icon');
+						echo '<li class="footer-primary-nav__list-item-social" id="social-link-' . get_row_index() . '">';
+						echo '<a class="footer-primary-nav__list-item-link-social" href="' . get_sub_field('channel_link') . '">';
+						echo '<img src="' . esc_url($channel_icon['url']) . '?>" alt= "' . get_sub_field('channel_name') . '" />';
+						echo '</a>';
+						echo '</li>';
+					endwhile;
+					echo '</ul>';
+				else :
+				// no rows found 	
+				endif;
+				?>
+			</nav>
+		</div>
+
+<?php
+	else : // if no menu items
+		echo '<p class="msg msg--error">(This menu contains no items.)</p>';
+	endif;
 }
 
-// Add post footer copyright & nav
+
+/**
+ * Add post footer copyright & nav
+ */
 add_action('genesis_after_footer', 'footer_post_content', 5);
 function footer_post_content()
 {
-	echo '<div class="footer__after-footer>';
+	echo '<div class="site-footer__secondary">';
+	echo '<div class="wrap">';
+	echo '<div class="site-footer__secondary-content">';
 	// Add copyright
 	echo '<div class="copyright">Copyright © 2020-' . date("Y") . ' Jane Parris</div>';
 	// Add second footer nav (Privacy, etc.)
 	wp_nav_menu(
 		array(
-			'menu' => 'footer',
+			'menu' => 'footer2',
 			'container_class' => 'footer-nav-2',
 			// do not fall back to first non-empty menu
 			'theme_location' => '__no_such_location',
@@ -371,11 +549,14 @@ function footer_post_content()
 		)
 	);
 	echo '</div>';
+	echo '</div>';
+	echo '</div>';
 }
 
 
-/* Add inline styles to editor
-------------------------------------*/
+/**
+ * Add inline styles to editor
+ */
 
 // Fix the ACF button colors
 // There is a conflict where the repeater buttons
@@ -386,25 +567,28 @@ add_action('admin_head', 'custom_acf_styles');
 function custom_acf_styles()
 {
 	echo '<style>
-		.acf-actions .acf-button {
-			background-color: #f6f7f7;
-			color: #0a4b78;
-		}
-        .acf-actions .acf-button:hover {
-            background-color: #f0f0f1;
-			color: #0a4b78;
-        }
-        .acf-actions .acf-button:hover,
-		.acf-actions .acf-button:focus {
-            background-color: #f0f0f1;
-			color: #0a4b78;
-        }
-    </style>';
+	.acf-actions .acf-button {
+		background-color: #f6f7f7;
+		color: #0a4b78;
+	}
+
+	.acf-actions .acf-button:hover {
+		background-color: #f0f0f1;
+		color: #0a4b78;
+	}
+
+	.acf-actions .acf-button:hover,
+	.acf-actions .acf-button:focus {
+		background-color: #f0f0f1;
+		color: #0a4b78;
+	}
+</style>';
 }
 
 
-/* Disable fullscreen editor
-------------------------------------*/
+/**
+ * Disable fullscreen editor
+ */
 
 $user = wp_get_current_user();
 
@@ -418,8 +602,9 @@ if ($user = 'Colin Lewis') {
 }
 
 
-/* Allow SVG upload
-------------------------------------*/
+/**
+ * Allow SVG upload
+ */
 function additional_mime($mime_types)
 {
 	$mime_types['svg'] = 'image/svg+xml';
@@ -428,9 +613,9 @@ function additional_mime($mime_types)
 add_filter('upload_mimes', 'additional_mime', 1, 1);
 
 
-/* Register taxonomy for testimonials
-------------------------------------*/
-
+/**
+ * Register taxonomy for testimonials
+ */
 add_action('init', 'create_taxonomy', 0);
 
 function create_taxonomy()
@@ -558,6 +743,36 @@ if (function_exists('acf_register_block_type')) :
 			'align' => false,
 			'mode' => true,
 			'multiple' => false,
+			'jsx' => false,
+			'align_content' => false,
+			'anchor' => false,
+		),
+	));
+
+	acf_register_block_type(array(
+		'name' => 'linked-h2',
+		'title' => 'Linked H2',
+		'description' => '',
+		'category' => 'common',
+		'keywords' => array(),
+		'post_types' => array(),
+		'mode' => 'edit',
+		'align' => '',
+		'align_content' => NULL,
+		'render_template' => 'blocks/linked-h2.php',
+		'render_callback' => '',
+		'enqueue_style' => '',
+		'enqueue_script' => '',
+		'enqueue_assets' => '',
+		'icon' => array(
+			'background' => '#8224e3',
+			'foreground' => '#ffffff',
+			'src' => 'heading',
+		),
+		'supports' => array(
+			'align' => true,
+			'mode' => true,
+			'multiple' => true,
 			'jsx' => false,
 			'align_content' => false,
 			'anchor' => false,
