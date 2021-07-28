@@ -2,6 +2,7 @@
   .toc {
     background-color: $gradient-b0;
     padding: 2.5rem;
+    margin-top: 3rem;
 
     &__title {
     }
@@ -10,13 +11,31 @@
       list-style-type: none;
       margin: 0;
       padding: 0;
+      &--secondary {
+        margin: 0;
+        padding: 0;
+      }
     }
+
     &__list-item {
     }
+
     &__list-item-link {
       font-family: $sans-bold;
       font-weight: bold;
       color: $gradient-b1;
+      display: block;
+      padding: 0.3rem 0;
+
+      &--secondary {
+        position: relative;
+        padding-left: 1.3rem;
+        &::before {
+          content: "–";
+          position: absolute;
+          left: 0.2rem;
+        }
+      }
     }
     &__list {
     }

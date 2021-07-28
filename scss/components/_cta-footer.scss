@@ -1,8 +1,16 @@
+.cta-footer-wrapper {
+  margin: auto;
+  @media screen and (min-width: $breakpoint-large) {
+    padding: 0 2rem;
+  }
+}
+
 .cta-footer {
   background-color: $extra-purple;
   display: flex;
-  margin-bottom: $push-down;
+  margin: auto auto $push-down auto;
   padding-right: 0;
+  max-width: $wrap-width;
 
   // Image disappear on smaller screens: add back container padding
   @media screen and (max-width: $breakpoint-large) {
@@ -43,7 +51,7 @@
     }
 
     @media screen and (max-width: $breakpoint-medium) {
-      padding-left: 1rem;
+      padding-left: 2rem;
     }
   }
 

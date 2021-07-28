@@ -125,15 +125,17 @@
 
 .site-footer__secondary {
   background-color: $extra-dark;
+  padding-right: 2rem;
+  padding-left: 2rem;
 
   .wrap {
     max-width: $wrap-width;
     margin: auto;
 
-    @media screen and (max-width: $breakpoint-large) {
-      padding-right: 2rem;
-      padding-left: 2rem;
-    }
+    // @media screen and (max-width: $breakpoint-large) {
+    //   padding-right: 2rem;
+    //   padding-left: 2rem;
+    // }
   }
 }
 

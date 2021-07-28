@@ -17,7 +17,7 @@
 }
 
 // Full bleed
-@mixin fullBleed {
+@mixin fullbleed {
   width: 100vw;
   margin-left: calc(50% - 50vw);
 }

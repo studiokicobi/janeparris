@@ -3,10 +3,18 @@
 
 $testimonial-image-width: 65rem;
 
+body {
+  .testimonial-image-wrapper {
+    @include fullbleed;
+    padding: 0 2rem;
+  }
+}
+
 .testimonial-image {
   position: relative;
   display: flex;
-  margin-bottom: $push-down;
+  margin: $push-down auto;
+  max-width: $breakpoint-large;
 
   @media screen and (max-width: $breakpoint-large) {
     flex-direction: column;
@@ -32,7 +40,10 @@ $testimonial-image-width: 65rem;
     background-size: 80%;
     background-position: center;
     color: $white;
-    padding: 6.25rem 2.5rem;
+    padding-top: clamp(3.25rem, -7.15rem + 16vw, 6.25rem);
+    padding-right: 2.5rem;
+    padding-bottom: clamp(1.5rem, -8.9rem + 16vw, 4.5rem);
+    padding-left: 2.5rem;
     font-size: clamp(1rem, 0.8039rem + 0.9804vw, 1.625rem);
 
     @include little-drop-cap;
@@ -56,29 +67,33 @@ $testimonial-image-width: 65rem;
       position: relative;
       top: 0;
       transform: translateY(0);
-      background-size: 70%;
+      background-size: cover;
     }
   }
 
   // Align image right
   &--r {
     .testimonial-image__text {
-      order: 1;
       left: 0;
     }
     .testimonial-image__image {
-      order: 2;
+      margin-left: 37%;
+      @media screen and (max-width: $breakpoint-large) {
+        margin-left: 0;
+      }
     }
   }
 
   // Align image left
   &--l {
     .testimonial-image__text {
-      order: 2;
       right: 0;
     }
     .testimonial-image__image {
-      order: 1;
+      margin-right: 37%;
+      @media screen and (max-width: $breakpoint-large) {
+        margin-right: 0;
+      }
     }
   }
 }

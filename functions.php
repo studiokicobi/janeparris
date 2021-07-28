@@ -397,37 +397,22 @@ function get_table_of_content($content)
 					?>
 					<a class="toc__list-item-link" href="#<?php echo $clean_title; ?>"><?php echo $raw_title; ?></a>
 
-
-
 					<?php if ($i !== count($names) && strpos($tags[$i + 1], "h3") !== false) { ?>
-						<ul>
+						<ul class="toc__list toc__list--secondary">
 							<?php for ($j = 0; $j < count($names) - 1; $j++) { ?>
 								<?php $sub_index = $i + $j; ?>
 								<?php if ($j != 0 && strpos($tags[$sub_index], "h2") !== false) break; ?>
 								<?php if (strpos($tags[$sub_index], "h3") === false || strpos($tags[$sub_index], "class=\"nitoc\"") !== false) continue; ?>
-								<li>
-									<?php //if (!empty($ids[$sub_index])) { 
+								<li class="toc__list-item toc__list-item--secondary">
+									<?php
 									$raw_sub_title = $names[$sub_index];
 									$clean_sub_title = sanitize_title_with_dashes($raw_sub_title);
-
-
 									?>
-									<a class="toc__list-item-link" href="#<?php echo $clean_sub_title; ?>"><?php echo $raw_sub_title; ?></a>
-
-									<!-- <a href="#<?php //echo $ids[$sub_index]; 
-													?>"><?php //echo $names[$sub_index]; 
-																						?></a> -->
-									<?php //} else { 
-									?>
-									<?php //echo $names[$sub_index]; 
-									?>
-									<? php // } 
-									?>
+									<a class="toc__list-item-link toc__list-item-link--secondary" href="#<?php echo $clean_sub_title; ?>"><?php echo $raw_sub_title; ?></a>
 								</li>
 							<?php } ?>
 						</ul>
 					<?php } ?>
-
 
 				</li>
 			<?php } ?>
@@ -488,36 +473,34 @@ function footer_content()
 	$items = wp_get_nav_menu_items('footer1');
 
 	if (!empty($items)) : ?>
-		<div class="wrap">
-			<nav class="footer-primary-nav">
-				<a href="/" title="Home" class="footer-primary-nav__logo">Jane Parris – Home</a>
-				<ul class="footer-primary-nav__list">
-					<?php foreach ($items as $item) : ?>
-						<li class="footer-primary-nav__list-item">
-							<a class="footer-primary-nav__list-item-link" href="<?php echo $item->url; ?>"><?php echo $item->title; ?></a>
-						</li>
-					<?php endforeach; ?>
-				</ul>
+		<nav class="footer-primary-nav">
+			<a href="/" title="Home" class="footer-primary-nav__logo">Jane Parris – Home</a>
+			<ul class="footer-primary-nav__list">
+				<?php foreach ($items as $item) : ?>
+					<li class="footer-primary-nav__list-item">
+						<a class="footer-primary-nav__list-item-link" href="<?php echo $item->url; ?>"><?php echo $item->title; ?></a>
+					</li>
+				<?php endforeach; ?>
+			</ul>
 
-				<?php
-				// Get the social links from the ACF options page
-				if (have_rows('social_links', 'option')) :
-					echo '<ul class="footer-primary-nav__list-social">';
-					while (have_rows('social_links', 'option')) : the_row();
-						$channel_icon = get_sub_field('channel_icon');
-						echo '<li class="footer-primary-nav__list-item-social" id="social-link-' . get_row_index() . '">';
-						echo '<a class="footer-primary-nav__list-item-link-social" href="' . get_sub_field('channel_link') . '">';
-						echo '<img src="' . esc_url($channel_icon['url']) . '?>" alt= "' . get_sub_field('channel_name') . '" />';
-						echo '</a>';
-						echo '</li>';
-					endwhile;
-					echo '</ul>';
-				else :
-				// no rows found 	
-				endif;
-				?>
-			</nav>
-		</div>
+			<?php
+			// Get the social links from the ACF options page
+			if (have_rows('social_links', 'option')) :
+				echo '<ul class="footer-primary-nav__list-social">';
+				while (have_rows('social_links', 'option')) : the_row();
+					$channel_icon = get_sub_field('channel_icon');
+					echo '<li class="footer-primary-nav__list-item-social" id="social-link-' . get_row_index() . '">';
+					echo '<a class="footer-primary-nav__list-item-link-social" href="' . get_sub_field('channel_link') . '">';
+					echo '<img src="' . esc_url($channel_icon['url']) . '?>" alt= "' . get_sub_field('channel_name') . '" />';
+					echo '</a>';
+					echo '</li>';
+				endwhile;
+				echo '</ul>';
+			else :
+			// no rows found 	
+			endif;
+			?>
+		</nav>
 
 <?php
 	else : // if no menu items

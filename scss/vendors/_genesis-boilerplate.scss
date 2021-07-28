@@ -1128,8 +1128,8 @@ figcaption,
 
 .wp-custom-logo .title-area {
   max-width: 350px;
-  padding-bottom: 5px;
-  padding-top: 5px;
+  padding-bottom: 15px;
+  padding-top: 15px;
   width: 100%;
 }
 
@@ -1293,11 +1293,7 @@ figcaption,
   padding: 0.4em 0 1em 0;
   position: relative;
   z-index: 1000;
-  transform: translate(1rem, 0.9rem);
-
-  @media screen and (max-width: $breakpoint-small) {
-    margin-top: 7px;
-  }
+  transform: translate(1rem, 1rem);
 }
 
 .menu-toggle.activated::before {
