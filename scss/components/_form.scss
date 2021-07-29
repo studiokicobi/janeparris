@@ -1,0 +1,133 @@
+.form {
+  margin-top: $push;
+  padding: 4.25rem;
+  color: $cream;
+  background-color: $dark-blue;
+
+  p {
+    margin: 0;
+    padding: 0;
+    width: auto;
+    min-width: none;
+
+    &.form__checkbox-label {
+      margin-bottom: 0.2rem;
+    }
+  }
+
+  input {
+    color: $cream;
+    background-color: $gradient-d8;
+    border: none;
+    font-family: $sans;
+    font-weight: normal;
+    line-height: 2rem;
+    margin-top: 0.2rem;
+    margin-bottom: 2rem;
+
+    &[type="checkbox"] {
+      margin-bottom: 0.75rem;
+      margin-right: 0.2rem;
+    }
+
+    &::placeholder {
+      color: $gradient-a3;
+    }
+  }
+
+  &__field {
+    input {
+      max-width: 44rem;
+    }
+
+    &--cols {
+      display: flex;
+      justify-content: space-evenly;
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    &--column {
+      flex-basis: 50%;
+    }
+  }
+
+  &__label,
+  &__checkbox-label {
+    color: $gradient-a2;
+    font-family: $sans-bold;
+    font-weight: bold;
+    position: relative;
+  }
+
+  &__required {
+  }
+
+  &__checkboxes {
+    display: flex;
+    flex-direction: column;
+    background-color: $gradient-d8;
+    padding: 1.5rem;
+    min-height: 15rem;
+
+    span.wpcf7-list-item {
+      margin: 0;
+    }
+
+    label {
+      color: $gradient-a2;
+      font-family: $sans;
+      font-weight: normal;
+    }
+  }
+
+  &__field--textarea {
+    margin-top: 2rem;
+
+    .form__label {
+      margin-bottom: 0.3rem;
+      display: inline-block;
+    }
+
+    textarea {
+      color: $cream;
+      background-color: $gradient-d8;
+      border: none;
+      font-family: $sans;
+      font-weight: normal;
+
+      &::placeholder {
+        color: $gradient-a3;
+      }
+    }
+  }
+}
+
+input.form__submit[type="submit"] {
+  cursor: pointer;
+  color: $white;
+  background-color: $gradient-a7;
+  padding: 0.85rem 0.95rem;
+  font-family: $sans-bold;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 200ms;
+  border-radius: 0;
+  margin-top: 4rem;
+  font-size: 1.5rem;
+
+  @include on-event {
+    color: $black;
+    background-color: $link-color;
+    text-decoration: none;
+  }
+}
+
+.asterisk {
+  &::after {
+    color: $gradient-a5;
+    content: "*";
+    display: inline-block;
+    padding-left: 0.1rem;
+  }
+}

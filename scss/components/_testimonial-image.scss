@@ -13,7 +13,7 @@ body {
 .testimonial-image {
   position: relative;
   display: flex;
-  margin: $push-down auto;
+  margin: $push auto;
   max-width: $breakpoint-large;
 
   @media screen and (max-width: $breakpoint-large) {

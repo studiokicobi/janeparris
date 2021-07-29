@@ -16,8 +16,6 @@ function custom_body_class($classes)
 
 add_filter('genesis_pre_get_option_site_layout', '__genesis_return_full_width_content');
 
-// get_header(); // displays header
-
 remove_action('genesis_loop', 'genesis_do_loop');
 add_action('genesis_loop', 'writing_custom_loop');
 function writing_custom_loop()
@@ -37,7 +35,12 @@ function writing_custom_loop()
         echo '<ul>';
         while ($query_sticky->have_posts()) {
             $query_sticky->the_post();
-            echo '<li>' . get_the_title() . '</li>';
+
+            // Get the first letter of the title in order to create a custom class
+            $string = get_the_title();
+            $firstChar = mb_substr($string, 0, 1, "UTF-8");
+
+            echo '<li class="bg-letter letter__' . $firstChar . '"><a href="' . get_the_permalink() . '" rel="bookmark" title="Permanent link to ' . esc_html(get_the_title()) . '">' . get_the_title() . '</a></li>';
         }
         echo '</ul>';
     } else {
@@ -46,19 +49,15 @@ function writing_custom_loop()
     // Reset 
     wp_reset_postdata();
 
-
-
-
     // List non-sticky posts
     echo '<div id="content">';
     echo '<h2>' . get_field('regular') . '</h2>';
-
 
     //Protect against arbitrary paged values
     $paged = (get_query_var('paged')) ? absint(get_query_var('paged')) : 1;
 
     $args_regular_posts = array(
-        'posts_per_page' => 2,
+        'posts_per_page' => 10,
         'paged' => $paged,
         'post_status'         => 'publish',
         'post__not_in' => get_option('sticky_posts')
@@ -69,7 +68,7 @@ function writing_custom_loop()
         echo '<ul>';
         while ($query_regular_posts->have_posts()) {
             $query_regular_posts->the_post();
-            echo '<li>' . get_the_title() . '</li>';
+            echo '<li><a href="' . get_the_permalink() . '" rel="bookmark" title="Permanent link to ' . esc_html(get_the_title()) . '">' . get_the_title() . '</a></li>';
         }
         echo '</ul>';
     } else {
@@ -93,8 +92,6 @@ function writing_custom_loop()
 
     // Reset 
     wp_reset_postdata();
-
-
 
     // List categories
     echo '<h2>' . get_field('category') . '</h2>';

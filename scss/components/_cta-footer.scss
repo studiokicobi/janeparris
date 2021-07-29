@@ -8,7 +8,7 @@
 .cta-footer {
   background-color: $extra-purple;
   display: flex;
-  margin: auto auto $push-down auto;
+  margin: auto auto $push auto;
   padding-right: 0;
   max-width: $wrap-width;
 
@@ -61,6 +61,7 @@
     font-weight: bold;
     line-height: 1.1;
     font-size: 2.8125rem;
+    margin-top: 0;
 
     @media screen and (max-width: $breakpoint-large) {
       font-size: clamp(1.5rem, 0.7791rem + 3.6047vw, 3.4375rem);

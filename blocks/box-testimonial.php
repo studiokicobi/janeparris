@@ -27,14 +27,22 @@ if (!empty($block['align'])) {
 }
 ?>
 
-<style type="text/css">
-    <?php echo '#' . $id; ?> {
-        /* Add styles that use ACF values here */
-    }
-</style>
 
-<div id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($classes); ?>">
-    <?php the_field('testimonial_text'); ?>
-    <?php the_field('testimonial_author'); ?>
-    <?php the_field('role'); ?>
+<div class="box-testimonial__text-wrapper">
+    <div class="box-testimonial__text">
+        <p class="box-testimonial__text--main has-drop-cap">
+            <?php the_field('testimonial_text'); ?>
+        </p>
+        <p class="box-testimonial__text--meta">
+            <span class="box-testimonial__text--author">
+                <?php the_field('testimonial_author'); ?>
+            </span>
+            <?php if (get_field('role')) : ?>
+                <span class="box-testimonial__text--role">
+                    <br />
+                    <?php the_field('role'); ?>
+                </span>
+            <?php endif ?>
+        </p>
+    </div>
 </div>

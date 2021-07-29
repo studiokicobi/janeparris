@@ -4,7 +4,7 @@
   background-size: contain;
   background-position: center;
   text-align: center;
-  margin-bottom: $push-down;
+  margin-bottom: $push;
 
   &__content {
     font-size: clamp(1.5rem, 0.7941rem + 3.5294vw, 3.75rem);

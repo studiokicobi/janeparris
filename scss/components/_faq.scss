@@ -1,20 +1,168 @@
+// Sticky sliding cards
+
+.block-faq {
+  // padding-top: $push;
+  // padding-bottom: $push;
+}
+
+.stacked-card-title {
+  position: sticky;
+  top: 2rem;
+  padding-bottom: 2rem;
+
+  @media screen and (max-width: $breakpoint-medium) {
+    position: relative;
+    top: 0;
+  }
+}
+/* ------------------------------------ *\
+   Global card tyles
+\* ------------------------------------ */
+
 .stacked-card {
   position: sticky;
-  top: 1em;
+  top: 3rem;
   background: white;
-  border: 1px solid black;
-  margin-top: 1em;
+  margin-bottom: 3rem;
+  border-radius: 1.25rem;
 
-  &__heading {}
-  &__content {}
+  @media screen and (max-width: $breakpoint-medium) {
+    position: relative;
+    top: 0;
+  }
+
+  &__heading-wrapper {
+    display: flex;
+    border-top-left-radius: 1.25rem;
+    border-top-right-radius: 1.25rem;
+  }
+
+  &__heading {
+    color: $white;
+    padding: 1.25rem;
+    width: 46.25rem;
+    display: block;
+    text-align: center;
+    margin: 2.5rem 3.5rem;
+    position: relative;
+
+    &::before {
+      border: 1.2rem solid transparent;
+      border-top: 1.2rem solid transparent;
+      border-bottom: 0;
+      height: 0;
+      width: 0;
+      border-top-width: 2.4rem;
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: 40%;
+      transform-origin: center;
+    }
+  }
+
+  &__content-wrapper {
+    padding: 6.25rem 6.25rem 6.25rem 6.25rem;
+    min-height: 18rem;
+  }
+
+  &__content {
+    columns: auto 24rem;
+    gap: 3rem;
+    color: $cream;
+    font-family: $sans;
+    min-height: 20rem;
+  }
 }
 
 @for $i from 1 through 20 {
   .stacked-card:nth-child(#{$i}n) {
-    top: $i * 2em;
+    top: $i * 3rem;
+    @media screen and (max-width: $breakpoint-medium) {
+      top: 0;
+    }
   }
 }
 
-// Turn off Table of Contents plugin debug messages
-// These appear in dev even when debug is off 
-.ez-toc-debug-messages { display: none; }
+/* ------------------------------------ *\
+   Pointer mixins for headings
+\* ------------------------------------ */
+
+@mixin pointer-left {
+  left: -2.3rem;
+  transform: rotate(90deg) skew(15deg) translateX(50%);
+}
+@mixin pointer-right {
+  right: -2.3rem;
+  transform: rotate(-90deg) skew(-15deg) translateX(-50%);
+}
+
+/* ------------------------------------ *\
+   Select every fifth card beginning at 1
+\* ------------------------------------ */
+
+.stacked-card {
+  // Cards 1, 5, etc.
+  &:nth-of-type(4n + 1) {
+    background-color: $gradient-d8;
+    .stacked-card__heading-wrapper {
+      justify-content: flex-start;
+      background-color: $dark-blue;
+    }
+    .stacked-card__heading {
+      background-color: $gradient-d8;
+      &::before {
+        @include pointer-left;
+        border-top-color: $gradient-d8;
+      }
+    }
+  }
+
+  // Cards 2, 6, etc.
+  &:nth-of-type(4n + 2) {
+    background-color: $gradient-d7;
+    .stacked-card__heading-wrapper {
+      justify-content: flex-end;
+      background-color: $gradient-b9;
+    }
+    .stacked-card__heading {
+      background-color: $gradient-d7;
+      &::before {
+        @include pointer-right;
+        border-top-color: $gradient-d7;
+      }
+    }
+  }
+
+  // Cards 3, 7, etc.
+  &:nth-of-type(4n + 3) {
+    background-color: $gradient-a6;
+    .stacked-card__heading-wrapper {
+      justify-content: flex-start;
+      background-color: $gradient-d8;
+    }
+    .stacked-card__heading {
+      background-color: $gradient-a6;
+      &::before {
+        @include pointer-left;
+        border-top-color: $gradient-a6;
+      }
+    }
+  }
+
+  // Cards, 4, 8, etc.
+  &:nth-of-type(4n + 4) {
+    background-color: $gradient-b9;
+    .stacked-card__heading-wrapper {
+      justify-content: flex-end;
+      background-color: $gradient-d7;
+    }
+    .stacked-card__heading {
+      background-color: $gradient-b9;
+      &::before {
+        @include pointer-right;
+        border-top-color: $gradient-b9;
+      }
+    }
+  }
+}

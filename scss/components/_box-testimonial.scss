@@ -1,0 +1,35 @@
+.box-testimonial {
+  &__text-wrapper {
+    background-color: $gradient-c8;
+    margin: $push auto;
+  }
+  &__text {
+    background-image: url("../images/quotes.svg");
+    background-repeat: no-repeat;
+    background-size: 85% 85%;
+    background-position: center;
+    color: $white;
+    padding: 5.5rem 2.5rem 4.5rem 2.5rem;
+    font-size: clamp(1rem, 0.8039rem + 0.9804vw, 1.625rem);
+    max-width: 44rem;
+    margin: auto;
+
+    @include little-drop-cap;
+
+    &--main {
+    }
+    &--meta {
+      font-size: clamp(1rem, 0.8431rem + 0.7843vw, 1.5rem);
+      color: $gradient-b1;
+    }
+
+    &--author {
+      font-family: $sans-bold;
+      font-weight: bold;
+    }
+
+    &--role {
+      font-family: $sans;
+    }
+  }
+}

@@ -1,0 +1,95 @@
+// https://codepen.io/foxeisen/pen/mMRmdx?editors=1100
+
+//vars
+$border-color: #5a5a5a;
+
+//position absolute mixin
+@mixin position-absolute($top: null, $left: null, $right: null, $bottom: null) {
+  position: absolute;
+  top: $top;
+  left: $left;
+  right: $right;
+  bottom: $bottom;
+}
+
+//transitions mixin
+@mixin transition-mix(
+  $property: all,
+  $duration: 0.2s,
+  $timing: linear,
+  $delay: 0s
+) {
+  transition-property: $property;
+  transition-duration: $duration;
+  transition-timing-function: $timing;
+  transition-delay: $delay;
+}
+
+// input styles
+.checkbox-block {
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkbox-effect:not(:checked),
+.checkbox-effect:checked {
+  position: absolute;
+  left: -9999px;
+}
+
+label {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+// checkbox effect no. 4
+.checkbox-effect-4:not(:checked) + label:before,
+.checkbox-effect-4:checked + label:before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid $border-color;
+  box-sizing: border-box;
+  border-radius: 3px;
+  margin-right: 20px;
+  @include transition-mix($delay: 0.2s);
+}
+
+.checkbox-effect-4:not(:checked) + label:after,
+.checkbox-effect-4:checked + label:after {
+  content: "\f00c";
+  font: {
+    family: fontawesome;
+    size: 22px;
+  }
+  display: flex;
+  height: 100%;
+  align-items: center;
+  @include position-absolute($left: 2px, $top: 0);
+  color: $dark-blue;
+  @include transition-mix;
+  transform-origin: center center;
+  opacity: 0;
+}
+
+.checkbox-effect-4:not(:checked) + label:after {
+  transform: scale(0);
+}
+
+.checkbox-effect-4:checked + label:before {
+  transform: scale(0);
+  opacity: 0;
+  @include transition-mix;
+}
+
+.checkbox-effect-4:checked + label:after {
+  transform: scale(1);
+  opacity: 1;
+  @include transition-mix(
+    $delay: 0.2s,
+    $timing: cubic-bezier(0.57, 1.9, 0, 1.52)
+  );
+}
