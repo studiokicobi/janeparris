@@ -101,3 +101,18 @@
 .full-bleed {
   @include fullbleed;
 }
+
+// Hide edit link
+.post-edit-link {
+  display: none;
+}
+
+// Animation
+.scale {
+  transition: all 300ms ease-in-out;
+
+  @include on-event {
+    transform: scale(1.035);
+    box-shadow: 7px 7px 0 0px $gradient-a4;
+  }
+}

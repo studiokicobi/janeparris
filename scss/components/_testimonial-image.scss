@@ -28,6 +28,22 @@ body {
     }
   }
 
+  &__image-wrapper {
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba($light-grey, 0.85);
+      transform: rotate(-1.5deg);
+      z-index: -1;
+    }
+  }
+
   // Text
   &__text {
     width: 50%;

@@ -1,0 +1,251 @@
+// Writing template
+
+body.page-template-writing {
+  // Sans-serif style for H2 headings
+  h2 {
+    font-family: $sans-bold;
+    font-weight: bold;
+    font-size: 1.625rem;
+  }
+
+  /* ------------------------------------ *\ 
+     Featured (sticky) posts
+  \* ------------------------------------ */
+  .featured {
+    display: grid;
+    grid-gap: 2rem;
+
+    // Grid magic makes the responsive layout
+    @supports (width: min(20rem, 100%)) {
+      grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+    }
+
+    // Featured item
+    &__item {
+      position: relative;
+
+      // Magic to give the items a responsive 1:1 ratio
+      &:after {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+      }
+
+      // Background colors
+      &:nth-of-type(1) {
+        background-color: $gradient-c9;
+      }
+      &:nth-of-type(2) {
+        background-color: $gradient-b9;
+      }
+      &:nth-of-type(3) {
+        background-color: $gradient-d7;
+      }
+      &:nth-of-type(4) {
+        background-color: $gradient-a6;
+      }
+      &:nth-of-type(5) {
+        background-color: $gradient-d9;
+      }
+      &:nth-of-type(6) {
+        background-color: $gradient-d8;
+      }
+
+      // Background letter styles
+      .bg-letter {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: bottom right;
+      }
+    }
+
+    // Absolutely positioned content wrapper
+    &__item-wrapper {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden; // just in case
+    }
+
+    &__item-content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      padding: 1.875rem;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    &__item-heading {
+      margin: 0;
+    }
+
+    // The anchor
+    &__item-link {
+      font-family: $bold;
+      font-weight: 900;
+      color: $cream;
+      font-size: 1.875rem;
+      line-height: 1.2;
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+      }
+    }
+
+    &__item-label {
+      margin: auto 0 0 0;
+
+      span {
+        padding: 0.5rem 1rem;
+        color: $cream;
+        background-color: rgba(0, 0, 0, 0.65);
+        font-family: $sans-bold;
+        font-weight: bold;
+        transition: all 350ms ease-in-out;
+      }
+    }
+  }
+
+  // Transitions
+  .featured__item {
+    transition: all 300ms ease-in-out;
+
+    // On event
+    @include on-event {
+      background-color: $extra-purple;
+
+      a {
+        text-decoration: none;
+      }
+
+      span {
+        color: $cream;
+        background-color: $gradient-a6;
+      }
+    }
+  }
+
+  /* ------------------------------------ *\ 
+     Latest list (posts listed by date)
+  \* ------------------------------------ */
+
+  .writing {
+    &__lists-wrapper {
+      position: relative;
+      width: 100%;
+      height: 45rem;
+
+      @media screen and (max-width: 58rem) {
+        height: auto;
+      }
+    }
+
+    &__latest-list {
+      font-family: $sans;
+
+      ul {
+        min-height: 29rem;
+
+        @media screen and (max-width: 58rem) {
+          min-height: auto;
+          margin-bottom: $push;
+        }
+
+        a {
+          color: $dark-blue;
+          text-decoration: none;
+          line-height: 2.3;
+          transition: all 200ms ease-in-out;
+          text-decoration: underline;
+          text-decoration-color: $link-color;
+          text-decoration-thickness: 2px;
+          text-underline-offset: 3px;
+          text-decoration-skip-ink: 2px;
+
+          @include on-event {
+            text-decoration-color: $link-color;
+          }
+        }
+      }
+    }
+
+    &__category-list {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: calc(33% - 1rem);
+
+      @media screen and (max-width: 58rem) {
+        position: relative;
+        top: auto;
+        right: auto;
+        width: 100%;
+      }
+
+      h2 {
+        margin-top: 0;
+      }
+
+      ul {
+        li {
+          display: inline;
+
+          .children {
+            display: none; // just for dev
+          }
+
+          a {
+            text-decoration: none;
+            padding: 0.1rem 0.5rem;
+            color: $cream;
+            background-color: $gradient-b9;
+            display: inline-block;
+            margin: auto 0.2rem 0.4rem 0;
+
+            @include on-event {
+              background-color: $gradient-a7;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .pagination {
+    font-family: $sans-bold;
+    font-weight: bold;
+    border-top: 3px solid $light-grey;
+    padding-top: 1rem;
+    text-align: center;
+
+    .page-numbers {
+      color: $dark-blue;
+      margin: auto 0.1rem;
+      text-decoration: none;
+      display: inline;
+      padding: 0.25rem 0.75rem;
+
+      @include on-event {
+        color: $cream;
+        background-color: $link-color;
+      }
+    }
+
+    span.page-numbers.current {
+      color: $cream;
+      background-color: $extra-dark;
+      display: inline;
+      padding: 0.25rem 0.75rem;
+    }
+  }
+  /* ------------------------------------ *\ 
+     Category list
+  \* ------------------------------------ */
+}

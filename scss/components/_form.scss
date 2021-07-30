@@ -1,5 +1,5 @@
 .form {
-  margin-top: $push;
+  margin: $push auto;
   padding: 4.25rem;
   color: $cream;
   background-color: $dark-blue;
@@ -23,7 +23,6 @@
     font-weight: normal;
     line-height: 2rem;
     margin-top: 0.2rem;
-    margin-bottom: 2rem;
 
     &[type="checkbox"] {
       margin-bottom: 0.75rem;
@@ -44,7 +43,7 @@
       display: flex;
       justify-content: space-evenly;
       gap: 1.5rem;
-      align-items: stretch;
+      margin-top: 2rem;
     }
 
     &--column {
@@ -113,8 +112,8 @@ input.form__submit[type="submit"] {
   text-decoration: none;
   transition: all 200ms;
   border-radius: 0;
-  margin-top: 4rem;
-  font-size: 1.5rem;
+  margin-top: 3rem;
+  font-size: 1.15rem;
 
   @include on-event {
     color: $black;
@@ -130,4 +129,52 @@ input.form__submit[type="submit"] {
     display: inline-block;
     padding-left: 0.1rem;
   }
+}
+
+.wpcf7-not-valid-tip {
+  color: #f080af;
+  font-family: $sans-bold;
+  font-weight: bold;
+  padding-top: 0.5rem;
+}
+
+.wpcf7-response-output {
+  border: 0;
+  width: 100%;
+  margin: 2rem 0;
+  padding: 1rem;
+  font-family: $sans-bold;
+  font-weight: bold;
+}
+
+.wpcf7 form .wpcf7-response-output {
+  margin: 2em 0.5em 1em;
+  padding: 0.2em 1em;
+  border: 0;
+  background-color: #69cbe9; /* Blue */
+}
+
+.wpcf7 form.init .wpcf7-response-output {
+  display: none;
+}
+
+.wpcf7 form.sent .wpcf7-response-output {
+  border: 0;
+  background-color: #82d689; /* Green */
+}
+
+.wpcf7 form.failed .wpcf7-response-output,
+.wpcf7 form.aborted .wpcf7-response-output {
+  border: 0;
+  border-color: #e67d7d; /* Red */
+}
+
+.wpcf7 form.spam .wpcf7-response-output {
+  border: 0;
+  border-color: #e28b5f; /* Orange */
+}
+
+.wpcf7 form.invalid .wpcf7-response-output,
+.wpcf7 form.unaccepted .wpcf7-response-output {
+  border-color: #ffb900; /* Yellow */
 }

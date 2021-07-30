@@ -32,7 +32,7 @@ function writing_custom_loop()
     $query_sticky = new WP_Query($args_sticky);
 
     if ($query_sticky->have_posts()) {
-        echo '<ul>';
+        echo '<div class="featured">';
         while ($query_sticky->have_posts()) {
             $query_sticky->the_post();
 
@@ -40,19 +40,30 @@ function writing_custom_loop()
             $string = get_the_title();
             $firstChar = mb_substr($string, 0, 1, "UTF-8");
 
-            echo '<li class="bg-letter letter__' . $firstChar . '"><a href="' . get_the_permalink() . '" rel="bookmark" title="Permanent link to ' . esc_html(get_the_title()) . '">' . get_the_title() . '</a></li>';
+            echo '<div class="featured__item scale">';
+            echo '<div class="featured__item-wrapper bg-letter" style="background-image: url(' . get_stylesheet_directory_uri() . '/images/alphabet/' . $firstChar . '.svg);">';
+            echo '<div class="featured__item-content">';
+            echo '<h2 class="featured__item-heading">';
+            echo '<a class="featured__item-link" href="' . get_the_permalink() . '" rel="bookmark" title="Read ' . esc_html(get_the_title()) . '">' . get_the_title() . '</a>';
+            echo '</h2>';
+            echo '<div class="featured__item-label" aria-hidden="true"><span>Read</span></div>';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
         }
-        echo '</ul>';
+
+        echo '</div>';
     } else {
         // no posts found
     }
     // Reset 
     wp_reset_postdata();
 
-    // List non-sticky posts
-    echo '<div id="content">';
-    echo '<h2>' . get_field('regular') . '</h2>';
+    echo '<div class="writing__lists-wrapper">';
 
+    // List non-sticky posts
+    echo '<div class="writing__latest-list">';
+    echo '<h2>' . get_field('regular') . '</h2>';
     //Protect against arbitrary paged values
     $paged = (get_query_var('paged')) ? absint(get_query_var('paged')) : 1;
 
@@ -63,6 +74,8 @@ function writing_custom_loop()
         'post__not_in' => get_option('sticky_posts')
     );
     $query_regular_posts = new WP_Query($args_regular_posts);
+
+    echo '<div id="content">';
 
     if ($query_regular_posts->have_posts()) {
         echo '<ul>';
@@ -76,13 +89,14 @@ function writing_custom_loop()
     }
 
     // Add pagination
-    echo '<div id="pagination">';
+    echo '<div id="pagination" class="pagination">';
 
     $big = 999999999;
 
     echo paginate_links(array(
         'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
         'format' => '?paged=%#%',
+        'prev_next' => false,
         'current' => max(1, get_query_var('paged')),
         'total' => $query_regular_posts->max_num_pages
     ));
@@ -94,12 +108,16 @@ function writing_custom_loop()
     wp_reset_postdata();
 
     // List categories
+    echo '<div class="writing__category-list">';
     echo '<h2>' . get_field('category') . '</h2>';
     echo '<ul>';
     wp_list_categories(array(
         'title_li' => ''
     ));
     echo '</ul>';
+    echo '</div>';
 }
+
+echo '</div>'; // .writing__lists-wrapper
 
 genesis();
