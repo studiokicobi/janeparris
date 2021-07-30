@@ -11,6 +11,7 @@ body.page-template-writing {
   /* ------------------------------------ *\ 
      Featured (sticky) posts
   \* ------------------------------------ */
+
   .featured {
     display: grid;
     grid-gap: 2rem;
@@ -20,15 +21,31 @@ body.page-template-writing {
       grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
     }
 
+    @media screen and (max-width: $breakpoint-small) {
+      display: block;
+    }
+
     // Featured item
     &__item {
       position: relative;
+      transition: all 300ms ease-in-out;
+
+      @media screen and (min-width: $breakpoint-small) {
+        @include on-event {
+          transform: scale(1.035);
+          box-shadow: 7px 7px 0 0px $gradient-a4;
+        }
+      }
 
       // Magic to give the items a responsive 1:1 ratio
       &:after {
         content: "";
         display: block;
         padding-bottom: 100%;
+
+        @media screen and (max-width: $breakpoint-small) {
+          padding-bottom: 0;
+        }
       }
 
       // Background colors
@@ -56,6 +73,14 @@ body.page-template-writing {
         background-repeat: no-repeat;
         background-size: cover;
         background-position: bottom right;
+
+        @media screen and (max-width: $breakpoint-small) {
+          background-image: none !important;
+        }
+      }
+
+      @media screen and (max-width: $breakpoint-small) {
+        background-color: $cream !important;
       }
     }
 
@@ -65,6 +90,13 @@ body.page-template-writing {
       width: 100%;
       height: 100%;
       overflow: hidden; // just in case
+
+      @media screen and (max-width: $breakpoint-small) {
+        position: relative;
+        width: auto;
+        height: auto;
+        overflow: visible;
+      }
     }
 
     &__item-content {
@@ -75,6 +107,13 @@ body.page-template-writing {
       display: flex;
       flex-direction: column;
       align-items: stretch;
+
+      @media screen and (max-width: $breakpoint-small) {
+        padding: 0;
+        width: auto;
+        height: auto;
+        display: block;
+      }
     }
 
     &__item-heading {
@@ -89,6 +128,25 @@ body.page-template-writing {
       font-size: 1.875rem;
       line-height: 1.2;
 
+      @media screen and (max-width: $breakpoint-small) {
+        font-family: $sans;
+        font-weight: normal;
+        font-size: 1.2rem;
+        color: $dark-blue;
+        line-height: 2.3;
+        transition: all 200ms ease-in-out;
+        text-decoration: underline;
+        text-decoration-color: $link-color;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 3px;
+        text-decoration-skip-ink: 2px;
+
+        @include on-event {
+          text-decoration: underline;
+          text-decoration-color: $dark-blue;
+        }
+      }
+
       &::after {
         content: "";
         position: absolute;
@@ -96,6 +154,15 @@ body.page-template-writing {
         top: 0;
         right: 0;
         bottom: 0;
+
+        @media screen and (max-width: $breakpoint-small) {
+          position: relative;
+          left: auto;
+          top: auto;
+          right: auto;
+          bottom: auto;
+          display: none;
+        }
       }
     }
 
@@ -109,6 +176,10 @@ body.page-template-writing {
         font-family: $sans-bold;
         font-weight: bold;
         transition: all 350ms ease-in-out;
+
+        @media screen and (max-width: $breakpoint-small) {
+          display: none;
+        }
       }
     }
   }
@@ -121,8 +192,10 @@ body.page-template-writing {
     @include on-event {
       background-color: $extra-purple;
 
-      a {
-        text-decoration: none;
+      @media screen and (min-width: $breakpoint-small) {
+        a {
+          text-decoration: none;
+        }
       }
 
       span {
@@ -131,121 +204,118 @@ body.page-template-writing {
       }
     }
   }
+}
 
-  /* ------------------------------------ *\ 
+/* ------------------------------------ *\ 
      Latest list (posts listed by date)
-  \* ------------------------------------ */
+\* ------------------------------------ */
 
-  .writing {
-    &__lists-wrapper {
-      position: relative;
-      width: 100%;
-      height: 45rem;
+.writing {
+  &__lists-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: $push;
+  }
 
-      @media screen and (max-width: 58rem) {
-        height: auto;
-      }
-    }
+  &__latest-list {
+    font-family: $sans;
 
-    &__latest-list {
-      font-family: $sans;
+    ul {
+      a {
+        color: $text-color;
+        line-height: 2.3;
+        transition: all 200ms ease-in-out;
+        text-decoration: underline;
+        text-decoration-color: $link-color;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 3px;
+        text-decoration-skip-ink: 2px;
 
-      ul {
-        min-height: 29rem;
-
-        @media screen and (max-width: 58rem) {
-          min-height: auto;
-          margin-bottom: $push;
-        }
-
-        a {
-          color: $dark-blue;
-          text-decoration: none;
-          line-height: 2.3;
-          transition: all 200ms ease-in-out;
-          text-decoration: underline;
-          text-decoration-color: $link-color;
-          text-decoration-thickness: 2px;
-          text-underline-offset: 3px;
-          text-decoration-skip-ink: 2px;
-
-          @include on-event {
-            text-decoration-color: $link-color;
-          }
+        @include on-event {
+          text-decoration-color: $text-color;
         }
       }
     }
 
-    &__category-list {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: calc(33% - 1rem);
-
-      @media screen and (max-width: 58rem) {
-        position: relative;
-        top: auto;
-        right: auto;
-        width: 100%;
-      }
-
-      h2 {
-        margin-top: 0;
-      }
-
-      ul {
-        li {
-          display: inline;
-
-          .children {
-            display: none; // just for dev
-          }
-
-          a {
-            text-decoration: none;
-            padding: 0.1rem 0.5rem;
-            color: $cream;
-            background-color: $gradient-b9;
-            display: inline-block;
-            margin: auto 0.2rem 0.4rem 0;
-
-            @include on-event {
-              background-color: $gradient-a7;
-            }
-          }
-        }
-      }
+    .archive-link {
+      margin: 2rem 0;
+      font-size: 100%;
     }
   }
 
-  .pagination {
-    font-family: $sans-bold;
-    font-weight: bold;
-    border-top: 3px solid $light-grey;
-    padding-top: 1rem;
-    text-align: center;
-
-    .page-numbers {
-      color: $dark-blue;
-      margin: auto 0.1rem;
-      text-decoration: none;
-      display: inline;
-      padding: 0.25rem 0.75rem;
-
-      @include on-event {
-        color: $cream;
-        background-color: $link-color;
-      }
-    }
-
-    span.page-numbers.current {
-      color: $cream;
-      background-color: $extra-dark;
-      display: inline;
-      padding: 0.25rem 0.75rem;
-    }
-  }
   /* ------------------------------------ *\ 
      Category list
   \* ------------------------------------ */
+
+  &__category-list {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: calc(33% - 1rem);
+
+    @media screen and (max-width: 58rem) {
+      position: relative;
+      top: auto;
+      right: auto;
+      width: 100%;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    ul {
+      li {
+        display: inline;
+
+        .children {
+          display: none; // just for placeholder content in dev – there won't be any in the live site
+        }
+
+        a {
+          text-decoration: none;
+          padding: 0.85rem 0.95rem;
+          color: $white;
+          background-color: $gradient-d8;
+          display: inline-block;
+          margin: auto 0.2rem 0.4rem 0;
+          font-family: $sans-bold;
+          font-weight: bold;
+
+          @include on-event {
+            color: $black;
+            background-color: $link-color;
+          }
+        }
+      }
+    }
+  }
+}
+
+.pagination {
+  font-family: $sans-bold;
+  font-weight: bold;
+  border-top: 3px solid $light-grey;
+  padding-top: 1rem;
+  text-align: center;
+
+  .page-numbers {
+    color: $dark-blue;
+    margin: auto 0.1rem;
+    text-decoration: none;
+    display: inline;
+    padding: 0.25rem 0.75rem;
+
+    @include on-event {
+      color: $cream;
+      background-color: $link-color;
+    }
+  }
+
+  span.page-numbers.current {
+    color: $cream;
+    background-color: $extra-dark;
+    display: inline;
+    padding: 0.25rem 0.75rem;
+  }
 }

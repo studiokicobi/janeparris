@@ -10,7 +10,7 @@
 add_filter('body_class', 'custom_body_class');
 function custom_body_class($classes)
 {
-    $classes[] = 'hello-bar';
+    $classes[] = 'writing';
     return $classes;
 }
 
@@ -40,7 +40,7 @@ function writing_custom_loop()
             $string = get_the_title();
             $firstChar = mb_substr($string, 0, 1, "UTF-8");
 
-            echo '<div class="featured__item scale">';
+            echo '<div class="featured__item">';
             echo '<div class="featured__item-wrapper bg-letter" style="background-image: url(' . get_stylesheet_directory_uri() . '/images/alphabet/' . $firstChar . '.svg);">';
             echo '<div class="featured__item-content">';
             echo '<h2 class="featured__item-heading">';
@@ -59,23 +59,23 @@ function writing_custom_loop()
     // Reset 
     wp_reset_postdata();
 
-    echo '<div class="writing__lists-wrapper">';
+    echo '<div class="writing__lists-wrapper clearfix">';
 
     // List non-sticky posts
     echo '<div class="writing__latest-list">';
     echo '<h2>' . get_field('regular') . '</h2>';
     //Protect against arbitrary paged values
-    $paged = (get_query_var('paged')) ? absint(get_query_var('paged')) : 1;
+    // $paged = (get_query_var('paged')) ? absint(get_query_var('paged')) : 1;
 
     $args_regular_posts = array(
         'posts_per_page' => 10,
-        'paged' => $paged,
+        // 'paged' => $paged,
         'post_status'         => 'publish',
         'post__not_in' => get_option('sticky_posts')
     );
     $query_regular_posts = new WP_Query($args_regular_posts);
 
-    echo '<div id="content">';
+    // echo '<div id="content">';
 
     if ($query_regular_posts->have_posts()) {
         echo '<ul>';
@@ -88,21 +88,40 @@ function writing_custom_loop()
         // no posts found
     }
 
+    // Query the non-sticky posts
+    $args_count_posts = array(
+        'posts_per_page' => -1, // all posts
+        'post_status'         => 'publish',
+        'post__not_in' => get_option('sticky_posts')
+    );
+    $query_count_posts = new WP_Query($args_count_posts);
+
+    // Count the total number of posts
+    $total_posts = $query_count_posts->post_count;
+
+    // If greater than 10 posts, show the archive link
+    if ($total_posts > 10) {
+        echo '<a href="' . get_site_url() . '/writing-archive/" class="button archive-link">See all writing</a>';
+    } else {
+        // Fewer than 10 posts – do nothing
+    }
+
+
     // Add pagination
-    echo '<div id="pagination" class="pagination">';
+    // echo '<div id="pagination" class="pagination">';
 
-    $big = 999999999;
+    // $big = 999999999;
 
-    echo paginate_links(array(
-        'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
-        'format' => '?paged=%#%',
-        'prev_next' => false,
-        'current' => max(1, get_query_var('paged')),
-        'total' => $query_regular_posts->max_num_pages
-    ));
+    // echo paginate_links(array(
+    //     'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+    //     'format' => '?paged=%#%',
+    //     'prev_next' => false,
+    //     'current' => max(1, get_query_var('paged')),
+    //     'total' => $query_regular_posts->max_num_pages
+    // ));
 
     echo '</div>';
-    echo '</div>';
+    // echo '</div>';
 
     // Reset 
     wp_reset_postdata();

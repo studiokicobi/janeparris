@@ -1,1 +1,1 @@
-jQuery((function(t){"use strict";t("#content").on("click","#pagination > a",(function(n){n.preventDefault();var e=t(this).attr("href");t("#content").fadeOut(500,(function(){t(this).load(e+" #content",(function(){t(this).fadeIn(500)}))}))}))}));
+jQuery((function(n){"use strict";n(window).resize((function(){n(window).width()>=940&&n("#content").on("click","#pagination > a",(function(t){t.preventDefault();var i=n(this).attr("href");n("#content").fadeOut(200,(function(){n(this).load(i+" #content",(function(){n(this).fadeIn(200)}))}))}))}))}));

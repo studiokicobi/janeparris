@@ -134,7 +134,7 @@ function janeparris_js_nojs_script()
 		})();
 		//]]>
 	</script>
-<?php
+	<?php
 }
 
 // add_filter('wp_resource_hints', 'janeparris_resource_hints', 10, 2);
@@ -281,8 +281,6 @@ function janeparris_comments_gravatar($args)
 // Scripts
 add_action('wp_enqueue_scripts', function () {
 	// Swiper
-	// wp_enqueue_script('swiper', get_stylesheet_directory_uri() . '/js/swiper-bundle.min.js', array('jquery'), '1.0.0', true);
-	// wp_enqueue_script('swiper-script', get_stylesheet_directory_uri() . '/js/swiper-main.js', array('jquery'), '1.0.0', true);
 	wp_enqueue_script('swiper', get_stylesheet_directory_uri() . '/js/swiper-bundle.min.js', [], false, true,);
 	wp_enqueue_script('swiper-script', get_stylesheet_directory_uri() . '/js/swiper-main.js', ['swiper'], false, true);
 	// Filterizr 
@@ -297,7 +295,7 @@ add_action('wp_enqueue_scripts', function () {
 	wp_enqueue_script('custom', get_stylesheet_directory_uri() . '/js/custom.js', array('jquery'),  '1.0.0', true);
 
 	// Ajax pagination
-	wp_enqueue_script('ajax-pagination.js', get_stylesheet_directory_uri() . "/js/ajax-pagination.js", array('jquery'));
+	// wp_enqueue_script('ajax-pagination.js', get_stylesheet_directory_uri() . "/js/ajax-pagination.js", array('jquery'));
 
 	// CSS
 	$themecsspath = get_stylesheet_directory() . '/css/custom.css';
@@ -311,6 +309,34 @@ add_action('wp_enqueue_scripts', function () {
 	// Adobe Typekit CSS
 	wp_enqueue_style('style-name', 'https://use.typekit.net/wco8mot.css');
 });
+
+
+/**
+ * Make last space in a sentence a non breaking space to prevent typographic widows.
+ *
+ * @param type $str
+ * @return string
+ */
+
+//https://www.binarymoon.co.uk/2017/04/fixing-typographic-widows-wordpress/
+function theme_widont($str = '')
+{
+
+	// Strip spaces.
+	$str = trim($str);
+	// Find the last space.
+	$space = strrpos($str, ' ');
+
+	// If there's a space then replace the last on with a non breaking space.
+	if (false !== $space) {
+		$str = substr($str, 0, $space) . '&nbsp;' . substr($str, $space + 1);
+	}
+
+	// Return the string.
+	return $str;
+}
+
+add_filter('the_title', 'theme_widont');
 
 
 /**
@@ -338,100 +364,6 @@ function awesome_acf_responsive_image($image_id, $image_size, $max_width)
 		echo 'src="' . $image_src . '" srcset="' . $image_srcset . '" sizes="(max-width: ' . $max_width . ') 100vw, ' . $max_width . '"';
 	}
 }
-
-
-/** 
- * Automatically generate a Table of Contents
- */
-
-//<p><a href="#top">Top</a></p>
-
-// 1. Automatically add IDs and anchors to headings
-add_action('genesis_before_header', 'auto_id_headings');
-function auto_id_headings($content)
-{
-	$content = preg_replace_callback('/(\<h[2-3](.*?))\>(.*)(<\/h[2-3]>)/i', function ($matches) {
-
-		if (stripos($matches[0], '<h3')) :
-			$tag = 'subheading';
-		else :
-			$tag = '';
-		endif;
-
-		if (!stripos($matches[0], 'id=')) :
-			$heading_link = '<a href="#' . sanitize_title($matches[3]) . '"></a>';
-			$matches[0] = $matches[1] . $matches[2] . ' id="' . sanitize_title($matches[3]) . '" class="' . $tag . '">' . $heading_link . $matches[3] . $matches[4];
-		endif;
-
-		return $matches[0];
-	}, $content);
-
-	return $content;
-}
-add_filter('the_content', 'auto_id_headings');
-
-
-add_action('genesis_before_header', 'get_table_of_content', 5);
-
-
-// 2. Add ToC filter
-function get_table_of_content($content)
-{
-	ob_start();
-	preg_match_all("/<h[2,3](?:\sid=\"(.*)\")?(?:.*)?>(.*)<\/h[2,3]>/", $content, $matches);
-	$tags = $matches[0];
-	$ids = $matches[1];
-	$names = $matches[2];
-?>
-	<div id="top" class="toc">
-		<p class="toc__title visuallyhidden"><strong>Table of Contents</strong></p>
-		<ul class="toc__list">
-			<?php for ($i = 0; $i < count($names); $i++) { ?>
-				<?php if (strpos($tags[$i], "h2") === false || strpos($tags[$i], "class=\"nitoc\"") !== false) continue;
-				?>
-
-				<li class="toc__list-item">
-					<?php
-					$raw_title = $names[$i];
-					$clean_title = sanitize_title_with_dashes($raw_title);
-					?>
-					<a class="toc__list-item-link" href="#<?php echo $clean_title; ?>"><?php echo $raw_title; ?></a>
-
-					<?php if ($i !== count($names) && strpos($tags[$i + 1], "h3") !== false) { ?>
-						<ul class="toc__list toc__list--secondary">
-							<?php for ($j = 0; $j < count($names) - 1; $j++) { ?>
-								<?php $sub_index = $i + $j; ?>
-								<?php if ($j != 0 && strpos($tags[$sub_index], "h2") !== false) break; ?>
-								<?php if (strpos($tags[$sub_index], "h3") === false || strpos($tags[$sub_index], "class=\"nitoc\"") !== false) continue; ?>
-								<li class="toc__list-item toc__list-item--secondary">
-									<?php
-									$raw_sub_title = $names[$sub_index];
-									$clean_sub_title = sanitize_title_with_dashes($raw_sub_title);
-									?>
-									<a class="toc__list-item-link toc__list-item-link--secondary" href="#<?php echo $clean_sub_title; ?>"><?php echo $raw_sub_title; ?></a>
-								</li>
-							<?php } ?>
-						</ul>
-					<?php } ?>
-
-				</li>
-			<?php } ?>
-		</ul>
-	</div>
-	<?php
-	return ob_get_clean();
-}
-
-// 3. Add the Table of Contents filter for use in blocks/toc.php
-add_action('genesis_entry_content', 'add_table_of_content');
-function add_table_of_content($content)
-{
-	return str_replace("{{TABLE_OF_CONTENTS}}", get_table_of_content($content), $content);
-}
-add_filter('the_content', 'add_table_of_content');
-
-// End of Table of Contents functions
-
 
 // ----------------------------------------------------------------
 // Add partials to pages
@@ -502,7 +434,7 @@ function footer_content()
 			?>
 		</nav>
 
-<?php
+	<?php
 	else : // if no menu items
 		echo '<p class="msg msg--error">(This menu contains no items.)</p>';
 	endif;
@@ -634,6 +566,99 @@ function create_taxonomy()
 	));
 }
 
+/** 
+ * Automatically generate a Table of Contents
+ */
+
+//<p><a href="#top">Top</a></p>
+
+
+// 1. Automatically add IDs and anchors to headings
+add_action('genesis_before_header', 'auto_id_headings');
+function auto_id_headings($content)
+{
+	$content = preg_replace_callback('/(\<h[2-3](.*?))\>(.*)(<\/h[2-3]>)/i', function ($matches) {
+
+		if (stripos($matches[0], '<h3')) :
+			$tag = 'subheading';
+		else :
+			$tag = '';
+		endif;
+
+		if (!stripos($matches[0], 'id=')) :
+			$heading_link = '<a href="#' . sanitize_title($matches[3]) . '"></a>';
+			$matches[0] = $matches[1] . $matches[2] . ' id="' . sanitize_title($matches[3]) . '" class="' . $tag . '">' . $heading_link . $matches[3] . $matches[4];
+		endif;
+
+		return $matches[0];
+	}, $content);
+
+	return $content;
+}
+add_filter('the_content', 'auto_id_headings');
+
+
+// 2. Add ToC filter
+add_action('genesis_before_header', 'get_table_of_content', 5);
+function get_table_of_content($content)
+{
+	ob_start();
+	preg_match_all("/<h[2,3](?:\sid=\"(.*)\")?(?:.*)?>(.*)<\/h[2,3]>/", $content, $matches);
+	$tags = $matches[0];
+	$ids = $matches[1];
+	$names = $matches[2];
+	?>
+	<div id="top" class="toc">
+		<p class="toc__title visuallyhidden"><strong>Table of Contents</strong></p>
+		<ul class="toc__list">
+			<?php for ($i = 0; $i < count($names); $i++) { ?>
+				<?php if (strpos($tags[$i], "h2") === false || strpos($tags[$i], "class=\"nitoc\"") !== false) continue;
+				?>
+
+				<li class="toc__list-item">
+					<?php
+					$raw_title = $names[$i];
+					$clean_title = sanitize_title_with_dashes($raw_title);
+					?>
+					<a class="toc__list-item-link" href="#<?php echo $clean_title; ?>"><?php echo $raw_title; ?></a>
+
+					<?php if ($i !== count($names) && strpos($tags[$i + 1], "h3") !== false) { ?>
+						<ul class="toc__list toc__list--secondary">
+							<?php for ($j = 0; $j < count($names) - 1; $j++) { ?>
+								<?php $sub_index = $i + $j; ?>
+								<?php if ($j != 0 && strpos($tags[$sub_index], "h2") !== false) break; ?>
+								<?php if (strpos($tags[$sub_index], "h3") === false || strpos($tags[$sub_index], "class=\"nitoc\"") !== false) continue; ?>
+								<li class="toc__list-item toc__list-item--secondary">
+									<?php
+									$raw_sub_title = $names[$sub_index];
+									$clean_sub_title = sanitize_title_with_dashes($raw_sub_title);
+									?>
+									<a class="toc__list-item-link toc__list-item-link--secondary" href="#<?php echo $clean_sub_title; ?>"><?php echo $raw_sub_title; ?></a>
+								</li>
+							<?php } ?>
+						</ul>
+					<?php } ?>
+
+				</li>
+			<?php } ?>
+		</ul>
+	</div>
+<?php
+	return ob_get_clean();
+}
+
+// 3. Add the Table of Contents filter for use in blocks/toc.php
+add_action('genesis_entry_content', 'add_table_of_content');
+function add_table_of_content($content)
+{
+	return str_replace("{{TABLE_OF_CONTENTS}}", get_table_of_content($content), $content);
+}
+add_filter('the_content', 'add_table_of_content');
+
+
+// End of Table of Contents functions
+
+
 // ----------------------------------------------------------------
 // # ADD BLOCKS
 // ----------------------------------------------------------------
@@ -733,36 +758,6 @@ if (function_exists('acf_register_block_type')) :
 	));
 
 	acf_register_block_type(array(
-		'name' => 'linked-h2',
-		'title' => 'Linked H2',
-		'description' => '',
-		'category' => 'common',
-		'keywords' => array(),
-		'post_types' => array(),
-		'mode' => 'edit',
-		'align' => '',
-		'align_content' => NULL,
-		'render_template' => 'blocks/linked-h2.php',
-		'render_callback' => '',
-		'enqueue_style' => '',
-		'enqueue_script' => '',
-		'enqueue_assets' => '',
-		'icon' => array(
-			'background' => '#8224e3',
-			'foreground' => '#ffffff',
-			'src' => 'heading',
-		),
-		'supports' => array(
-			'align' => true,
-			'mode' => true,
-			'multiple' => true,
-			'jsx' => false,
-			'align_content' => false,
-			'anchor' => false,
-		),
-	));
-
-	acf_register_block_type(array(
 		'name' => 'sortable-testimonial',
 		'title' => 'Sortable testimonial',
 		'description' => '',
@@ -837,7 +832,6 @@ if (function_exists('acf_register_block_type')) :
 		'align' => '',
 		'align_content' => NULL,
 		'render_template' => 'blocks/toc.php',
-		'render_callback' => '',
 		'enqueue_style' => '',
 		'enqueue_script' => '',
 		'enqueue_assets' => '',

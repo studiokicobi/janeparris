@@ -4,6 +4,14 @@
   color: $cream;
   background-color: $dark-blue;
 
+  @media screen and (max-width: $breakpoint-medium) {
+    padding: 2rem;
+  }
+
+  @media screen and (max-width: $breakpoint-small) {
+    @include fullbleed;
+  }
+
   p {
     margin: 0;
     padding: 0;
@@ -44,6 +52,10 @@
       justify-content: space-evenly;
       gap: 1.5rem;
       margin-top: 2rem;
+
+      @media screen and (max-width: $breakpoint-medium) {
+        flex-direction: column;
+      }
     }
 
     &--column {
@@ -68,6 +80,10 @@
     background-color: $gradient-d8;
     padding: 1.5rem;
     min-height: 15rem;
+
+    @media screen and (max-width: $breakpoint-medium) {
+      min-height: auto;
+    }
 
     span.wpcf7-list-item {
       margin: 0;
