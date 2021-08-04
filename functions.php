@@ -283,9 +283,9 @@ add_action('wp_enqueue_scripts', function () {
 	// Swiper
 	wp_enqueue_script('swiper', get_stylesheet_directory_uri() . '/js/swiper-bundle.min.js', [], false, true,);
 	wp_enqueue_script('swiper-script', get_stylesheet_directory_uri() . '/js/swiper-main.js', ['swiper'], false, true);
-	// Filterizr 
-	wp_enqueue_script('filterizr', get_stylesheet_directory_uri() . '/js/vanilla.filterizr.min.js', [], false, true,);
-	wp_enqueue_script('filtering-script', get_stylesheet_directory_uri() . '/js/filtering-main.js', ['filterizr'], false, true);
+
+	//Isotope
+	wp_enqueue_script('isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', [], false, true,);
 
 	// Flickity
 	wp_enqueue_script('flickity', get_stylesheet_directory_uri() . '/js/flickity.pkgd.min.js', [], false, true,);
@@ -365,9 +365,49 @@ function awesome_acf_responsive_image($image_id, $image_size, $max_width)
 	}
 }
 
+/**
+ * Edit meta info in post headers 
+ */
+add_filter('genesis_post_info', 'janeparris_entry_meta_header');
+function janeparris_entry_meta_header($post_info)
+{
+	echo '<p class="entry-meta">';
+	echo do_shortcode('[post_date]');
+	echo do_shortcode('[post_categories sep=" · " before=""]');
+	echo '</p>';
+}
+
+
+/**
+ * Remove meta from footer
+ */
+add_action('genesis_entry_content', 'janeparris_remove_post_meta');
+function janeparris_remove_post_meta()
+{
+	if (is_singular('page')) {
+		return;
+	}
+
+	remove_action('genesis_entry_footer', 'genesis_entry_footer_markup_open', 5);
+	remove_action('genesis_entry_footer', 'genesis_entry_footer_markup_close', 15);
+	remove_action('genesis_entry_footer', 'genesis_post_meta');
+}
+
 // ----------------------------------------------------------------
 // Add partials to pages
 // ----------------------------------------------------------------
+
+/**
+ * Add Related Posts partial if singular 
+ */
+add_action('genesis_after_entry', 'related_posts');
+function related_posts()
+{
+	if (is_single()) {
+		get_template_part('partials/related', 'posts');
+	}
+}
+
 
 /**
  * Add Testimonial partial if page != Testimonial 
@@ -451,7 +491,7 @@ function footer_post_content()
 	echo '<div class="wrap">';
 	echo '<div class="site-footer__secondary-content">';
 	// Add copyright
-	echo '<div class="copyright">Copyright © 2020-' . date("Y") . ' Jane Parris</div>';
+	echo '<div class="copyright">Copyright © ' . date("Y") . ' Jane Parris</div>';
 	// Add second footer nav (Privacy, etc.)
 	wp_nav_menu(
 		array(

@@ -7,201 +7,208 @@ body.page-template-writing {
     font-weight: bold;
     font-size: 1.625rem;
   }
+  h2.featured__item-heading {
+    margin-top: 0;
+  }
+}
 
-  /* ------------------------------------ *\ 
+/* ------------------------------------ *\ 
      Featured (sticky) posts
-  \* ------------------------------------ */
+\* ------------------------------------ */
 
-  .featured {
-    display: grid;
-    grid-gap: 2rem;
+.featured {
+  display: grid;
+  grid-gap: 2rem;
 
-    // Grid magic makes the responsive layout
-    @supports (width: min(20rem, 100%)) {
-      grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+  // Grid magic makes the responsive layout
+  @supports (width: min(20rem, 100%)) {
+    grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+  }
+
+  @media screen and (max-width: $breakpoint-small) {
+    display: block;
+  }
+
+  // Featured item
+  &__item {
+    position: relative;
+    transition: all 300ms ease-in-out;
+
+    @media screen and (min-width: $breakpoint-small) {
+      @include on-event {
+        transform: scale(1.035);
+        box-shadow: 7px 7px 0 0px $gradient-a4;
+      }
+    }
+
+    // Magic to give the items a responsive 1:1 ratio
+    &:after {
+      content: "";
+      display: block;
+      padding-bottom: 100%;
+
+      @media screen and (max-width: $breakpoint-small) {
+        padding-bottom: 0;
+      }
+    }
+
+    // Background colors
+    &:nth-of-type(1) {
+      background-color: $gradient-c9;
+    }
+    &:nth-of-type(2) {
+      background-color: $gradient-b9;
+    }
+    &:nth-of-type(3) {
+      background-color: $gradient-d7;
+    }
+    &:nth-of-type(4) {
+      background-color: $gradient-a6;
+    }
+    &:nth-of-type(5) {
+      background-color: $gradient-d9;
+    }
+    &:nth-of-type(6) {
+      background-color: $gradient-d8;
+    }
+
+    // Background letter styles
+    .bg-letter {
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: bottom right;
+
+      @media screen and (max-width: $breakpoint-small) {
+        background-image: none !important;
+      }
     }
 
     @media screen and (max-width: $breakpoint-small) {
+      background-color: $cream !important;
+    }
+  }
+
+  // Absolutely positioned content wrapper
+  &__item-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; // just in case
+
+    @media screen and (max-width: $breakpoint-small) {
+      position: relative;
+      width: auto;
+      height: auto;
+      overflow: visible;
+    }
+  }
+
+  &__item-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 1.875rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    @media screen and (max-width: $breakpoint-small) {
+      padding: 0;
+      width: auto;
+      height: auto;
       display: block;
     }
+  }
 
-    // Featured item
-    &__item {
-      position: relative;
-      transition: all 300ms ease-in-out;
+  &__item-heading {
+    margin: 0;
+  }
 
-      @media screen and (min-width: $breakpoint-small) {
-        @include on-event {
-          transform: scale(1.035);
-          box-shadow: 7px 7px 0 0px $gradient-a4;
-        }
-      }
+  // The anchor
+  &__item-link {
+    font-family: $bold;
+    font-weight: 900;
+    color: $cream;
+    font-size: 1.875rem;
+    line-height: 1.2;
 
-      // Magic to give the items a responsive 1:1 ratio
-      &:after {
-        content: "";
-        display: block;
-        padding-bottom: 100%;
+    @media screen and (max-width: $breakpoint-small) {
+      font-family: $sans;
+      font-weight: normal;
+      font-size: 1.2rem;
+      color: $dark-blue;
+      line-height: 2.3;
+      transition: all 200ms ease-in-out;
+      text-decoration: underline;
+      text-decoration-color: $link-color;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 3px;
+      text-decoration-skip-ink: 2px;
 
-        @media screen and (max-width: $breakpoint-small) {
-          padding-bottom: 0;
-        }
-      }
-
-      // Background colors
-      &:nth-of-type(1) {
-        background-color: $gradient-c9;
-      }
-      &:nth-of-type(2) {
-        background-color: $gradient-b9;
-      }
-      &:nth-of-type(3) {
-        background-color: $gradient-d7;
-      }
-      &:nth-of-type(4) {
-        background-color: $gradient-a6;
-      }
-      &:nth-of-type(5) {
-        background-color: $gradient-d9;
-      }
-      &:nth-of-type(6) {
-        background-color: $gradient-d8;
-      }
-
-      // Background letter styles
-      .bg-letter {
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: bottom right;
-
-        @media screen and (max-width: $breakpoint-small) {
-          background-image: none !important;
-        }
-      }
-
-      @media screen and (max-width: $breakpoint-small) {
-        background-color: $cream !important;
+      @include on-event {
+        text-decoration: underline;
+        text-decoration-color: $dark-blue;
       }
     }
 
-    // Absolutely positioned content wrapper
-    &__item-wrapper {
+    &::after {
+      content: "";
       position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden; // just in case
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
 
       @media screen and (max-width: $breakpoint-small) {
         position: relative;
-        width: auto;
-        height: auto;
-        overflow: visible;
-      }
-    }
-
-    &__item-content {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      padding: 1.875rem;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-
-      @media screen and (max-width: $breakpoint-small) {
-        padding: 0;
-        width: auto;
-        height: auto;
-        display: block;
-      }
-    }
-
-    &__item-heading {
-      margin: 0;
-    }
-
-    // The anchor
-    &__item-link {
-      font-family: $bold;
-      font-weight: 900;
-      color: $cream;
-      font-size: 1.875rem;
-      line-height: 1.2;
-
-      @media screen and (max-width: $breakpoint-small) {
-        font-family: $sans;
-        font-weight: normal;
-        font-size: 1.2rem;
-        color: $dark-blue;
-        line-height: 2.3;
-        transition: all 200ms ease-in-out;
-        text-decoration: underline;
-        text-decoration-color: $link-color;
-        text-decoration-thickness: 2px;
-        text-underline-offset: 3px;
-        text-decoration-skip-ink: 2px;
-
-        @include on-event {
-          text-decoration: underline;
-          text-decoration-color: $dark-blue;
-        }
-      }
-
-      &::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        right: 0;
-        bottom: 0;
-
-        @media screen and (max-width: $breakpoint-small) {
-          position: relative;
-          left: auto;
-          top: auto;
-          right: auto;
-          bottom: auto;
-          display: none;
-        }
-      }
-    }
-
-    &__item-label {
-      margin: auto 0 0 0;
-
-      span {
-        padding: 0.5rem 1rem;
-        color: $cream;
-        background-color: rgba(0, 0, 0, 0.65);
-        font-family: $sans-bold;
-        font-weight: bold;
-        transition: all 350ms ease-in-out;
-
-        @media screen and (max-width: $breakpoint-small) {
-          display: none;
-        }
+        left: auto;
+        top: auto;
+        right: auto;
+        bottom: auto;
+        display: none;
       }
     }
   }
 
-  // Transitions
-  .featured__item {
-    transition: all 300ms ease-in-out;
+  &__item-label {
+    margin: auto 0 0 0;
 
-    // On event
-    @include on-event {
-      background-color: $extra-purple;
+    span {
+      padding: 0.8rem 1rem 0.5rem 1rem;
+      color: $cream;
+      background-color: rgba(0, 0, 0, 0.65);
+      font-family: $sans-bold;
+      font-weight: bold;
+      transition: all 350ms ease-in-out;
 
-      @media screen and (min-width: $breakpoint-small) {
-        a {
-          text-decoration: none;
-        }
+      @media screen and (max-width: $breakpoint-small) {
+        display: none;
       }
+    }
+  }
+}
 
-      span {
-        color: $cream;
-        background-color: $gradient-a6;
+// Transitions
+.featured__item {
+  transition: all 300ms ease-in-out;
+
+  // On event
+  @include on-event {
+    background-color: $extra-purple;
+
+    a {
+      color: $white;
+    }
+
+    @media screen and (min-width: $breakpoint-small) {
+      a {
+        text-decoration: none;
       }
+    }
+
+    span {
+      color: $cream;
+      background-color: $gradient-a6;
     }
   }
 }
@@ -210,29 +217,57 @@ body.page-template-writing {
      Latest list (posts listed by date)
 \* ------------------------------------ */
 
+// Writing archive Latest posts list doesn't need flex
+.blog {
+  .writing {
+    &__lists-wrapper {
+      display: block;
+    }
+    &__latest-list {
+      flex-basis: 100%;
+    }
+  }
+}
+
 .writing {
   &__lists-wrapper {
     position: relative;
     width: 100%;
     margin-bottom: $push;
+    display: flex;
+    justify-content: space-between;
+
+    @media screen and (max-width: $breakpoint-large) {
+      display: block;
+    }
   }
 
   &__latest-list {
     font-family: $sans;
+    flex-basis: calc(67% + 2rem);
+    margin-right: 2rem;
+
+    @media screen and (max-width: $breakpoint-large) {
+      margin-right: 0;
+    }
 
     ul {
-      a {
-        color: $text-color;
-        line-height: 2.3;
-        transition: all 200ms ease-in-out;
-        text-decoration: underline;
-        text-decoration-color: $link-color;
-        text-decoration-thickness: 2px;
-        text-underline-offset: 3px;
-        text-decoration-skip-ink: 2px;
+      li {
+        margin-bottom: 0.75rem;
+        a {
+          color: $text-color;
+          line-height: 1.8;
+          // transition: all 200ms ease-in-out;
+          text-decoration: underline;
+          text-decoration-color: $link-color;
+          text-decoration-thickness: 3px;
+          text-underline-offset: 7px;
+          text-decoration-skip-ink: 1px;
+          @include sweep-to-top;
 
-        @include on-event {
-          text-decoration-color: $text-color;
+          @include on-event {
+            // text-decoration-color: $text-color;
+          }
         }
       }
     }
@@ -248,16 +283,13 @@ body.page-template-writing {
   \* ------------------------------------ */
 
   &__category-list {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: calc(33% - 1rem);
+    flex-basis: 33%;
 
     @media screen and (max-width: 58rem) {
-      position: relative;
-      top: auto;
-      right: auto;
-      width: 100%;
+      // position: relative;
+      // top: auto;
+      // right: auto;
+      // width: 100%;
     }
 
     h2 {

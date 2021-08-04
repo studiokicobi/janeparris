@@ -1,0 +1,33 @@
+body.archive {
+  .writing-archive {
+    min-height: 25rem;
+
+    h2.entry-title {
+      font-family: $sans;
+      font-weight: normal;
+      color: $text-color;
+      line-height: 1.8;
+      font-size: 1.5rem;
+      max-width: 44rem;
+      margin: 0 0 0.75rem 0;
+
+      a {
+        transition: all 200ms ease-in-out;
+        text-decoration: underline;
+        text-decoration-color: $link-color;
+        text-decoration-thickness: 3px;
+        text-underline-offset: 8px;
+        text-decoration-skip-ink: 1px;
+        display: block;
+
+        @include on-event {
+          color: $text-color;
+          text-decoration-color: $text-color;
+        }
+      }
+    }
+    .entry-meta {
+      display: none;
+    }
+  }
+}

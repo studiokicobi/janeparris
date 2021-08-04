@@ -1,35 +1,22 @@
-// Sticky sliding cards
+// Stacked sliding cards
 
-.block-faq {
-  // padding-top: $push;
-  // padding-bottom: $push;
-}
+/* ------------------------------------ *\
+   The heading for the FAQ section
+\* ------------------------------------ */
 
 .stacked-card-title {
-  position: sticky;
-  top: 2rem;
+  position: relative;
   padding-bottom: 2rem;
-
-  @media screen and (max-width: $breakpoint-medium) {
-    position: relative;
-    top: 0;
-  }
 }
+
 /* ------------------------------------ *\
-   Global card tyles
+   Global, non-sticky card styles
 \* ------------------------------------ */
 
 .stacked-card {
-  position: sticky;
-  top: 3rem;
-  background: white;
+  position: relative;
   margin-bottom: 3rem;
   border-radius: 1.25rem;
-
-  @media screen and (max-width: $breakpoint-medium) {
-    position: relative;
-    top: 0;
-  }
 
   &__heading-wrapper {
     display: flex;
@@ -46,13 +33,14 @@
     margin: 2.5rem 3.5rem;
     position: relative;
 
+    // The speech pointer (triangle) for the heading bg
     &::before {
       border: 1.2rem solid transparent;
       border-top: 1.2rem solid transparent;
+      border-top-width: 2.4rem;
       border-bottom: 0;
       height: 0;
       width: 0;
-      border-top-width: 2.4rem;
       content: "";
       display: block;
       position: absolute;
@@ -62,7 +50,7 @@
   }
 
   &__content-wrapper {
-    padding: 6.25rem 6.25rem 6.25rem 6.25rem;
+    padding: 6.25rem;
     min-height: 18rem;
   }
 
@@ -75,26 +63,34 @@
   }
 }
 
-@for $i from 1 through 20 {
-  .stacked-card:nth-child(#{$i}n) {
-    top: $i * 3rem;
-    @media screen and (max-width: $breakpoint-medium) {
-      top: 0;
-    }
-  }
-}
-
 /* ------------------------------------ *\
-   Pointer mixins for headings
+   Sticky card styles
 \* ------------------------------------ */
 
-@mixin pointer-left {
-  left: -2.3rem;
-  transform: rotate(90deg) skew(15deg) translateX(50%);
-}
-@mixin pointer-right {
-  right: -2.3rem;
-  transform: rotate(-90deg) skew(-15deg) translateX(-50%);
+// Only use the stacked card effect if the viewport
+// height is greater than the minimum values.
+
+body {
+  @media screen and (min-height: 55rem) and (min-width: $breakpoint-medium) {
+    // Stick the section title
+    .stacked-card-title {
+      position: sticky;
+      top: 2rem;
+    }
+
+    // Stick the cards
+    .stacked-card {
+      position: sticky;
+      top: 3rem;
+    }
+
+    // Set the value where the card will stop scrolling
+    @for $i from 1 through 20 {
+      .stacked-card:nth-child(#{$i}n) {
+        top: $i * 3rem;
+      }
+    }
+  }
 }
 
 /* ------------------------------------ *\

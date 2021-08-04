@@ -1,0 +1,200 @@
+/* ------------------------------------ *\
+   BG colors for items
+\* ------------------------------------ */
+
+$student-color: $gradient-d9;
+$parents-color: $gradient-a7;
+$writing-color: $dark-blue;
+$college-color: $gradient-c9;
+
+/* ------------------------------------ *\
+   The control buttons
+\* ------------------------------------ */
+
+.filter-button-group {
+  border-bottom: 3px solid $light-grey;
+  margin-bottom: 2rem;
+
+  @media screen and (max-width: $breakpoint-medium-large) {
+    margin-top: 3rem;
+  }
+
+  button {
+    background-color: transparent;
+    color: $text-color;
+    font-family: $sans-bold;
+    font-weight: bold;
+    padding: 0;
+    display: inline-block;
+    border-radius: 0;
+    padding: 0.8rem calc(0.8rem + 4px) 0.8rem 0.8rem;
+    position: relative;
+    transform: translateX(-0.8rem); // move buttons flush left with content
+
+    @media screen and (max-width: $breakpoint-medium-large) {
+      display: block;
+      flex-direction: column;
+      padding: 0.3rem 0;
+      transform: translateX(0);
+    }
+
+    // Button dividers
+    &:not(:last-of-type)::after {
+      content: "";
+      border-right: 2px solid $light-grey;
+      width: 1.5rem;
+      height: 1.5rem;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+
+      @media screen and (max-width: $breakpoint-medium-large) {
+        display: none;
+      }
+    }
+  }
+}
+
+/* ------------------------------------ *\
+   Sortable container
+\* ------------------------------------ */
+
+// Main container
+.sortable-testimonial {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: calc(100% + 2rem); // align the items flush with the controls
+  transform: translateX(-1rem); // align the items flush with the controls
+  margin: 0 auto;
+  padding: 0 0 $push 0;
+
+  // Individual item container
+  &__item-container {
+    margin: 0 1rem 2rem 1rem;
+    width: calc(33.33333% - 2rem);
+    font-family: $sans;
+    font-weight: normal;
+    color: $cream;
+    font-size: 1rem;
+
+    @media screen and (max-width: $breakpoint-large) {
+      width: calc(50% - 2rem);
+    }
+
+    @media screen and (max-width: $breakpoint-medium-small) {
+      width: calc(100% - 2rem);
+    }
+  }
+
+  /* ------------------------------------ *\
+     Item testimonial content
+  \* ------------------------------------ */
+
+  &__content {
+    padding: 1rem; // will be 2rem after the border is added
+    background-image: url("../images/quotes.svg");
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-position: right top;
+    position: relative;
+    border: 1rem solid;
+
+    // The speech bubble pointer
+    &:after {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 0;
+      z-index: 1;
+      border-style: solid;
+      border-width: 2.5rem 2.5rem 0 0.5rem;
+      border-color: transparent;
+      bottom: -3.5rem;
+      left: 1rem;
+      transform-origin: center;
+    }
+
+    &.students-content {
+      background-color: $student-color;
+      border-color: $student-color;
+      &:after {
+        border-top-color: $student-color;
+      }
+    }
+    &.parents-content {
+      background-color: $parents-color;
+      border-color: $parents-color;
+      &:after {
+        border-top-color: $parents-color;
+      }
+    }
+    &.writing-content {
+      background-color: $writing-color;
+      border-color: $writing-color;
+      &:after {
+        border-top-color: $writing-color;
+      }
+    }
+    &.college-content {
+      background-color: $college-color;
+      border-color: $college-color;
+      &:after {
+        border-top-color: $college-color;
+      }
+    }
+
+    > p {
+      margin: 0;
+    }
+  }
+
+  /* ------------------------------------ *\
+     Meta section
+  \* ------------------------------------ */
+
+  &__meta {
+    margin: 3.5rem 0 0 0;
+    display: flex;
+    align-items: center;
+  }
+
+  &__dropcap {
+    flex: 0 1 6rem;
+    height: 6rem;
+    font-size: 4.3rem;
+    font-family: $bold;
+    color: $cream;
+    text-align: center;
+
+    &.students-dropcap {
+      background-color: $student-color;
+    }
+    &.parents-dropcap {
+      background-color: $parents-color;
+    }
+    &.writing-dropcap {
+      background-color: $writing-color;
+    }
+    &.college-dropcap {
+      background-color: $college-color;
+    }
+  }
+
+  &__meta--content {
+    color: $text-color;
+    padding-left: 1rem;
+
+    > p {
+      margin: 0;
+    }
+  }
+
+  &__meta--name {
+    font-family: $sans-bold;
+    font-weight: bold;
+  }
+  &__meta--role {
+  }
+}

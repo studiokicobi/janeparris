@@ -121,6 +121,8 @@
     align-self: flex-end;
     mix-blend-mode: darken;
     width: 33.33333%;
+    transition: all 0ms;
+    background-color: $cream;
 
     img {
       display: block;

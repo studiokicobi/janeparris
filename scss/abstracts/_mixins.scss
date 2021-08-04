@@ -2,6 +2,19 @@
 // This file contains all application-wide Sass mixins.
 // -----------------------------------------------------------------------------
 
+/* ------------------------------------ *\
+   Pointer mixins for FAQ headings
+\* ------------------------------------ */
+
+@mixin pointer-left {
+  left: -2.3rem;
+  transform: rotate(90deg) skew(15deg) translateX(50%);
+}
+@mixin pointer-right {
+  right: -2.3rem;
+  transform: rotate(-90deg) skew(-15deg) translateX(-50%);
+}
+
 @mixin big-heading-clamp {
   font-size: clamp(1.875rem, 1.3848rem + 2.451vw, 3.4375rem);
 }
@@ -235,7 +248,7 @@
   &:hover,
   &:focus,
   &:active {
-    color: white;
+    color: $black;
 
     &:before {
       @include prefixed(transform, scaleY(1));

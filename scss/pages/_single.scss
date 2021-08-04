@@ -9,43 +9,41 @@ body.single {
   // Meta
   .entry-meta {
     text-align: center;
+  }
+  // Time stamp
+  .entry-time {
+    font-family: $sans;
+    position: relative;
+    margin-top: 3rem;
+    display: block;
 
-    // Time stamp
-    time {
-      font-family: $sans;
-      position: relative;
-      margin-top: 3rem;
-      display: block;
-
-      &::before {
-        content: "—";
-        position: absolute;
-        top: -2.4rem;
-        left: 50%;
-        color: rgba($black, 0.4);
-        transform: translateX(-50%);
-      }
+    &::before {
+      content: "—";
+      position: absolute;
+      top: -2.4rem;
+      left: 50%;
+      color: rgba($black, 0.4);
+      transform: translateX(-50%);
     }
+  }
 
-    // Category list
-    .entry-categories {
-      font-family: $italic;
-      font-style: italic;
-      max-width: 28rem;
-      margin-top: 0.5rem;
-      margin-left: auto;
-      margin-right: auto;
+  // Category list
+  .entry-categories {
+    font-family: $italic;
+    font-style: italic;
+    max-width: 28rem;
+    margin-top: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
 
-      a {
-        color: $text-color;
-        margin: 0 0.5rem;
-      }
+    a {
+      color: $text-color;
+      margin: 0 0.5rem;
     }
   }
 
   .entry-content {
     margin-top: 3rem;
-    margin-bottom: $push;
 
     // Center all elements
     p,
@@ -66,7 +64,11 @@ body.single {
     p {
       font-size: clamp(1.125rem, 1.0466rem + 0.3922vw, 1.375rem);
       line-height: 1.5;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    p + img {
+      max-width: 100%;
     }
 
     h2 {
@@ -89,21 +91,45 @@ body.single {
       font-style: bold;
     }
 
+    // Blockquote
     .wp-block-quote {
       max-width: 50rem;
       color: $cream;
       background-color: $gradient-a7;
       padding: 3rem 3rem 2rem 3rem;
       font-family: $sans;
-      margin: 3rem auto 3.5rem auto;
+      margin: 3rem auto;
 
       p {
-        // max-width: 54rem;
         font-family: $sans;
         font-style: normal;
       }
       em {
         font-family: $sans;
+        font-style: normal;
+      }
+    }
+
+    // Pullquote
+    .wp-block-pullquote {
+      background-color: $gradient-a2;
+      max-width: 50rem;
+      margin: 3rem auto 3rem auto;
+      padding: 1rem 3rem 2rem 3rem;
+      font-family: $bold;
+      font-weight: 900;
+      font-style: normal;
+      font-size: 3rem;
+
+      p {
+        font-size: 3rem;
+        font-family: $bold;
+        font-weight: 900;
+        font-style: normal;
+      }
+      em {
+        font-family: $bold;
+        font-weight: 900;
         font-style: normal;
       }
     }
@@ -114,20 +140,42 @@ body.single {
       padding-top: 1rem;
     }
 
-    a {
-      //   font-family: $sans-bold;
-      //   font-style: bold;
+    a:not(.featured__item-link) {
       color: $text-color;
       transition: all 200ms ease-in-out;
       text-decoration: underline;
       text-decoration-color: $link-color;
       text-decoration-thickness: 2px;
       text-underline-offset: 3px;
-      text-decoration-skip-ink: 2px;
+      text-decoration-skip-ink: 0px;
+      background-color: rgba($link-color, 0.2);
+      font-family: $sans-bold;
+      font-style: normal;
+      font-weight: bold;
+      // @include sweep-to-top;
 
+      em {
+        font-family: $sans-bold;
+        font-style: normal;
+        font-weight: bold;
+      }
       @include on-event {
         text-decoration-color: $text-color;
+        background-color: rgba($link-color, 0.5);
       }
     }
+  }
+}
+
+body.single {
+  .related {
+    margin-top: $push;
+    border-top: 3px solid $light-grey;
+  }
+  .related__heading {
+    font-family: $sans-bold;
+    font-weight: bold;
+    font-size: 1.625rem;
+    margin-top: 1rem;
   }
 }

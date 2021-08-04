@@ -20,19 +20,27 @@ remove_action('genesis_loop', 'genesis_do_loop');
 add_action('genesis_loop', 'writing_custom_loop');
 function writing_custom_loop()
 {
+    // The primary heading
     echo '<h1>' . get_the_title() . '</h1>';
 
-    // Sticky posts
-    echo '<h2>' . get_field('sticky') . '</h2>';
-
+    // Sticky posts section
     $args_sticky = array(
         'post__in'            => get_option('sticky_posts'),
         'post_status'         => 'publish'
     );
-    $query_sticky = new WP_Query($args_sticky);
+
+    // Override the query so we only return sticky posts
+    $new_args_sticky = array(
+        'post__in' => $args_sticky
+    );
+
+    $query_sticky = new WP_Query($new_args_sticky);
 
     if ($query_sticky->have_posts()) {
+
+        echo '<h2>' . get_field('sticky') . '</h2>';
         echo '<div class="featured">';
+
         while ($query_sticky->have_posts()) {
             $query_sticky->the_post();
 
@@ -106,22 +114,7 @@ function writing_custom_loop()
         // Fewer than 10 posts – do nothing
     }
 
-
-    // Add pagination
-    // echo '<div id="pagination" class="pagination">';
-
-    // $big = 999999999;
-
-    // echo paginate_links(array(
-    //     'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
-    //     'format' => '?paged=%#%',
-    //     'prev_next' => false,
-    //     'current' => max(1, get_query_var('paged')),
-    //     'total' => $query_regular_posts->max_num_pages
-    // ));
-
     echo '</div>';
-    // echo '</div>';
 
     // Reset 
     wp_reset_postdata();

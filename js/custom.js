@@ -17,9 +17,7 @@ $('a[href*="#"]')
   .click(function(event) {
     // On-page links
     if (
-      location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') 
-      && 
-      location.hostname == this.hostname
+      location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname
     ) {
       // Figure out element to scroll to
       var target = $(this.hash);
@@ -40,24 +38,23 @@ $('a[href*="#"]')
           } else {
             $target.attr('tabindex','-1'); // Adding tabindex for elements not focusable
             $target.focus(); // Set focus again
-          };
+          }
         });
       }
     }
   });
-} )( jQuery );
 
-  // Cards script
-// https://inclusive-components.design/cards/
-// const cards = document.querySelectorAll('.card');
-// Array.prototype.forEach.call(cards, card => {
-//     let down, up, link = card.querySelector('h2 a');
-//     card.style.cursor = 'pointer';
-//     card.onmousedown = () => down = +new Date();
-//     card.onmouseup = () => {
-//         up = +new Date();
-//         if ((up - down) < 200) {
-//             link.click();
-//         }
-//     };
-// });
+  // Isotope init
+    $(".sortable-testimonial").isotope({
+    itemSelector: ".sortable-testimonial__item-container"
+  });
+
+  // filter items on button click
+  $(".filter-button-group").on("click", "button", function () {
+    var filterValue = $(this).attr("data-filter");
+    $(".sortable-testimonial").isotope({ filter: filterValue });
+    $(".filter-button-group button").removeClass("active");
+    $(this).addClass("active");
+  });
+
+} )( jQuery );
