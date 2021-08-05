@@ -1,3 +1,7 @@
+// -----------------------------------------------------------------------------
+// Form
+// -----------------------------------------------------------------------------
+
 .form {
   margin: $push auto;
   padding: 4.25rem;
@@ -38,7 +42,7 @@
     }
 
     &::placeholder {
-      color: $gradient-a3;
+      color: $gradient-a4;
     }
   }
 
@@ -65,7 +69,7 @@
 
   &__label,
   &__checkbox-label {
-    color: $gradient-a2;
+    color: $gradient-a3;
     font-family: $sans-bold;
     font-weight: bold;
     position: relative;
@@ -85,12 +89,8 @@
       min-height: auto;
     }
 
-    span.wpcf7-list-item {
-      margin: 0;
-    }
-
     label {
-      color: $gradient-a2;
+      color: $gradient-a3;
       font-family: $sans;
       font-weight: normal;
     }
@@ -112,7 +112,7 @@
       font-weight: normal;
 
       &::placeholder {
-        color: $gradient-a3;
+        color: $gradient-a4;
       }
     }
   }
@@ -121,15 +121,15 @@
 input.form__submit[type="submit"] {
   cursor: pointer;
   color: $white;
-  background-color: $gradient-a7;
-  padding: 0.85rem 0.95rem 0.65rem 0.95rem;
+  background-color: $gradient-a8;
+  padding: 1rem;
   font-family: $sans-bold;
   font-weight: bold;
   text-decoration: none;
   transition: all 200ms;
   border-radius: 0;
   margin-top: 3rem;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
 
   @include on-event {
     color: $black;
@@ -140,7 +140,7 @@ input.form__submit[type="submit"] {
 
 .asterisk {
   &::after {
-    color: $gradient-a5;
+    color: $gradient-a6;
     content: "*";
     display: inline-block;
     padding-left: 0.1rem;

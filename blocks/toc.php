@@ -11,5 +11,4 @@
  * @param   (int|string) $post_id The post ID this block is saved to.
  */
 
-
 echo '{{TABLE_OF_CONTENTS}}';

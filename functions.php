@@ -137,29 +137,6 @@ function janeparris_js_nojs_script()
 	<?php
 }
 
-// add_filter('wp_resource_hints', 'janeparris_resource_hints', 10, 2);
-// /**
-//  * Add preconnect for Google Fonts.
-//  *
-//  * @since 3.4.1
-//  *
-//  * @param array  $urls          URLs to print for resource hints.
-//  * @param string $relation_type The relation type the URLs are printed.
-//  * @return array URLs to print for resource hints.
-//  */
-// function janeparris_resource_hints($urls, $relation_type)
-// {
-
-// 	if (wp_style_is(genesis_get_theme_handle() . '-fonts', 'queue') && 'preconnect' === $relation_type) {
-// 		$urls[] = [
-// 			'href' => 'https://fonts.gstatic.com',
-// 			'crossorigin',
-// 		];
-// 	}
-
-// 	return $urls;
-// }
-
 add_action('after_setup_theme', 'janeparris_theme_support', 9);
 /**
  * Add desired theme supports.
@@ -640,6 +617,7 @@ add_filter('the_content', 'auto_id_headings');
 
 // 2. Add ToC filter
 add_action('genesis_before_header', 'get_table_of_content', 5);
+
 function get_table_of_content($content)
 {
 	ob_start();
@@ -688,6 +666,7 @@ function get_table_of_content($content)
 }
 
 // 3. Add the Table of Contents filter for use in blocks/toc.php
+
 add_action('genesis_entry_content', 'add_table_of_content');
 function add_table_of_content($content)
 {

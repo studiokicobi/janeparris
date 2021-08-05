@@ -1,3 +1,7 @@
+// -----------------------------------------------------------------------------
+// Genesis boilerplate
+// -----------------------------------------------------------------------------
+
 /* Table of Contents
 - HTML5 Reset
 	- Baseline Normalize
@@ -1822,7 +1826,7 @@ p.entry-meta {
 	--------------------------------------------- */
 
   .footer-widgets .wrap {
-    max-width: $wrap-width;
+    max-width: $max-width;
   }
 
   .footer-widget-area {

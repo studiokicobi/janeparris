@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Archive template
+ */
+
 // Forces excerpts
 add_filter('genesis_pre_get_option_content_archive', 'sk_show_excerpts');
 function sk_show_excerpts()

@@ -1,4 +1,6 @@
+// -----------------------------------------------------------------------------
 // Single.php styles
+// -----------------------------------------------------------------------------
 
 body.single {
   // H1
@@ -95,7 +97,7 @@ body.single {
     .wp-block-quote {
       max-width: 50rem;
       color: $cream;
-      background-color: $gradient-a7;
+      background-color: $gradient-a8;
       padding: 3rem 3rem 2rem 3rem;
       font-family: $sans;
       margin: 3rem auto;
@@ -108,11 +110,13 @@ body.single {
         font-family: $sans;
         font-style: normal;
       }
+
+      @include drop-shadow;
     }
 
     // Pullquote
     .wp-block-pullquote {
-      background-color: $gradient-a2;
+      background-color: $gradient-a3;
       max-width: 50rem;
       margin: 3rem auto 3rem auto;
       padding: 1rem 3rem 2rem 3rem;

@@ -1,3 +1,7 @@
+// -----------------------------------------------------------------------------
+// CTA footer component
+// -----------------------------------------------------------------------------
+
 .cta-footer-wrapper {
   margin: auto;
   @media screen and (min-width: $breakpoint-large) {
@@ -10,9 +14,9 @@
   display: flex;
   margin: auto auto $push auto;
   padding-right: 0;
-  max-width: $wrap-width;
+  max-width: $max-width;
 
-  // Image disappear on smaller screens: add back container padding
+  // Add back the container padding when the image disappears on smaller screens
   @media screen and (max-width: $breakpoint-large) {
     padding-right: 2rem;
     margin-right: auto;

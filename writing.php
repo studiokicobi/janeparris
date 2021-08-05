@@ -89,7 +89,7 @@ function writing_custom_loop()
         echo '<ul>';
         while ($query_regular_posts->have_posts()) {
             $query_regular_posts->the_post();
-            echo '<li><a href="' . get_the_permalink() . '" rel="bookmark" title="Permanent link to ' . esc_html(get_the_title()) . '">' . get_the_title() . '</a></li>';
+            echo '<li><a href="' . get_the_permalink() . '" rel="bookmark" title="Read ' . esc_html(get_the_title()) . '">' . get_the_title() . '</a></li>';
         }
         echo '</ul>';
     } else {

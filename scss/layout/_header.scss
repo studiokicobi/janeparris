@@ -2,10 +2,12 @@
 // This file contains all styles related to the header of the site/application.
 // -----------------------------------------------------------------------------
 
-/* Site Header
---------------------------------------------- */
+/* ------------------------------------ *\
+   Site header
+\* ------------------------------------ */
+
 .site-header {
-  background-color: $bg;
+  background-color: $cream;
   box-shadow: none;
   padding-top: 0.5rem;
   font-family: $sans;
@@ -13,7 +15,7 @@
   letter-spacing: -0.02rem;
 
   .wrap {
-    max-width: $wrap-width;
+    max-width: $max-width;
     margin: auto;
   }
 }
@@ -35,8 +37,10 @@
   }
 }
 
-/* Primary nav
---------------------------------------------- */
+/* ------------------------------------ *\
+   Primary nav
+\* ------------------------------------ */
+
 #genesis-nav-primary {
   ul {
     li {

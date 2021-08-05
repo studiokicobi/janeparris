@@ -1,4 +1,10 @@
-// Stacked sliding cards
+// -----------------------------------------------------------------------------
+// FAQ component with stacked, sliding cards
+// -----------------------------------------------------------------------------
+
+.block-faq {
+  margin-bottom: $push;
+}
 
 /* ------------------------------------ *\
    The heading for the FAQ section
@@ -132,16 +138,16 @@ body {
 
   // Cards 3, 7, etc.
   &:nth-of-type(4n + 3) {
-    background-color: $gradient-a6;
+    background-color: $gradient-a7;
     .stacked-card__heading-wrapper {
       justify-content: flex-start;
       background-color: $gradient-d8;
     }
     .stacked-card__heading {
-      background-color: $gradient-a6;
+      background-color: $gradient-a7;
       &::before {
         @include pointer-left;
-        border-top-color: $gradient-a6;
+        border-top-color: $gradient-a7;
       }
     }
   }

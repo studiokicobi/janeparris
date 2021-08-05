@@ -1,1 +1,0 @@
-jQuery((function(n){"use strict";n(window).resize((function(){n(window).width()>=940&&n("#content").on("click","#pagination > a",(function(t){t.preventDefault();var i=n(this).attr("href");n("#content").fadeOut(200,(function(){n(this).load(i+" #content",(function(){n(this).fadeIn(200)}))}))}))}))}));

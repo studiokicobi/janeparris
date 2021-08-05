@@ -1,11 +1,16 @@
+// -----------------------------------------------------------------------------
+// Sortable testimonials (using Isotope.js)
+// -----------------------------------------------------------------------------
+
 /* ------------------------------------ *\
    BG colors for items
 \* ------------------------------------ */
 
-$student-color: $gradient-d9;
-$parents-color: $gradient-a7;
-$writing-color: $dark-blue;
-$college-color: $gradient-c9;
+// $student-color: $gradient-d9;
+$student-color: $gradient-a8;
+$parents-color: $gradient-a9;
+$writing-color: $gradient-a7;
+$college-color: $gradient-a0;
 
 /* ------------------------------------ *\
    The control buttons
@@ -27,9 +32,21 @@ $college-color: $gradient-c9;
     padding: 0;
     display: inline-block;
     border-radius: 0;
-    padding: 0.8rem calc(0.8rem + 4px) 0.8rem 0.8rem;
+    padding: 0.8rem 0.2rem;
     position: relative;
-    transform: translateX(-0.8rem); // move buttons flush left with content
+    text-decoration: none;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 0.1rem;
+
+    &:not(:last-of-type) {
+      margin-right: 1rem;
+    }
+
+    @include on-event {
+      text-decoration: underline;
+      text-decoration-color: $link-color;
+      border-bottom: 0 solid transparent;
+    }
 
     @media screen and (max-width: $breakpoint-medium-large) {
       display: block;
@@ -46,7 +63,7 @@ $college-color: $gradient-c9;
       height: 1.5rem;
       position: absolute;
       top: 50%;
-      right: 0;
+      right: calc((0.5rem + 4px) * -1);
       transform: translateY(-50%);
 
       @media screen and (max-width: $breakpoint-medium-large) {
@@ -196,5 +213,42 @@ $college-color: $gradient-c9;
     font-weight: bold;
   }
   &__meta--role {
+  }
+}
+
+/* ------------------------------------ *\
+   Case study link
+\* ------------------------------------ */
+
+.sortable-testimonial {
+  &__case-study-link {
+    @include button;
+    color: $cream;
+    background-color: $extra-dark;
+    position: relative;
+    padding-left: 3rem;
+    margin: 1.5rem auto auto auto;
+    display: inline-block;
+
+    &::before {
+      display: block;
+      content: "";
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      background-image: url("../images/triangle.svg");
+      background-repeat: no-repeat;
+      height: 100%;
+      width: 2rem;
+      transform: translateY(-50%);
+      background-position-y: center;
+      transition: all 750ms;
+    }
+
+    @include on-event {
+      &::before {
+        background-image: url("../images/triangle-active.svg");
+      }
+    }
   }
 }

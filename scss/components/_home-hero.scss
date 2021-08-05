@@ -1,5 +1,6 @@
-/* Home hero block
---------------------------------------------- */
+// -----------------------------------------------------------------------------
+// Home Hero block
+// -----------------------------------------------------------------------------
 
 /* ------------------------------------ *\
    The wrappers
@@ -105,7 +106,7 @@
 
     &__button {
       @include button;
-      padding: 0.95rem 0.95rem 0.75rem 0.95rem;
+      padding: 1rem;
       font-size: clamp(1rem, 0.4531rem + 1.25vw, 1.5rem);
       display: inline-block;
 
@@ -180,8 +181,8 @@
     color: $cream;
     padding: 2.5rem;
     margin: 2rem;
-    background-color: $gradient-a6;
-    box-shadow: $gradient-a7 -1rem -1rem, $gradient-a8 -2rem -2rem;
+    background-color: $gradient-a7;
+    box-shadow: $gradient-a8 -1rem -1rem, $gradient-a9 -2rem -2rem;
     background-image: url("../images/quotes.svg");
     background-repeat: no-repeat;
     background-size: 80%;
@@ -235,6 +236,7 @@
   // Slider dot nav
   .flickity-page-dots {
     transform: translateX(-1rem);
+    margin-bottom: 1rem;
 
     .dot {
       width: 17px;
@@ -305,7 +307,7 @@
   }
 
   &__service-strapline {
-    color: $gradient-a4;
+    color: $gradient-a5;
     font-family: $sans;
     font-weight: normal;
     font-size: clamp(1.5rem, 1.6176rem + -0.5882vw, 1.125rem);
@@ -317,7 +319,7 @@
     background-color: $gradient-d8;
     flex: 0 0 50%;
     padding: 3.125rem;
-    box-shadow: 0.625rem 0.625rem 0 0 $gradient-b9;
+    @include drop-shadow;
 
     @include little-drop-cap;
 
@@ -333,6 +335,8 @@
     background-color: $dark-blue;
     position: relative;
     padding-left: 3rem;
+    margin-top: 0.5rem;
+    display: inline-block;
 
     &::before {
       display: block;

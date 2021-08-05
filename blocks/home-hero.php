@@ -58,17 +58,17 @@ if (!empty($block['align'])) {
 
 			<!-- Testimonial slider -->
 			<?php if (have_rows('testimonial_slider')) : ?>
-				<div class="hero__testimonial-container" data-flickity='{ "fade": true, "autoPlay": 5000, "prevNextButtons": false }'>
+				<div class="hero__testimonial-container" data-flickity='{ "fade": true, "autoPlay": 5000, "prevNextButtons": false, "pageDots": true, "adaptiveHeight": true, "wrapAround": true }'>
 					<?php while (have_rows('testimonial_slider')) : the_row(); ?>
 						<div class="hero__testimonial">
 							<p><?php the_sub_field('testimonial'); ?></p>
 							<p>
 								<span class="hero__testimonial-author"><?php the_sub_field('author'); ?></span>
 								<?php if (get_sub_field('author_age')) {
-									echo '<span class="hero__testimonial-author--age">, ' . get_sub_field('author_age') . '</span>';
+									echo '<span class="hero__testimonial-author--age">, ' . get_sub_field('author_age') . '</span><br />';
 								} ?>
 								<?php if (get_sub_field('role')) {
-									echo '<br /><span class="hero__testimonial-author--role">' . get_sub_field('role') . '</span>';
+									echo '<span class="hero__testimonial-author--role">' . get_sub_field('role') . '</span>';
 								} ?>
 							</p>
 						</div>

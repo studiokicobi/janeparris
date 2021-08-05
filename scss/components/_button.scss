@@ -1,38 +1,7 @@
 // -----------------------------------------------------------------------------
-// This file contains all styles related to the button component.
+// Button component
 // -----------------------------------------------------------------------------
-@mixin button {
-  cursor: pointer;
-  color: $white;
-  background-color: $gradient-d8;
-  border-radius: 0;
-  padding: 0.85rem 0.95rem;
-  font-family: $sans-bold;
-  font-weight: bold;
-  text-decoration: none;
-  transition: all 200ms;
-
-  @include on-event {
-    color: $black;
-    background-color: $link-color;
-    text-decoration: none;
-  }
-}
 
 .button {
-  cursor: pointer;
-  color: $white;
-  background-color: $gradient-d8;
-  border-radius: 0;
-  padding: 0.85rem 0.95rem;
-  font-family: $sans-bold;
-  font-weight: bold;
-  text-decoration: none;
-  transition: all 200ms;
-
-  @include on-event {
-    color: $black;
-    background-color: $link-color;
-    text-decoration: none;
-  }
+  @include button;
 }

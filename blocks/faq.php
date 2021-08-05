@@ -27,12 +27,6 @@ if (!empty($block['align'])) {
 }
 ?>
 
-<style type="text/css">
-    <?php echo '#' . $id; ?> {
-        /* Add styles that use ACF values here */
-    }
-</style>
-
 <div id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($classes); ?>">
     <h2 class="stacked-card-title">FAQ</h2>
 

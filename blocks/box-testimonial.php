@@ -12,7 +12,6 @@
  */
 ?>
 
-
 <div class="box-testimonial__text-wrapper">
     <div class="box-testimonial__text">
         <p class="box-testimonial__text--main has-drop-cap">

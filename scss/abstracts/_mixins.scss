@@ -3,6 +3,28 @@
 // -----------------------------------------------------------------------------
 
 /* ------------------------------------ *\
+   Button component styles
+\* ------------------------------------ */
+
+@mixin button {
+  cursor: pointer;
+  color: $white;
+  background-color: $gradient-d8;
+  border-radius: 0;
+  padding: 1rem;
+  font-family: $sans-bold;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 200ms;
+
+  @include on-event {
+    color: $black;
+    background-color: $link-color;
+    text-decoration: none;
+  }
+}
+
+/* ------------------------------------ *\
    Pointer mixins for FAQ headings
 \* ------------------------------------ */
 
@@ -19,7 +41,10 @@
   font-size: clamp(1.875rem, 1.3848rem + 2.451vw, 3.4375rem);
 }
 
-// Little drop cap
+/* ------------------------------------ *\
+   Little drop cap
+\* ------------------------------------ */
+
 @mixin little-drop-cap {
   > p.has-drop-cap:not(:focus)::first-letter {
     font-size: 2.9em;
@@ -29,57 +54,23 @@
   }
 }
 
-// Full bleed
+/* ------------------------------------ *\
+   Full bleed
+\* ------------------------------------ */
+
 @mixin fullbleed {
   width: 100vw;
   margin-left: calc(50% - 50vw);
 }
 
-// Calculate clamp
-// Usage ex. "font-size: sass_clamp(1, 300, 1920, 4);"
-@function sass_clamp($minFontSize, $minViewWidth, $maxViewWidth, $maxFontSize) {
-  $minViewWidth: calc(#{$minViewWidth} / 16);
-  $maxViewWidth: calc(#{$maxViewWidth} / 16);
-  $slope: calc(
-    (#{$maxFontSize} - #{$minFontSize}) / (#{$maxViewWidth} - #{$minViewWidth})
-  );
-  $yaxis: calc((#{$minFontSize} + #{$minViewWidth}) * (#{$slope} * -1));
-  $preferredValue: clamp(
-    1rem,
-    calc((#{$yaxis} * 1rem) + (#{$slope} * 100) * 1vw),
-    3.5rem
-  );
-  @return $preferredValue;
-}
+/* ------------------------------------ *\
+   Event wrapper
+\* ------------------------------------ */
 
-// Automatically add rem font-size
-
-// Define default font size
-@function calculateRem($size) {
-  $remSize: $size / 10px;
-  @return $remSize * 1rem;
-}
-
-@mixin font-size($size) {
-  font-size: $size;
-  font-size: calculateRem($size);
-}
-
-//Usage
-// p {
-// @include font-size(14px)
-// }
-
-//Output
-// p {
-// font-size: 14px; //For unsupported browsers
-// font-size: 0.8rem;
-// }
-
-/// Event wrapper
 /// @author Harry Roberts
 /// @param {Bool} $self [false] - Whether or not to include current selector
 /// @link https://twitter.com/csswizardry/status/478938530342006784 Original tweet from Harry Roberts
+
 @mixin on-event($self: false) {
   @if $self {
     &,
@@ -97,6 +88,10 @@
   }
 }
 
+/* ------------------------------------ *\
+   Context-based selector
+\* ------------------------------------ */
+
 /// Make a context based selector a little more friendly
 /// @author Hugo Giraudel
 /// @param {String} $context
@@ -106,8 +101,34 @@
   }
 }
 
-// -----------------------------------------------------------------------------
-/// Hover.css
+/* ------------------------------------ *\
+   Drop shadows
+\* ------------------------------------ */
+
+@mixin rotated-shadow {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba($light-grey, 0.85);
+    transform: rotate(-1.5deg);
+    z-index: -1;
+  }
+}
+
+@mixin drop-shadow {
+  box-shadow: 0.625rem 0.625rem 0 0 $gradient-b9;
+}
+
+/* ------------------------------------ *\
+   Hover.css
+\* ------------------------------------ */
+
 /// @link https://github.com/IanLunn/Hover
 
 // prefix declarations
@@ -189,7 +210,10 @@
   @include improveAntiAlias();
 }
 
-/* Underline From Left */
+/* ------------------------------------ *\
+   Hover.css: Underline From Left
+\* ------------------------------------ */
+
 @mixin underline-from-left {
   $duration: $mediumDuration;
 
@@ -222,7 +246,10 @@
   }
 }
 
-/* Sweep To Top */
+/* ------------------------------------ *\
+   Hover.css: Sweep To Top
+\* ------------------------------------ */
+
 @mixin sweep-to-top {
   @include hacks();
   position: relative;

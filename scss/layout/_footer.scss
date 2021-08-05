@@ -13,7 +13,7 @@
   }
 
   .wrap {
-    max-width: $wrap-width;
+    max-width: $max-width;
     margin: auto;
   }
 }
@@ -74,7 +74,7 @@
 
     @include on-event {
       color: $white;
-      transition: all 200ms ease-in-out;
+      text-decoration-color: white;
     }
   }
 }
@@ -129,7 +129,7 @@
   padding-left: 2rem;
 
   .wrap {
-    max-width: $wrap-width;
+    max-width: $max-width;
     margin: auto;
 
     // @media screen and (max-width: $breakpoint-large) {
@@ -164,6 +164,7 @@
         @include on-event {
           color: $white;
           text-decoration: underline;
+          text-decoration-color: $white;
         }
       }
     }

@@ -1,4 +1,6 @@
+// -----------------------------------------------------------------------------
 // Writing template
+// -----------------------------------------------------------------------------
 
 body.page-template-writing {
   // Sans-serif style for H2 headings
@@ -37,7 +39,7 @@ body.page-template-writing {
     @media screen and (min-width: $breakpoint-small) {
       @include on-event {
         transform: scale(1.035);
-        box-shadow: 7px 7px 0 0px $gradient-a4;
+        box-shadow: 7px 7px 0 0px $gradient-a5;
       }
     }
 
@@ -63,7 +65,7 @@ body.page-template-writing {
       background-color: $gradient-d7;
     }
     &:nth-of-type(4) {
-      background-color: $gradient-a6;
+      background-color: $gradient-a7;
     }
     &:nth-of-type(5) {
       background-color: $gradient-d9;
@@ -208,7 +210,7 @@ body.page-template-writing {
 
     span {
       color: $cream;
-      background-color: $gradient-a6;
+      background-color: $gradient-a7;
     }
   }
 }
@@ -257,16 +259,14 @@ body.page-template-writing {
         a {
           color: $text-color;
           line-height: 1.8;
-          // transition: all 200ms ease-in-out;
           text-decoration: underline;
           text-decoration-color: $link-color;
-          text-decoration-thickness: 3px;
-          text-underline-offset: 7px;
-          text-decoration-skip-ink: 1px;
-          @include sweep-to-top;
+          text-decoration-thickness: 0.2rem;
+          text-underline-offset: 0.4rem;
+          // @include sweep-to-top;
 
           @include on-event {
-            // text-decoration-color: $text-color;
+            text-decoration-color: $text-color;
           }
         }
       }

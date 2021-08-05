@@ -27,20 +27,14 @@ if (!empty($block['align'])) {
 }
 ?>
 
-<style type="text/css">
-    <?php echo '#' . $id; ?> {
-        /* Add styles that use ACF values here */
-    }
-</style>
-
 <div id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($classes); ?>">
 
     <?php
-    // data-category key
-    // students : What students say
-    // parents : What parents say
-    // writing : Writing classes
-    // college : College essays
+    // data-filter key
+    // students: What students say
+    // parents: What parents say
+    // writing: Writing classes
+    // college: College essays
     ?>
 
     <!-- Sortable testimonial controls -->
@@ -61,6 +55,10 @@ if (!empty($block['align'])) {
                         <p>
                             <?php the_sub_field('testimonial_text'); ?>
                         </p>
+                        <?php $case_study_link = get_sub_field('case_study_link'); ?>
+                        <?php if ($case_study_link) : ?>
+                            <a class="sortable-testimonial__case-study-link" href="<?php echo esc_url($case_study_link); ?>"><?php the_sub_field('case_study_button_text_'); ?></a>
+                        <?php endif; ?>
                     </div>
 
                     <?php

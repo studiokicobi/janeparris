@@ -2,36 +2,34 @@
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
 
-/// Fonts
+/* ------------------------------------ *\
+   Fonts
+\* ------------------------------------ */
 
-/// ----------------------
-/// Tiempos Regular
-/// Tiempos Italic
-/// Tiempos Headline Black
-/// Objektiv Mk2 Regular
-/// Objektiv Mk2 Bold
-/// ----------------------
-
+// Tiempos Regular
+// Tiempos Italic
+// Tiempos Headline Black
+// Objektiv Mk2 Regular
+// Objektiv Mk2 Bold
 /// @type List
 
-/// Serif
+// Serif
 $regular: "Tiempos Text Regular", serif !default;
 $italic: "Tiempos Text Italic", serif !default;
 $bold: "Tiempos Headline Black", serif !default;
 
-/// Sans
+// Sans
 $sans: "objektiv-mk2", sans-serif;
 $sans-bold: "objektiv-mk2", sans-serif;
 
-// -----------------------------------------------------------------------------
-
-///Colors
+/* ------------------------------------ *\
+   Colors
+\* ------------------------------------ */
 
 $text-color: #262a2d;
 $black: #000;
 $white: #fff;
-$cream: #f7f2f2;
-$bg: #f7f2f2; // Body bg color
+$cream: #f7f2f2; // Body bg color
 $light-grey: #dcd6da;
 $dark-blue: #221e33;
 $link-color: #ab95db;
@@ -39,17 +37,21 @@ $brand-color: #ab95db;
 $extra-purple: #372550;
 $extra-dark: #19182e;
 
+// Four versions of one gradient are used
+// Automatically generated and not all
+// the colors are used in the designs.
+
 // Gradient A
-$gradient-a0: #ffffd9;
-$gradient-a1: #ffe4ca;
-$gradient-a2: #e5c9bb;
-$gradient-a3: #c7afad;
-$gradient-a4: #ac94a1;
-$gradient-a5: #927990;
-$gradient-a6: #765e81;
-$gradient-a7: #584475;
-$gradient-a8: #3d2968;
-$gradient-a9: #200f57;
+$gradient-a1: #ffffd9;
+$gradient-a2: #ffe4ca;
+$gradient-a3: #e5c9bb;
+$gradient-a4: #c7afad;
+$gradient-a5: #ac94a1;
+$gradient-a6: #927990;
+$gradient-a7: #765e81;
+$gradient-a8: #584475;
+$gradient-a9: #3d2968;
+$gradient-a0: #200f57;
 
 // Gradient B
 $gradient-b1: #e8d5be;
@@ -87,35 +89,27 @@ $gradient-d8: #4c405e;
 $gradient-d9: #362a50;
 $gradient-d0: #201542;
 
-// -----------------------------------------------------------------------------
+/* ------------------------------------ *\
+   Layout
+\* ------------------------------------ */
 
-/// Layout
-
-/// Container's maximum width
+// Container's maximum width
 /// @type Length
 $max-width: 74rem !default;
 
-/// Breakpoints
+// Breakpoints
 $breakpoint-large: 65em;
 $breakpoint-medium-large: 49em;
 $breakpoint-medium: 48em;
 $breakpoint-medium-small: 40em;
 $breakpoint-small: 27.5em;
 
+// Spacing
 $push: 8.25rem;
-$wrap-width: 74rem;
 
-// -----------------------------------------------------------------------------
-
-/// Relative or absolute URL where all assets are served from
-/// @type String
-/// @example scss - When using a CDN
-///   $base-url: 'http://cdn.example.com/assets/';
-$base-url: "/assets/" !default;
-
-// -----------------------------------------------------------------------------
-
-/// Hover.css options
+/* ------------------------------------ *\
+   Hover.css options
+\* ------------------------------------ */
 
 // Prefix for Hover class names
 $nameSpace: "hvr" !default;

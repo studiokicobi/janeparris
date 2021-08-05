@@ -10,7 +10,7 @@ html {
 }
 
 body {
-  background-color: $bg;
+  background-color: $cream;
 }
 
 /**
@@ -31,10 +31,15 @@ body {
 a {
   color: $brand-color;
   text-decoration: none;
+  text-underline-offset: 0.15rem;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 0.1rem;
+  transition: all 200ms ease-in-out;
 
   @include on-event {
     color: $text-color;
     text-decoration: underline;
+    text-decoration-color: $text-color;
   }
 }
 
