@@ -2318,14 +2318,14 @@ i {
   font-style: italic;
 }
 
-body:not(.home) article p,
-body:not(.home) article h2,
-body:not(.home) article h3,
-body:not(.home) article h4,
-body:not(.home) article h5,
-body:not(.home) article h6,
-body:not(.home) article ul,
-body:not(.home) article ol {
+body:not(.home):not(.single) article p,
+body:not(.home):not(.single) article h2,
+body:not(.home):not(.single) article h3,
+body:not(.home):not(.single) article h4,
+body:not(.home):not(.single) article h5,
+body:not(.home):not(.single) article h6,
+body:not(.home):not(.single) article ul,
+body:not(.home):not(.single) article ol {
   max-width: 40rem;
 }
 

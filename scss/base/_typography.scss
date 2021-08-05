@@ -54,7 +54,7 @@ i {
   font-style: italic;
 }
 
-body:not(.home) {
+body:not(.home):not(.single) {
   article {
     p,
     h2,
