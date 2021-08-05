@@ -109,6 +109,8 @@
       padding: 1rem;
       font-size: clamp(1rem, 0.4531rem + 1.25vw, 1.5rem);
       display: inline-block;
+      background-color: $gradient-d9;
+      // box-shadow: 0.325rem 0.325rem 0 0 $gradient-d6;
 
       &:nth-of-type(1) {
         margin-right: 0.5rem;
@@ -148,9 +150,10 @@
 .hero {
   &__services-wrapper {
     @include fullbleed;
-    background-color: $gradient-b0;
-    border-top: 3.125rem solid $gradient-b9;
-    border-bottom: 3.125rem solid $gradient-b9;
+    // background-color: #0f0824;
+    background-color: $dark-blue;
+    border-top: 2.125rem solid $gradient-b9;
+    border-bottom: 2.125rem solid $gradient-b9;
     margin-bottom: 6.25rem;
     padding: 0 2rem;
 
@@ -177,17 +180,17 @@
   &__testimonial {
     width: calc(100% - 4rem);
     box-sizing: border-box;
-    border-radius: 0.625rem;
+    border-radius: 0.325rem;
     color: $cream;
     padding: 2.5rem;
     margin: 2rem;
-    background-color: $gradient-a7;
-    box-shadow: $gradient-a8 -1rem -1rem, $gradient-a9 -2rem -2rem;
     background-image: url("../images/quotes.svg");
     background-repeat: no-repeat;
     background-size: 80%;
     background-position: center 2.25rem;
     line-height: 1.5;
+    background-color: $gradient-a8;
+    box-shadow: $gradient-a9 -0.75rem -0.75rem, $gradient-a0 -1.5rem -1.5rem;
 
     @media screen and (max-width: 40rem) {
       box-shadow: none;
@@ -196,6 +199,21 @@
     @media screen and (max-width: 375px) {
       padding: 1.5rem;
     }
+
+    // &:nth-of-type(1) {
+    //   background-color: $gradient-a8;
+    //   box-shadow: $gradient-a9 -0.75rem -0.75rem, $gradient-a0 -1.5rem -1.5rem;
+    // }
+
+    // &:nth-of-type(2) {
+    //   background-color: $gradient-a9;
+    //   box-shadow: $gradient-a0 -0.75rem -0.75rem, $gradient-a8 -1.5rem -1.5rem;
+    // }
+
+    // &:nth-of-type(3) {
+    //   background-color: $gradient-a0;
+    //   box-shadow: $gradient-a8 -0.75rem -0.75rem, $gradient-a9 -1.5rem -1.5rem;
+    // }
 
     p {
       font-family: $sans;
@@ -244,11 +262,11 @@
       margin: 0 8px;
       background: $link-color;
       border-radius: 50%;
-      opacity: 0.35;
+      opacity: 0.15;
       cursor: pointer;
 
       &.is-selected {
-        opacity: 1;
+        opacity: 0.85;
       }
     }
   }
@@ -332,11 +350,13 @@
   &__service-link {
     @include button;
     color: $cream;
-    background-color: $dark-blue;
+    // background-color: $dark-blue;
+    background-color: $extra-dark;
     position: relative;
     padding-left: 3rem;
     margin-top: 0.5rem;
     display: inline-block;
+    box-shadow: 0.325rem 0.325rem 0 0 $gradient-d9;
 
     &::before {
       display: block;

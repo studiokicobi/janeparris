@@ -58,7 +58,7 @@ if (!empty($block['align'])) {
 
 			<!-- Testimonial slider -->
 			<?php if (have_rows('testimonial_slider')) : ?>
-				<div class="hero__testimonial-container" data-flickity='{ "fade": true, "autoPlay": 5000, "prevNextButtons": false, "pageDots": true, "adaptiveHeight": true, "wrapAround": true }'>
+				<div class="hero__testimonial-container" data-flickity='{ "fade": true, "autoPlay": false, "prevNextButtons": false, "pageDots": true, "adaptiveHeight": true, "wrapAround": true }'>
 					<?php while (have_rows('testimonial_slider')) : the_row(); ?>
 						<div class="hero__testimonial">
 							<p><?php the_sub_field('testimonial'); ?></p>

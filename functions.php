@@ -370,6 +370,18 @@ function janeparris_remove_post_meta()
 	remove_action('genesis_entry_footer', 'genesis_post_meta');
 }
 
+add_action('genesis_after_entry', 'janeparris_post_meta');
+function janeparris_post_meta()
+{
+	if (is_single()) {
+		echo '<p class="single-pagination">';
+		previous_post_link('%link', __('Previously'));
+		next_post_link('%link', __('Next'));
+		echo '</p>';
+	}
+}
+
+
 // ----------------------------------------------------------------
 // Add partials to pages
 // ----------------------------------------------------------------
@@ -676,6 +688,34 @@ add_filter('the_content', 'add_table_of_content');
 
 
 // End of Table of Contents functions
+
+
+// ----------------------------------------------------------------
+// # Remove comments support completely
+// ----------------------------------------------------------------
+// https://wordpress.stackexchange.com/questions/11222/is-there-any-way-to-remove-comments-function-and-section-totally
+
+// Removes from admin menu
+add_action('admin_menu', 'janeparris_admin_menus');
+function janeparris_admin_menus()
+{
+	remove_menu_page('edit-comments.php');
+}
+// Removes from post and pages
+add_action('init', 'remove_comment_support', 100);
+
+function remove_comment_support()
+{
+	remove_post_type_support('post', 'comments');
+	remove_post_type_support('page', 'comments');
+}
+// Removes from admin bar
+function janeparris_admin_bar_render()
+{
+	global $wp_admin_bar;
+	$wp_admin_bar->remove_menu('comments');
+}
+add_action('wp_before_admin_bar_render', 'janeparris_admin_bar_render');
 
 
 // ----------------------------------------------------------------

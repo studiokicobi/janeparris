@@ -62,7 +62,7 @@ body:not(.home):not(.single) {
     h4,
     h5,
     h6,
-    ul,
+    ul:not(.toc__list),
     ol {
       max-width: 40rem;
     }

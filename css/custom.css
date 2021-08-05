@@ -2324,7 +2324,7 @@ body:not(.home):not(.single) article h3,
 body:not(.home):not(.single) article h4,
 body:not(.home):not(.single) article h5,
 body:not(.home):not(.single) article h6,
-body:not(.home):not(.single) article ul,
+body:not(.home):not(.single) article ul:not(.toc__list),
 body:not(.home):not(.single) article ol {
   max-width: 40rem;
 }
@@ -3484,6 +3484,7 @@ input.form__submit[type=submit]:hover, input.form__submit[type=submit]:active, i
   padding: 1rem;
   font-size: clamp(1rem, 0.4531rem + 1.25vw, 1.5rem);
   display: inline-block;
+  background-color: #362a50;
 }
 .hero-top .hero-top-text__button:hover, .hero-top .hero-top-text__button:active, .hero-top .hero-top-text__button:focus {
   color: #000;
@@ -3529,9 +3530,9 @@ input.form__submit[type=submit]:hover, input.form__submit[type=submit]:active, i
 .hero__services-wrapper {
   width: 100vw;
   margin-left: calc(50% - 50vw);
-  background-color: #24223f;
-  border-top: 3.125rem solid #3b364d;
-  border-bottom: 3.125rem solid #3b364d;
+  background-color: #221e33;
+  border-top: 2.125rem solid #3b364d;
+  border-bottom: 2.125rem solid #3b364d;
   margin-bottom: 6.25rem;
   padding: 0 2rem;
 }
@@ -3555,17 +3556,17 @@ input.form__submit[type=submit]:hover, input.form__submit[type=submit]:active, i
 .hero__testimonial {
   width: calc(100% - 4rem);
   box-sizing: border-box;
-  border-radius: 0.625rem;
+  border-radius: 0.325rem;
   color: #f7f2f2;
   padding: 2.5rem;
   margin: 2rem;
-  background-color: #765e81;
-  box-shadow: #584475 -1rem -1rem, #3d2968 -2rem -2rem;
   background-image: url("../images/quotes.svg");
   background-repeat: no-repeat;
   background-size: 80%;
   background-position: center 2.25rem;
   line-height: 1.5;
+  background-color: #584475;
+  box-shadow: #3d2968 -0.75rem -0.75rem, #200f57 -1.5rem -1.5rem;
 }
 @media screen and (max-width: 40rem) {
   .hero__testimonial {
@@ -3612,11 +3613,11 @@ input.form__submit[type=submit]:hover, input.form__submit[type=submit]:active, i
   margin: 0 8px;
   background: #ab95db;
   border-radius: 50%;
-  opacity: 0.35;
+  opacity: 0.15;
   cursor: pointer;
 }
 .hero .flickity-page-dots .dot.is-selected {
-  opacity: 1;
+  opacity: 0.85;
 }
 .hero__services {
   padding-bottom: 6.25rem;
@@ -3696,11 +3697,12 @@ input.form__submit[type=submit]:hover, input.form__submit[type=submit]:active, i
   text-decoration: none;
   transition: all 200ms;
   color: #f7f2f2;
-  background-color: #221e33;
+  background-color: #19182e;
   position: relative;
   padding-left: 3rem;
   margin-top: 0.5rem;
   display: inline-block;
+  box-shadow: 0.325rem 0.325rem 0 0 #362a50;
 }
 .hero__service-link:hover, .hero__service-link:active, .hero__service-link:focus {
   color: #000;
@@ -3733,7 +3735,7 @@ input.form__submit[type=submit]:hover, input.form__submit[type=submit]:active, i
    The control buttons
 \* ------------------------------------ */
 .filter-button-group {
-  border-bottom: 3px solid #dcd6da;
+  border-bottom: 0.2rem solid #dcd6da;
   margin-bottom: 2rem;
 }
 @media screen and (max-width: 49em) {
@@ -3761,8 +3763,8 @@ input.form__submit[type=submit]:hover, input.form__submit[type=submit]:active, i
 }
 .filter-button-group button:hover, .filter-button-group button:active, .filter-button-group button:focus {
   text-decoration: underline;
-  -webkit-text-decoration-color: #ab95db;
-          text-decoration-color: #ab95db;
+  -webkit-text-decoration-color: #262a2d;
+          text-decoration-color: #262a2d;
   border-bottom: 0 solid transparent;
 }
 @media screen and (max-width: 49em) {
@@ -3777,12 +3779,12 @@ input.form__submit[type=submit]:hover, input.form__submit[type=submit]:active, i
 }
 .filter-button-group button:not(:last-of-type)::after {
   content: "";
-  border-right: 2px solid #dcd6da;
+  border-right: 0.2rem solid #dcd6da;
   width: 1.5rem;
   height: 1.5rem;
   position: absolute;
   top: 50%;
-  right: calc((0.5rem + 4px) * -1);
+  right: calc((0.5rem + 0.4rem) * -1);
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
 }
@@ -3944,6 +3946,7 @@ input.form__submit[type=submit]:hover, input.form__submit[type=submit]:active, i
   padding-left: 3rem;
   margin: 1.5rem auto auto auto;
   display: inline-block;
+  box-shadow: 0.325rem 0.325rem 0 0 #362a50;
 }
 .sortable-testimonial__case-study-link:hover, .sortable-testimonial__case-study-link:active, .sortable-testimonial__case-study-link:focus {
   color: #000;
@@ -4336,6 +4339,40 @@ body.single .related__heading {
   font-weight: bold;
   font-size: 1.625rem;
   margin-top: 1rem;
+}
+
+.single-pagination {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  -webkit-justify-content: center;
+          justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  font-family: "objektiv-mk2", sans-serif;
+  max-width: 44rem;
+  margin: 1rem auto auto auto;
+}
+.single-pagination a {
+  color: #262a2d;
+  position: relative;
+  padding: 0 1.45rem;
+  margin: auto 0.5rem;
+  cursor: pointer;
+  color: #fff;
+  background-color: #4c405e;
+  border-radius: 0;
+  padding: 1rem;
+  font-family: "objektiv-mk2", sans-serif;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 200ms;
+}
+.single-pagination a:hover, .single-pagination a:active, .single-pagination a:focus {
+  color: #000;
+  background-color: #ab95db;
+  text-decoration: none;
 }
 
 body.page-template-writing h2 {

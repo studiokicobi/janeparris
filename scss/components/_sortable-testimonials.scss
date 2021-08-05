@@ -17,7 +17,7 @@ $college-color: $gradient-a0;
 \* ------------------------------------ */
 
 .filter-button-group {
-  border-bottom: 3px solid $light-grey;
+  border-bottom: 0.2rem solid $light-grey;
   margin-bottom: 2rem;
 
   @media screen and (max-width: $breakpoint-medium-large) {
@@ -44,7 +44,7 @@ $college-color: $gradient-a0;
 
     @include on-event {
       text-decoration: underline;
-      text-decoration-color: $link-color;
+      text-decoration-color: $text-color;
       border-bottom: 0 solid transparent;
     }
 
@@ -58,12 +58,12 @@ $college-color: $gradient-a0;
     // Button dividers
     &:not(:last-of-type)::after {
       content: "";
-      border-right: 2px solid $light-grey;
+      border-right: 0.2rem solid $light-grey;
       width: 1.5rem;
       height: 1.5rem;
       position: absolute;
       top: 50%;
-      right: calc((0.5rem + 4px) * -1);
+      right: calc((0.5rem + 0.4rem) * -1);
       transform: translateY(-50%);
 
       @media screen and (max-width: $breakpoint-medium-large) {
@@ -229,6 +229,7 @@ $college-color: $gradient-a0;
     padding-left: 3rem;
     margin: 1.5rem auto auto auto;
     display: inline-block;
+    box-shadow: 0.325rem 0.325rem 0 0 $gradient-d9;
 
     &::before {
       display: block;

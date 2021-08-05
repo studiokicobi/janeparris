@@ -37,21 +37,21 @@
         }
     }
 
-    // Count the number of related posts returned
-    $related_count = $related->found_posts;
+    // // Count the number of related posts returned
+    // $related_count = $related->found_posts;
 
-    // If number of posts is less than 3, set the amount of posts to add
-    if ($related_count < '3') {
-        if ($related_count = '2') {
-            $add_count = '1';
-        } else {
-            $add_count = '1';
-        }
-    }
+    // // If number of posts is less than 3, set the amount of posts to add
+    // if ($related_count < '3') {
+    //     if ($related_count = '2') {
+    //         $add_count = '1';
+    //     } else {
+    //         $add_count = '1';
+    //     }
+    // }
 
-    // Get the current cat ID
-    $post_categories = wp_get_post_categories($post_id);
-    $cats = array();
+    // // Get the current cat ID
+    // $post_categories = wp_get_post_categories($post_id);
+    // $cats = array();
 
     // foreach ($post_categories as $c) {
     //     $cat = get_category($c);
