@@ -370,6 +370,9 @@ function janeparris_remove_post_meta()
 	remove_action('genesis_entry_footer', 'genesis_post_meta');
 }
 
+/**
+ * Add pagination to single posts
+ */
 add_action('genesis_after_entry', 'janeparris_post_meta');
 function janeparris_post_meta()
 {
@@ -381,6 +384,11 @@ function janeparris_post_meta()
 	}
 }
 
+/**
+ * Gutenberg custom stylesheet
+ */
+add_theme_support('editor-styles');
+add_editor_style('css/editor-style.css');
 
 // ----------------------------------------------------------------
 // Add partials to pages
