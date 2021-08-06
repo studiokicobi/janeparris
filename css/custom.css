@@ -3330,7 +3330,7 @@ input.form__submit[type=submit]:hover, input.form__submit[type=submit]:active, i
 }
 
 .wpcf7 form .wpcf7-response-output {
-  margin: 2em 0.5em 1em;
+  margin: -8.25rem 0 8.25rem;
   padding: 0.2em 1em;
   border: 0;
   background-color: #69cbe9;
@@ -4187,6 +4187,10 @@ body.archive .writing-archive .entry-meta {
   width: 100%;
 }
 
+.privacy-policy main {
+  margin-bottom: 8.25rem;
+}
+
 body.single .entry-title {
   text-align: center;
 }
@@ -4212,7 +4216,7 @@ body.single .entry-categories {
   font-family: "Tiempos Text Italic", serif;
   font-style: italic;
   max-width: 28rem;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   margin-left: auto;
   margin-right: auto;
 }
@@ -4519,6 +4523,7 @@ body.page-template-writing h2.featured__item-heading {
     text-decoration: underline;
     -webkit-text-decoration-color: #221e33;
             text-decoration-color: #221e33;
+    color: #262a2d;
   }
 }
 .featured__item-link::after {
