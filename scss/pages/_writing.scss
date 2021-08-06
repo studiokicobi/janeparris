@@ -150,6 +150,7 @@ body.page-template-writing {
       @include on-event {
         text-decoration: underline;
         text-decoration-color: $dark-blue;
+        color: $text-color;
       }
     }
 
