@@ -32,9 +32,13 @@ if (!empty($block['align'])) {
     <div class="testimonial-image <?php echo $layout; ?>">
         <div class="testimonial-image__image">
             <div class="testimonial-image__image-wrapper">
-                <?php if (get_field('image')) : ?>
-                    <img src="<?php the_field('image'); ?>" />
-                <?php endif ?>
+                <?php
+                $image = get_field('image');
+                $size = 'full';
+                if ($image) {
+                    echo wp_get_attachment_image($image, $size);
+                }
+                ?>
             </div>
         </div>
         <div class="testimonial-image__text">
