@@ -390,6 +390,7 @@ function janeparris_post_meta()
 add_theme_support('editor-styles');
 add_editor_style('css/editor-style.css');
 
+
 // ----------------------------------------------------------------
 // Add partials to pages
 // ----------------------------------------------------------------
