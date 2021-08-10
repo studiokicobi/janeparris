@@ -60,7 +60,7 @@
     min-height: 18rem;
 
     @media screen and (max-width: $breakpoint-medium-small) {
-      font-size: clamp(1rem, 0rem + 5vw, 2rem);
+      padding: clamp(1rem, 0rem + 5vw, 2rem);
     }
   }
 
