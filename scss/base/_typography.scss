@@ -40,6 +40,10 @@ body:not(.home) {
     // font-size: 2.75rem;
     font-size: clamp(2.5rem, 1.7647rem + 1.1765vw, 2.75rem);
     margin: 4rem 0 1rem 0;
+
+    @media screen and (max-width: $breakpoint-small) {
+      font-size: 1.5rem;
+    }
   }
 
   p strong {
