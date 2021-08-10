@@ -39,6 +39,10 @@
     margin: 2.5rem 3.5rem;
     position: relative;
 
+    @media screen and (max-width: $breakpoint-medium-small) {
+      margin: 2.5rem;
+    }
+
     // The speech pointer (triangle) for the heading bg
     &::before {
       border: 1.2rem solid transparent;

@@ -2997,6 +2997,11 @@ span.wpcf7-list-item {
   margin: 2.5rem 3.5rem;
   position: relative;
 }
+@media screen and (max-width: 40em) {
+  .stacked-card__heading {
+    margin: 2.5rem;
+  }
+}
 .stacked-card__heading::before {
   border: 1.2rem solid transparent;
   border-top: 1.2rem solid transparent;
