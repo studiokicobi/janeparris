@@ -2307,6 +2307,11 @@ body:not(.home) h2 {
   font-size: clamp(2.5rem, 1.7647rem + 1.1765vw, 2.75rem);
   margin: 4rem 0 1rem 0;
 }
+@media screen and (max-width: 27.5em) {
+  body:not(.home) h2 {
+    font-size: 1.5rem;
+  }
+}
 body:not(.home) p strong {
   font-family: "Tiempos Headline Black", serif;
   font-weight: 900;
@@ -2951,6 +2956,11 @@ span.wpcf7-list-item {
   background-color: #ab95db;
   text-decoration: none;
 }
+@media screen and (max-width: 27.5em) {
+  .cta-footer__link {
+    font-size: 1rem;
+  }
+}
 
 .block-faq {
   margin-bottom: 8.25rem;
@@ -3004,6 +3014,11 @@ span.wpcf7-list-item {
 .stacked-card__content-wrapper {
   padding: 6.25rem;
   min-height: 18rem;
+}
+@media screen and (max-width: 40em) {
+  .stacked-card__content-wrapper {
+    font-size: clamp(1rem, 0rem + 5vw, 2rem);
+  }
 }
 .stacked-card__content {
   -webkit-columns: auto 24rem;
@@ -3576,6 +3591,8 @@ input.form__submit[type=submit]:hover, input.form__submit[type=submit]:active, i
 @media screen and (max-width: 375px) {
   .hero__testimonial {
     padding: 1.5rem;
+    width: calc(100% - 2rem);
+    margin: 2rem 1rem 1rem 1rem;
   }
 }
 .hero__testimonial p {
@@ -3603,8 +3620,8 @@ input.form__submit[type=submit]:hover, input.form__submit[type=submit]:active, i
   font-weight: normal;
 }
 .hero .flickity-page-dots {
-  -webkit-transform: translateX(-1rem);
-          transform: translateX(-1rem);
+  -webkit-transform: translate(-1rem, 1rem);
+          transform: translate(-1rem, 1rem);
   margin-bottom: 1rem;
 }
 .hero .flickity-page-dots .dot {
