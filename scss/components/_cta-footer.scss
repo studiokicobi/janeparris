@@ -88,5 +88,9 @@
     @include button;
     color: $black;
     background-color: $gradient-d1;
+
+    @media screen and (max-width: $breakpoint-small) {
+      font-size: 1rem;
+    }
   }
 }
