@@ -291,13 +291,13 @@ add_action('wp_enqueue_scripts', function () {
 // Preload local fonts
 add_action('wp_head', function () {
 	echo '
-    <link rel="preload" href="' . get_stylesheet_directory() . 'tiempos-text-web-regular.woff2" 
+    <link rel="preload" href="' . get_stylesheet_directory() . 'fonts/tiempos-text-web-regular.woff2" 
     as="font" type="font/woff2" crossorigin="anonymous">
    
-    <link rel="preload" href="' . get_stylesheet_directory() . 'tiempos-text-web-regular-italic.woff2" 
+    <link rel="preload" href="' . get_stylesheet_directory() . 'fonts/tiempos-text-web-regular-italic.woff2" 
     as="font" type="font/woff2" crossorigin="anonymous">
 
-    <link rel="preload" href="' . get_stylesheet_directory() . 'tiempos-headline-web-black.woff2" 
+    <link rel="preload" href="' . get_stylesheet_directory() . 'fonts/tiempos-headline-web-black.woff2" 
     as="font" type="font/woff2" crossorigin="anonymous">
 	';
 });
@@ -476,7 +476,7 @@ function footer_content()
 					$channel_icon = get_sub_field('channel_icon');
 					echo '<li class="footer-primary-nav__list-item-social" id="social-link-' . get_row_index() . '">';
 					echo '<a class="footer-primary-nav__list-item-link-social" href="' . get_sub_field('channel_link') . '">';
-					echo '<img src="' . esc_url($channel_icon['url']) . '?>" alt= "' . get_sub_field('channel_name') . '" />';
+					echo '<img src="' . esc_url($channel_icon['url']) . '" alt= "' . get_sub_field('channel_name') . '" />';
 					echo '</a>';
 					echo '</li>';
 				endwhile;
