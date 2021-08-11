@@ -73,12 +73,12 @@ function janeparris_enqueue_scripts_styles()
 
 	$appearance = genesis_get_config('appearance');
 
-	wp_enqueue_style( // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- see https://core.trac.wordpress.org/ticket/49742
-		genesis_get_theme_handle() . '-fonts',
-		$appearance['fonts-url'],
-		[],
-		null
-	);
+	// wp_enqueue_style( // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- see https://core.trac.wordpress.org/ticket/49742
+	// 	genesis_get_theme_handle() . '-fonts',
+	// 	$appearance['fonts-url'],
+	// 	[],
+	// 	null
+	// );
 
 	wp_enqueue_style('dashicons');
 
@@ -291,13 +291,13 @@ add_action('wp_enqueue_scripts', function () {
 // Preload local fonts
 add_action('wp_head', function () {
 	echo '
-    <link rel="preload" href="' . get_stylesheet_directory() . 'fonts/tiempos-text-web-regular.woff2" 
+    <link rel="preload" href="' . get_stylesheet_directory() . '/fonts/tiempos-text-web-regular.woff2" 
     as="font" type="font/woff2" crossorigin="anonymous">
    
-    <link rel="preload" href="' . get_stylesheet_directory() . 'fonts/tiempos-text-web-regular-italic.woff2" 
+    <link rel="preload" href="' . get_stylesheet_directory() . '/fonts/tiempos-text-web-regular-italic.woff2" 
     as="font" type="font/woff2" crossorigin="anonymous">
 
-    <link rel="preload" href="' . get_stylesheet_directory() . 'fonts/tiempos-headline-web-black.woff2" 
+    <link rel="preload" href="' . get_stylesheet_directory() . '/fonts/tiempos-headline-web-black.woff2" 
     as="font" type="font/woff2" crossorigin="anonymous">
 	';
 });
