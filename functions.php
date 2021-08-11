@@ -288,6 +288,21 @@ add_action('wp_enqueue_scripts', function () {
 });
 
 
+// Preload local fonts
+add_action('wp_head', function () {
+	echo '
+    <link rel="preload" href="' . get_stylesheet_directory() . 'tiempos-text-web-regular.woff2" 
+    as="font" type="font/woff2" crossorigin="anonymous">
+   
+    <link rel="preload" href="' . get_stylesheet_directory() . 'tiempos-text-web-regular-italic.woff2" 
+    as="font" type="font/woff2" crossorigin="anonymous">
+
+    <link rel="preload" href="' . get_stylesheet_directory() . 'tiempos-headline-web-black.woff2" 
+    as="font" type="font/woff2" crossorigin="anonymous">
+	';
+});
+
+
 /**
  * Make last space in a sentence a non breaking space to prevent typographic widows.
  *
