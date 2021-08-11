@@ -291,13 +291,13 @@ add_action('wp_enqueue_scripts', function () {
 // Preload local fonts
 add_action('wp_head', function () {
 	echo '
-    <link rel="preload" href="' . get_stylesheet_directory() . '/fonts/tiempos-text-web-regular.woff2" 
+    <link rel="preload" href="' . get_stylesheet_directory_uri() . '/fonts/tiempos-text-web-regular.woff2" 
     as="font" type="font/woff2" crossorigin="anonymous">
    
-    <link rel="preload" href="' . get_stylesheet_directory() . '/fonts/tiempos-text-web-regular-italic.woff2" 
+    <link rel="preload" href="' . get_stylesheet_directory_uri() . '/fonts/tiempos-text-web-regular-italic.woff2" 
     as="font" type="font/woff2" crossorigin="anonymous">
 
-    <link rel="preload" href="' . get_stylesheet_directory() . '/fonts/tiempos-headline-web-black.woff2" 
+    <link rel="preload" href="' . get_stylesheet_directory_uri() . '/fonts/tiempos-headline-web-black.woff2" 
     as="font" type="font/woff2" crossorigin="anonymous">
 	';
 });
