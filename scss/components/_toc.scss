@@ -8,6 +8,13 @@
     padding: 2.5rem;
     margin-top: 3rem;
 
+    &__link {
+      text-decoration: none;
+      border: none;
+      color: $text-color;
+      cursor: default;
+    }
+
     &__title {
     }
 

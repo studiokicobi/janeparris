@@ -639,8 +639,9 @@ function auto_id_headings($content)
 		endif;
 
 		if (!stripos($matches[0], 'id=')) :
-			$heading_link = '<a href="#' . sanitize_title($matches[3]) . '"></a>';
-			$matches[0] = $matches[1] . $matches[2] . ' id="' . sanitize_title($matches[3]) . '" class="' . $tag . '">' . $heading_link . $matches[3] . $matches[4];
+			$heading_link = '<a href="#' . sanitize_title($matches[3]) . '" class="toc__link" tab-index="-1">';
+			$heading_link_close = '</a>';
+			$matches[0] = $heading_link . $matches[1] . $matches[2] . ' id="' . sanitize_title($matches[3]) . '" class="' . $tag . '">' . $matches[3] . $matches[4] . $heading_link_close;
 		endif;
 
 		return $matches[0];
