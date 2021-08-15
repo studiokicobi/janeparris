@@ -75,21 +75,7 @@
         font-size: clamp(1.125rem, 0.4527rem + 3.3613vw, 1.375rem);
       }
 
-      strong {
-        font-family: $bold;
-
-        // Highlighter effect bg images for strong text
-        &:first-of-type {
-          background-image: url("../images/highlighter-1.svg");
-          background-repeat: no-repeat;
-          background-size: contain;
-        }
-        &:last-of-type {
-          background-image: url("../images/highlighter-2.svg");
-          background-repeat: no-repeat;
-          background-size: contain;
-        }
-      }
+      @include highlighter;
     }
 
     // Hero CTA buttons

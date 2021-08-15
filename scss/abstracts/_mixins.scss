@@ -3,6 +3,29 @@
 // -----------------------------------------------------------------------------
 
 /* ------------------------------------ *\
+   Highlighter effect styles
+\* ------------------------------------ */
+@mixin highlighter {
+  strong {
+    font-family: $bold;
+
+    // Highlighter effect bg images for strong text
+    &:first-of-type {
+      background-image: url("../images/highlighter-1.svg");
+      background-repeat: no-repeat;
+      background-size: 100%;
+      background-position: center;
+    }
+    &:last-of-type {
+      background-image: url("../images/highlighter-2.svg");
+      background-repeat: no-repeat;
+      background-size: 100%;
+      background-position: center;
+    }
+  }
+}
+
+/* ------------------------------------ *\
    Button component styles
 \* ------------------------------------ */
 

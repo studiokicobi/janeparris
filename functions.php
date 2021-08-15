@@ -934,4 +934,36 @@ if (function_exists('acf_register_block_type')) :
 		),
 	));
 
+	acf_register_block_type(array(
+		'name' => 'highlighter-intro',
+		'title' => 'Highlighter introduction',
+		'description' => '',
+		'category' => 'common',
+		'keywords' => array(),
+		'post_types' => array(
+			0 => 'page',
+		),
+		'mode' => 'edit',
+		'align' => '',
+		'align_content' => NULL,
+		'render_template' => 'blocks/highlighter-intro.php',
+		'render_callback' => '',
+		'enqueue_style' => '',
+		'enqueue_script' => '',
+		'enqueue_assets' => '',
+		'icon' => array(
+			'background' => '#8224e3',
+			'foreground' => '#ffffff',
+			'src' => 'editor-paragraph',
+		),
+		'supports' => array(
+			'align' => true,
+			'mode' => true,
+			'multiple' => true,
+			'jsx' => false,
+			'align_content' => false,
+			'anchor' => false,
+		),
+	));
+
 endif;
