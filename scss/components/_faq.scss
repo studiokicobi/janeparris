@@ -38,6 +38,7 @@
     text-align: center;
     margin: 2.5rem 3.5rem;
     position: relative;
+    font-family: $sans;
 
     @media screen and (max-width: $breakpoint-medium-small) {
       margin: 2.5rem;
