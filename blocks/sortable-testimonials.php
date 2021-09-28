@@ -50,8 +50,20 @@ if (!empty($block['align'])) {
         <div class="sortable-testimonial">
             <?php while (have_rows('testimonials')) : the_row(); ?>
 
-                <div class="sortable-testimonial__item-container <?php the_sub_field('testimonial_category'); ?>">
-                    <div class="sortable-testimonial__content <?php the_sub_field('testimonial_category'); ?>-content">
+                <?php
+                $sortable_cats = get_sub_field('testimonial_category');
+                if ($sortable_cats) : ?>
+                    <div class="sortable-testimonial__item-container <?php foreach ($sortable_cats as $sortable_cat) : echo ' ' . $sortable_cat;
+                                                                        endforeach; ?>">
+                        <div class="sortable-testimonial__content <?php foreach ($sortable_cats as $sortable_cat) : echo ' ' . $sortable_cat . '-content';
+                                                                    endforeach; ?>">
+                        <?php endif; ?>
+
+                        <!--<div class="sortable-testimonial__item-container <?php //the_sub_field('testimonial_category'); 
+                                                                                ?>">
+                    <div class="sortable-testimonial__content <?php //the_sub_field('testimonial_category'); 
+                                                                ?>-content">
+                -->
                         <p>
                             <?php the_sub_field('testimonial_text'); ?>
                         </p>
@@ -59,33 +71,33 @@ if (!empty($block['align'])) {
                         <?php if ($case_study_link) : ?>
                             <a class="sortable-testimonial__case-study-link" href="<?php echo esc_url($case_study_link); ?>"><?php the_sub_field('case_study_button_text_'); ?></a>
                         <?php endif; ?>
-                    </div>
+                        </div>
 
-                    <?php
-                    // Get the first letter of the author in order to create a custom class
-                    $string = get_sub_field('testimonial_author');
-                    $firstChar = mb_substr($string, 0, 1, "UTF-8");
-                    $url = get_stylesheet_directory_uri() . '/images/alphabet/' . $firstChar . '.svg';
-                    ?>
+                        <?php
+                        // Get the first letter of the author in order to create a custom class
+                        $string = get_sub_field('testimonial_author');
+                        $firstChar = mb_substr($string, 0, 1, "UTF-8");
+                        $url = get_stylesheet_directory_uri() . '/images/alphabet/' . $firstChar . '.svg';
+                        ?>
 
-                    <div class="sortable-testimonial__meta">
-                        <div aria-hidden="true" class="sortable-testimonial__dropcap <?php the_sub_field('testimonial_category'); ?>-dropcap" style="background-image: url();"><?php echo $firstChar; ?></div>
-                        <div class="sortable-testimonial__meta--content">
-                            <p>
-                                <?php echo '<span class="sortable-testimonial__meta--name">' . get_sub_field('testimonial_author');
-                                if (get_sub_field('student_age')) {
-                                    echo ', ' . get_sub_field('student_age');
-                                }
-                                echo '</span>';
-                                if (get_sub_field('role')) {
-                                    echo '<span class="sortable-testimonial__meta--role"><br />' . get_sub_field('role') . '</span>';
-                                }
-                                ?>
-                            </p>
+                        <div class="sortable-testimonial__meta">
+                            <div aria-hidden="true" class="sortable-testimonial__dropcap <?php the_sub_field('testimonial_category'); ?>-dropcap" style="background-image: url();"><?php echo $firstChar; ?></div>
+                            <div class="sortable-testimonial__meta--content">
+                                <p>
+                                    <?php echo '<span class="sortable-testimonial__meta--name">' . get_sub_field('testimonial_author');
+                                    if (get_sub_field('student_age')) {
+                                        echo ', ' . get_sub_field('student_age');
+                                    }
+                                    echo '</span>';
+                                    if (get_sub_field('role')) {
+                                        echo '<span class="sortable-testimonial__meta--role"><br />' . get_sub_field('role') . '</span>';
+                                    }
+                                    ?>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            <?php endwhile; ?>
+                <?php endwhile; ?>
 
         </div>
     <?php endif; ?>
