@@ -39,6 +39,7 @@
     margin: 2.5rem 3.5rem;
     position: relative;
     font-family: $sans;
+    line-height: 1.35;
 
     @media screen and (max-width: $breakpoint-medium-large) {
       width: auto;
