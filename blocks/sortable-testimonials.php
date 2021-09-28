@@ -51,6 +51,7 @@ if (!empty($block['align'])) {
             <?php while (have_rows('testimonials')) : the_row(); ?>
 
                 <?php
+                // Get the categories
                 $sortable_cats = get_sub_field('testimonial_category');
                 if ($sortable_cats) : ?>
                     <div class="sortable-testimonial__item-container <?php foreach ($sortable_cats as $sortable_cat) : echo ' ' . $sortable_cat;
@@ -59,11 +60,6 @@ if (!empty($block['align'])) {
                                                                     endforeach; ?>">
                         <?php endif; ?>
 
-                        <!--<div class="sortable-testimonial__item-container <?php //the_sub_field('testimonial_category'); 
-                                                                                ?>">
-                    <div class="sortable-testimonial__content <?php //the_sub_field('testimonial_category'); 
-                                                                ?>-content">
-                -->
                         <p>
                             <?php the_sub_field('testimonial_text'); ?>
                         </p>
