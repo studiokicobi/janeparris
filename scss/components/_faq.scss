@@ -40,7 +40,11 @@
     position: relative;
     font-family: $sans;
 
-    @media screen and (max-width: $breakpoint-medium-small) {
+    @media screen and (max-width: $breakpoint-medium-large) {
+      width: auto;
+    }
+
+    @media screen and (max-width: $breakpoint-medium-large) {
       margin: 2.5rem;
     }
 
