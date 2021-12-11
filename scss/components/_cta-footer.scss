@@ -15,6 +15,7 @@
   margin: auto auto $push auto;
   padding-right: 0;
   max-width: $max-width;
+  padding-bottom: 3rem;
 
   // Add back the container padding when the image disappears on smaller screens
   @media screen and (max-width: $breakpoint-large) {
