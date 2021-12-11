@@ -91,7 +91,7 @@
 // height is greater than the minimum values.
 
 body {
-  @media screen and (min-height: 55rem) and (min-width: $breakpoint-medium) {
+  @media screen and (min-height: 65rem) and (min-width: $breakpoint-medium) {
     // Stick the section title
     .stacked-card-title {
       position: sticky;
