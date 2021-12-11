@@ -150,7 +150,7 @@
 
   @media screen and (max-width: $breakpoint-small) {
     flex-direction: column;
-    text-align: center;
+    align-items: center;
   }
 
   .copyright {
@@ -162,6 +162,10 @@
   .footer-nav-2 {
     font-family: $sans;
     font-size: 1rem;
+
+    @media screen and (max-width: $breakpoint-small) {
+      padding: 0.5rem 0;
+    }
 
     ul {
       display: flex;
