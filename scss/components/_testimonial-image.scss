@@ -22,7 +22,7 @@ body {
   }
 
   &__image {
-    width: 63%;
+    width: 68%;
 
     @media screen and (max-width: $breakpoint-large) {
       width: 100%;
@@ -82,7 +82,7 @@ body {
       left: 0;
     }
     .testimonial-image__image {
-      margin-left: 37%;
+      margin-left: 27%;
       @media screen and (max-width: $breakpoint-large) {
         margin-left: 0;
       }
