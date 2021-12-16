@@ -11,14 +11,14 @@
   margin-bottom: $push;
 
   &__content {
-    font-size: clamp(1.5rem, 0.7941rem + 3.5294vw, 3.75rem);
+    font-size: clamp(1.5rem, 0.7941rem + 3.5294vw, 3.45rem);
     line-height: 1.2;
     color: $gradient-b9;
   }
 
   &__meta {
     display: block;
-    font-size: clamp(1.125rem, 0.9485rem + 0.8824vw, 1.6875rem);
+    font-size: clamp(1.125rem, 0.9485rem + 0.8824vw, 1.4875rem);
     padding-bottom: 1.5rem;
     color: $gradient-b6;
   }
