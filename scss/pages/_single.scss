@@ -153,16 +153,16 @@ body.single {
       text-underline-offset: 3px;
       text-decoration-skip-ink: 0px;
       background-color: rgba($link-color, 0.2);
-      font-family: $sans-bold;
-      font-style: normal;
-      font-weight: bold;
+      // font-family: $sans-bold;
+      // font-style: normal;
+      // font-weight: bold;
       // @include sweep-to-top;
 
-      em {
-        font-family: $sans-bold;
-        font-style: normal;
-        font-weight: bold;
-      }
+      // em {
+      //   font-family: $sans-bold;
+      //   font-style: normal;
+      //   font-weight: bold;
+      // }
       @include on-event {
         text-decoration-color: $text-color;
         background-color: rgba($link-color, 0.5);
