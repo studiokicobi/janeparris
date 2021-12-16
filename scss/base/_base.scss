@@ -43,6 +43,23 @@ a {
   }
 }
 
+body.page .entry-content p a {
+  color: $text-color;
+  transition: all 200ms ease-in-out;
+  text-decoration: underline;
+  text-decoration-color: $link-color;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  text-decoration-skip-ink: 0px;
+  background-color: rgba($link-color, 0.2);
+  // @include sweep-to-top;
+
+  @include on-event {
+    text-decoration-color: $text-color;
+    background-color: rgba($link-color, 0.5);
+  }
+}
+
 /*
  * Remove text-shadow in selection highlight:
  * https://twitter.com/miketaylr/status/12228805301
