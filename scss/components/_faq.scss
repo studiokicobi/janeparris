@@ -80,18 +80,19 @@
     color: $cream;
     font-family: $sans;
     min-height: 20rem;
+  }
+}
 
-    a {
-      color: $white;
-      background-color: transparent;
-      font-family: $sans-bold;
+// Custom anchor styles for faq cards
+body.page .entry-content .stacked-card__content p a {
+  color: $white;
+  background-color: transparent;
+  font-family: $sans-bold;
 
-      @include on-event {
-        color: $white;
-        background-color: transparent;
-        text-decoration: none;
-      }
-    }
+  @include on-event {
+    color: $white;
+    background-color: transparent;
+    text-decoration: none;
   }
 }
 
