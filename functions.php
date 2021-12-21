@@ -673,7 +673,8 @@ function get_table_of_content($content)
 				<li class="toc__list-item">
 					<?php
 					$raw_title = $names[$i];
-					$filtered_raw_title = str_replace('/', '-', $raw_title);
+					$filter_characters = array("/", "? ", " “", "” ")
+					$filtered_raw_title = str_replace($filter_characters, '-', $raw_title);
 					$clean_title = sanitize_title_with_dashes($filtered_raw_title);
 					?>
 					<a class="toc__list-item-link" href="#<?php echo $clean_title; ?>"><?php echo $raw_title; ?></a>
@@ -687,7 +688,8 @@ function get_table_of_content($content)
 								<li class="toc__list-item toc__list-item--secondary">
 									<?php
 									$raw_sub_title = $names[$sub_index];
-									$filtered_raw_sub_title = str_replace('/', '-', $raw_sub_title);
+									$filter_sub_characters = array("/", "? ", " “", "” ")
+									$filtered_raw_sub_title = str_replace($filter_sub_characters, '-', $raw_sub_title);
 									$clean_sub_title = sanitize_title_with_dashes($filtered_raw_sub_title);
 									?>
 									<a class="toc__list-item-link toc__list-item-link--secondary" href="#<?php echo $clean_sub_title; ?>"><?php echo $raw_sub_title; ?></a>
