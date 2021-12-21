@@ -92,7 +92,6 @@ body.page .entry-content .stacked-card__content p a {
   @include on-event {
     color: $white;
     background-color: transparent;
-    text-decoration: none;
   }
 }
 
