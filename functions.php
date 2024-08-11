@@ -284,7 +284,7 @@ add_action('wp_enqueue_scripts', function () {
 	);
 
 	// Adobe Typekit CSS
-	wp_enqueue_style('style-name', 'https://use.typekit.net/wco8mot.css');
+	wp_enqueue_style('style-name', 'https://use.typekit.net/nzf5aok.css');
 });
 
 
